@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>李静</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Noto+Sans+SC:wght@300;400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+:root{
+  --cream:#f0e9dc;--cream2:#e8dece;--cream3:#ddd3c3;
+  --ink:#1a1510;--ink2:#3d3528;--ink3:#7a6f60;
+  --rust:#9b4a2a;--rust2:#c47a50;
+  --moss:#4a5c3a;--moss2:#7a9e6e;
+  --paper:#faf7f2;
+}
+body{background:var(--cream);color:var(--ink);font-family:'Noto Sans SC',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+#cursor{position:fixed;z-index:9999;width:10px;height:10px;background:var(--rust);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s,background 0.3s;mix-blend-mode:multiply;}
+#cursor.big{width:50px;height:50px;background:rgba(155,74,42,0.12);border:1px solid var(--rust);}
+#grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.5;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3.5rem;background:rgba(240,233,220,0.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--cream3);}
+.nav-name{font-family:'Noto Serif SC',serif;font-size:0.95rem;color:var(--ink);text-decoration:none;letter-spacing:0.06em;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:0.65rem;letter-spacing:0.16em;color:var(--ink3);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--rust);}
+
+/* HERO */
+#hero{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 3.5rem;max-width:1100px;margin:0 auto;}
+.hero-label{font-size:0.62rem;letter-spacing:0.22em;color:var(--ink3);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.8rem;opacity:0;animation:fadeUp 0.7s 0.1s forwards;}
+.hero-label::before{content:'';width:24px;height:1px;background:var(--rust2);display:block;}
+.hero-name{font-family:'Noto Serif SC',serif;font-size:clamp(5rem,14vw,12rem);font-weight:300;line-height:0.88;color:var(--ink);letter-spacing:-0.02em;margin-bottom:0.3em;opacity:0;animation:fadeUp 0.9s 0.2s forwards;will-change:transform;}
+.hero-name em{font-style:italic;color:var(--rust);font-family:'DM Serif Display',serif;}
+.hero-sub{font-family:'Noto Serif SC',serif;font-size:clamp(0.9rem,2vw,1.4rem);font-weight:300;color:var(--ink3);letter-spacing:0.06em;margin-bottom:3rem;opacity:0;animation:fadeUp 0.8s 0.35s forwards;}
+.hero-foot{display:flex;gap:3rem;align-items:flex-end;opacity:0;animation:fadeUp 0.8s 0.5s forwards;flex-wrap:wrap;}
+.hero-desc{font-family:'Noto Serif SC',serif;font-size:0.95rem;line-height:2;color:var(--ink2);max-width:360px;}
+.hero-links{display:flex;flex-direction:column;gap:0.6rem;margin-left:auto;}
+.hero-link{font-size:0.75rem;color:var(--ink3);text-decoration:none;display:flex;align-items:center;gap:0.5rem;transition:color 0.2s,gap 0.2s;}
+.hero-link:hover{color:var(--rust);gap:0.9rem;}
+.hero-link::before{content:'→';font-size:0.7rem;}
+.scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);font-size:0.58rem;letter-spacing:0.2em;color:var(--ink3);display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0;animation:fadeUp 1s 1s forwards;}
+.scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--rust2),transparent);animation:scrollPulse 2s ease-in-out infinite;}
+
+/* SHARED */
+.divider{width:100%;height:1px;background:var(--cream3);}
+.wrap{max-width:1100px;margin:0 auto;padding:5.5rem 3.5rem;}
+.sec-marker{display:flex;align-items:center;gap:1rem;margin-bottom:3.5rem;}
+.sec-num{font-family:'DM Serif Display',serif;font-size:0.75rem;color:var(--rust2);letter-spacing:0.12em;}
+.sec-line{flex:1;height:1px;background:var(--cream3);}
+.sec-title{font-family:'Noto Serif SC',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:300;color:var(--ink);line-height:1.1;}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.on{opacity:1;transform:none;}
+.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
+
+/* ABOUT */
+#about{background:var(--paper);position:relative;z-index:2;}
+.about-grid{display:grid;grid-template-columns:1.4fr 0.8fr;gap:5rem;}
+.about-text p{font-family:'Noto Serif SC',serif;font-size:0.97rem;line-height:2.1;color:var(--ink2);margin-bottom:1.4rem;}
+.about-text p:first-child::first-letter{font-size:3.2rem;font-weight:400;float:left;line-height:0.78;margin:0.15em 0.08em 0 0;color:var(--rust);font-family:'DM Serif Display',serif;}
+.about-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.8rem;}
+.atag{padding:0.3rem 0.85rem;border:1px solid var(--cream3);font-size:0.7rem;color:var(--ink3);letter-spacing:0.06em;transition:all 0.25s;cursor:default;}
+.atag:hover{background:var(--rust);border-color:var(--rust);color:#fff;transform:translateY(-2px);}
+.aside{display:flex;flex-direction:column;}
+.aside-row{padding:1.1rem 0;border-bottom:1px solid var(--cream3);}
+.aside-row:first-child{border-top:1px solid var(--cream3);}
+.aside-key{font-size:0.58rem;letter-spacing:0.18em;color:var(--ink3);margin-bottom:0.35rem;}
+.aside-val{font-size:0.85rem;color:var(--ink2);line-height:1.7;}
+.aside-link{color:var(--rust);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.2s;}
+.aside-link:hover{border-color:var(--rust);}
+.aside-sub{font-size:0.72rem;color:var(--ink3);display:block;margin-top:0.15rem;}
+
+/* EXPERIENCE */
+#experience{background:var(--cream);position:relative;z-index:2;}
+.exp-list{display:flex;flex-direction:column;}
+.exp-item{border-top:1px solid var(--cream3);overflow:hidden;}
+.exp-item:last-child{border-bottom:1px solid var(--cream3);}
+.exp-trigger{width:100%;display:grid;grid-template-columns:110px 1fr auto;gap:2rem;align-items:center;padding:1.6rem 0;background:transparent;border:none;text-align:left;cursor:none;transition:background 0.2s;}
+.exp-trigger:hover{background:rgba(155,74,42,0.03);}
+.exp-year{font-size:0.68rem;color:var(--ink3);line-height:1.7;}
+.exp-head-title{font-family:'Noto Serif SC',serif;font-size:1.1rem;font-weight:400;color:var(--ink);}
+.exp-head-org{font-size:0.68rem;letter-spacing:0.1em;color:var(--rust2);margin-top:0.15rem;}
+.exp-arrow{font-size:0.9rem;color:var(--cream3);transition:transform 0.3s,color 0.2s;user-select:none;}
+.exp-item.open .exp-arrow{transform:rotate(45deg);color:var(--rust);}
+.exp-body{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1);padding-left:142px;}
+.exp-item.open .exp-body{max-height:500px;}
+.exp-body-inner{padding:0 0 2rem;}
+.exp-ul{list-style:none;}
+.exp-ul li{font-size:0.86rem;color:var(--ink2);line-height:1.9;padding-left:1.2rem;position:relative;margin-bottom:0.2rem;}
+.exp-ul li::before{content:'—';position:absolute;left:0;color:var(--cream3);}
+
+/* WRITING */
+#writing{background:var(--paper);position:relative;z-index:2;}
+.writing-intro{font-family:'Noto Serif SC',serif;font-style:italic;font-size:0.88rem;color:var(--ink3);line-height:1.9;max-width:460px;margin-bottom:2.5rem;}
+
+/* Tabs */
+.tab-nav{display:flex;gap:0;margin-bottom:2.5rem;border-bottom:1px solid var(--cream3);}
+.tab-btn{font-size:0.68rem;letter-spacing:0.14em;padding:0.7rem 1.5rem;background:transparent;border:none;color:var(--ink3);cursor:none;position:relative;transition:color 0.2s;}
+.tab-btn::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--rust);transform:scaleX(0);transition:transform 0.2s;}
+.tab-btn.active{color:var(--ink);}
+.tab-btn.active::after{transform:scaleX(1);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* PROJECT cards */
+.project-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--cream3);border:1.5px solid var(--cream3);}
+.proj-card{background:var(--paper);padding:2.2rem 2rem;}
+.proj-card.featured{grid-column:1/-1;}
+.proj-tag{font-size:0.58rem;letter-spacing:0.18em;color:var(--moss);margin-bottom:0.85rem;display:flex;align-items:center;gap:0.5rem;}
+.proj-tag::before{content:'';width:12px;height:1px;background:var(--moss2);display:block;}
+.proj-title{font-family:'Noto Serif SC',serif;font-size:1.3rem;font-weight:400;color:var(--ink);line-height:1.5;margin-bottom:0.8rem;}
+.proj-body{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+.proj-desc{font-size:0.82rem;color:var(--ink3);line-height:1.85;margin-bottom:1rem;}
+.proj-desc:last-child{margin-bottom:0;}
+
+/* Image strip */
+.img-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;margin-top:2rem;background:var(--cream3);}
+.img-strip-item{aspect-ratio:4/3;background:var(--cream2);overflow:hidden;position:relative;}
+.img-strip-item img{width:100%;height:100%;object-fit:cover;filter:sepia(0.15) contrast(1.05);transition:transform 0.4s ease,filter 0.3s;}
+.img-strip-item:hover img{transform:scale(1.04);filter:sepia(0) contrast(1);}
+.img-caption{font-size:0.58rem;letter-spacing:0.1em;color:var(--ink3);margin-top:0.6rem;}
+
+/* Placeholder image boxes (before real photos) */
+.img-placeholder{width:100%;height:100%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:0.65rem;letter-spacing:0.12em;color:var(--ink3);}
+
+.proj-details{display:flex;flex-direction:column;}
+.proj-detail-row{padding:0.75rem 0;border-bottom:1px solid var(--cream3);display:flex;gap:1.5rem;}
+.proj-detail-row:first-child{border-top:1px solid var(--cream3);}
+.pd-key{font-size:0.58rem;letter-spacing:0.14em;color:var(--ink3);min-width:58px;padding-top:0.1rem;flex-shrink:0;}
+.pd-val{font-size:0.82rem;color:var(--ink2);line-height:1.65;}
+.proj-card.small .proj-title{font-size:1rem;}
+
+/* Field notes */
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--cream3);border:1.5px solid var(--cream3);}
+.field-card{background:var(--paper);padding:2rem;text-decoration:none;color:inherit;display:block;border-left:3px solid transparent;transition:all 0.25s;}
+.field-card:hover{background:rgba(74,92,58,0.04);border-left-color:var(--moss2);}
+.field-loc{font-size:0.58rem;letter-spacing:0.18em;color:var(--moss);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem;}
+.field-loc::before{content:'◎';font-size:0.6rem;}
+.field-title{font-family:'Noto Serif SC',serif;font-size:1.05rem;font-weight:400;color:var(--ink);line-height:1.55;margin-bottom:0.7rem;}
+.field-note{font-size:0.78rem;color:var(--ink3);line-height:1.85;margin-bottom:1.2rem;}
+.field-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.field-tag{font-size:0.62rem;color:var(--ink3);background:var(--cream2);padding:0.2rem 0.6rem;letter-spacing:0.04em;}
+
+/* Writing cards */
+.writing-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--cream3);border:1.5px solid var(--cream3);}
+.w-card{background:var(--paper);padding:2rem 2rem 1.8rem;text-decoration:none;color:inherit;display:block;position:relative;overflow:hidden;transition:background 0.25s;}
+.w-card::after{content:'';position:absolute;inset:0;background:var(--rust);transform:translateY(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);z-index:0;}
+.w-card:hover::after{transform:translateY(0);}
+.w-card>*{position:relative;z-index:1;}
+.w-card:hover .w-tag,.w-card:hover .w-title,.w-card:hover .w-excerpt,.w-card:hover .w-meta{color:#fff;}
+.w-card:hover .w-meta{border-color:rgba(255,255,255,0.2);}
+.w-tag{font-size:0.58rem;letter-spacing:0.18em;color:var(--rust);margin-bottom:0.85rem;display:flex;align-items:center;gap:0.5rem;transition:color 0.25s;}
+.w-tag::before{content:'';width:12px;height:1px;background:currentColor;display:block;}
+.w-title{font-family:'Noto Serif SC',serif;font-size:1.05rem;font-weight:400;color:var(--ink);line-height:1.6;margin-bottom:0.7rem;transition:color 0.25s;}
+.w-excerpt{font-size:0.78rem;color:var(--ink3);line-height:1.85;margin-bottom:1.2rem;transition:color 0.25s;}
+.w-meta{font-size:0.6rem;letter-spacing:0.08em;color:var(--cream3);display:flex;justify-content:space-between;border-top:1px solid var(--cream3);padding-top:0.7rem;transition:color 0.25s,border-color 0.25s;}
+
+/* SKILLS */
+#skills{background:var(--cream);position:relative;z-index:2;}
+.skills-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--cream3);border:1.5px solid var(--cream3);}
+.skill-block{background:var(--cream);padding:2rem;transition:background 0.3s;}
+.skill-block:hover{background:var(--ink);}
+.skill-block:hover .sb-num,.skill-block:hover .sb-name,.skill-block:hover .sb-item{color:var(--cream);}
+.skill-block:hover .sb-line{background:rgba(255,255,255,0.12);}
+.sb-num{font-family:'DM Serif Display',serif;font-size:2.8rem;color:var(--cream3);line-height:1;margin-bottom:0.8rem;transition:color 0.3s;}
+.sb-name{font-family:'Noto Serif SC',serif;font-size:0.95rem;color:var(--ink);margin-bottom:0.8rem;transition:color 0.3s;}
+.sb-line{height:1px;background:var(--cream3);margin-bottom:0.9rem;transition:background 0.3s;}
+.sb-items{display:flex;flex-wrap:wrap;gap:0.35rem;}
+.sb-item{font-size:0.72rem;color:var(--ink3);transition:color 0.3s;letter-spacing:0.03em;}
+.sb-item::after{content:'·';margin-left:0.35rem;opacity:0.35;}
+.sb-item:last-child::after{display:none;}
+
+/* CONTACT */
+#contact{background:var(--ink);min-height:55vh;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2;}
+#contact .sec-num{color:rgba(196,122,80,0.45);}
+#contact .sec-title{color:var(--cream);}
+#contact .sec-line{background:rgba(255,255,255,0.07);}
+.contact-body{display:grid;grid-template-columns:1fr 1fr;gap:6rem;margin-top:4rem;}
+.contact-text{font-family:'Noto Serif SC',serif;font-size:0.95rem;line-height:2.1;color:rgba(240,233,220,0.5);}
+.clinks{display:flex;flex-direction:column;}
+.clink{display:flex;align-items:center;justify-content:space-between;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,0.07);text-decoration:none;transition:padding-left 0.25s;}
+.clink:first-child{border-top:1px solid rgba(255,255,255,0.07);}
+.clink:hover{padding-left:0.5rem;}
+.clink-key{font-size:0.58rem;letter-spacing:0.18em;color:rgba(196,122,80,0.5);}
+.clink-val{font-size:0.85rem;color:rgba(240,233,220,0.7);transition:color 0.2s;}
+.clink:hover .clink-val{color:var(--rust2);}
+.clink-arr{color:rgba(255,255,255,0.12);transition:transform 0.2s,color 0.2s;font-size:0.8rem;}
+.clink:hover .clink-arr{transform:translateX(4px);color:var(--rust2);}
+
+footer{background:var(--ink);border-top:1px solid rgba(255,255,255,0.05);padding:1.2rem 3.5rem;display:flex;justify-content:space-between;z-index:2;position:relative;}
+footer span{font-size:0.62rem;letter-spacing:0.1em;color:rgba(255,255,255,0.15);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+@keyframes scrollPulse{0%,100%{opacity:0.3;}50%{opacity:1;}}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}.nav-links{display:none;}
+  #hero{padding:0 1.5rem;}.hero-foot{flex-direction:column;gap:1.5rem;}.hero-links{margin-left:0;}
+  .wrap{padding:3.5rem 1.5rem;}
+  .about-grid,.contact-body{grid-template-columns:1fr;gap:2.5rem;}
+  .exp-trigger{grid-template-columns:80px 1fr auto;gap:1rem;}.exp-body{padding-left:0;}
+  .writing-grid,.project-grid,.field-grid,.skills-layout,.img-strip{grid-template-columns:1fr;}
+  .proj-body{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:0.4rem;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="grain"></canvas>
+<div id="cursor"></div>
+
+<nav>
+  <a href="#" class="nav-name">李静</a>
+  <ul class="nav-links">
+    <li><a href="#about">关于</a></li>
+    <li><a href="#experience">经历</a></li>
+    <li><a href="#writing">写作与项目</a></li>
+    <li><a href="#skills">技能</a></li>
+    <li><a href="#contact">联系</a></li>
+  </ul>
+</nav>
+
+<div style="max-width:1100px;margin:0 auto;position:relative;z-index:2;">
+<section id="hero">
+  <div class="hero-label">内容创作 · 社媒运营 · 可持续发展</div>
+  <h1 class="hero-name" id="heroName">李<em>静</em></h1>
+  <p class="hero-sub">地理与资源管理 · 香港中文大学</p>
+  <div class="hero-foot">
+    <p class="hero-desc">关注可持续发展与公益传播，有社媒运营、内容策划与创业项目经历。2026年7月起可在上海长期实习。</p>
+    <div class="hero-links">
+      <a href="https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32" target="_blank" class="hero-link">小红书 @Hangussss</a>
+      <a href="https://space.bilibili.com/19484656" target="_blank" class="hero-link">B站 @Fuldege</a>
+      <a href="mailto:Aynnnlee@gmail.com" class="hero-link">Aynnnlee@gmail.com</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div><span>向下探索</span></div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-marker reveal"><span class="sec-num">01</span><div class="sec-line"></div></div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <h2 class="sec-title" style="margin-bottom:2rem;">关于我</h2>
+        <p>我在香港中文大学读地理与资源管理，现于瑞典隆德大学交换。我喜欢观察和分析社会现象，关注人与环境、人与公益之间的关系。</p>
+        <p>我在中大官方社媒账号做运营，也联合创办过面向内地毕业生的创业项目，对内容如何真正带来增长有切身体会。平时在小红书写议题随笔和旅行观察，B站做过影视剪辑。我是社交媒体重度用户，对不同平台的内容逻辑和用户心理有长期积累，也持续研究AI工具在内容创作中的应用。</p>
+        <div class="about-tags">
+          <span class="atag">可持续发展</span><span class="atag">公益传播</span><span class="atag">内容策划</span>
+          <span class="atag">社媒运营</span><span class="atag">议题写作</span><span class="atag">中英双语</span>
+          <span class="atag">AI工具</span><span class="atag">田野调查</span>
+        </div>
+      </div>
+      <div class="aside reveal d1">
+        <div class="aside-row"><div class="aside-key">学校</div><div class="aside-val">香港中文大学<br>地理与资源管理学士</div></div>
+        <div class="aside-row"><div class="aside-key">交换</div><div class="aside-val">瑞典隆德大学 · 2026春</div></div>
+        <div class="aside-row"><div class="aside-key">奖项</div><div class="aside-val">林超英杰出学生奖（2025）<br>1979年级交流奖学金（2025）</div></div>
+        <div class="aside-row">
+          <div class="aside-key">小红书</div>
+          <div class="aside-val"><a href="https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32" target="_blank" class="aside-link">@Hangussss ↗</a><span class="aside-sub">议题随笔 · 旅行观察</span></div>
+        </div>
+        <div class="aside-row">
+          <div class="aside-key">B站</div>
+          <div class="aside-val"><a href="https://space.bilibili.com/19484656" target="_blank" class="aside-link">@Fuldege ↗</a><span class="aside-sub">影视剪辑 · 歌单</span></div>
+        </div>
+        <div class="aside-row"><div class="aside-key">语言</div><div class="aside-val">普通话（母语）· 英语（流利）</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-marker reveal"><span class="sec-num">02</span><div class="sec-line"></div></div>
+    <h2 class="sec-title reveal" style="margin-bottom:3rem;">经历</h2>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <button class="exp-trigger" onclick="toggleExp(this)">
+          <div class="exp-year">2023.10<br>至今</div>
+          <div><div class="exp-head-title">社交媒体运营员</div><div class="exp-head-org">CUHK 学术交流处</div></div>
+          <span class="exp-arrow">+</span>
+        </button>
+        <div class="exp-body"><div class="exp-body-inner"><ul class="exp-ul">
+          <li>负责官方 Instagram 及微信公众号运营，累计发布 100+ 条双语内容，粉丝超 1,200 人</li>
+          <li>定期分析互动数据，调整选题与发布节奏，形成数据驱动的运营习惯</li>
+          <li>独立完成中英双语文案、排版与视觉设计</li>
+        </ul></div></div>
+      </div>
+
+      <div class="exp-item">
+        <button class="exp-trigger" onclick="toggleExp(this)">
+          <div class="exp-year">2024.03<br>2025.06</div>
+          <div><div class="exp-head-title">内容策划负责人</div><div class="exp-head-org">HKonnect · CUHK 创业项目</div></div>
+          <span class="exp-arrow">+</span>
+        </button>
+        <div class="exp-body"><div class="exp-body-inner"><ul class="exp-ul">
+          <li>面向内地毕业生的行李托运服务，负责品牌定位与小红书、微信渠道内容策划</li>
+          <li>项目上线后累计服务客户 100+，通过数据归因优化投放节奏，降低获客成本 25%</li>
+          <li>在创业团队中积累了快速响应与跨职能协作的实际经验</li>
+        </ul></div></div>
+      </div>
+
+      <div class="exp-item">
+        <button class="exp-trigger" onclick="toggleExp(this)">
+          <div class="exp-year">2025.05<br>2025.08</div>
+          <div><div class="exp-head-title">地理田野调查</div><div class="exp-head-org">CUHK · 泰国 & 甘肃</div></div>
+          <span class="exp-arrow">+</span>
+        </button>
+        <div class="exp-body"><div class="exp-body-inner"><ul class="exp-ul">
+          <li>甘肃：在黄土高原—腾格里沙漠过渡带等 10+ 调研点采集植被与土壤数据，结合 NDVI 分析植被覆盖趋势</li>
+          <li>泰国：比较曼谷大众旅游与北碧府暗黑旅游的运营模式与社会影响，访谈本地从业者与游客</li>
+          <li>产出结构化田野报告，整合定量数据与定性观察</li>
+        </ul></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WRITING & PROJECTS -->
+<section id="writing">
+  <div class="wrap">
+    <div class="sec-marker reveal"><span class="sec-num">03</span><div class="sec-line"></div></div>
+    <h2 class="sec-title reveal" style="margin-bottom:1.2rem;">写作与项目</h2>
+    <p class="writing-intro reveal">亲手做过的、看到的、想到的。</p>
+
+    <div class="tab-nav reveal">
+      <button class="tab-btn active" onclick="switchTab('projects',this)">项目</button>
+      <button class="tab-btn" onclick="switchTab('fieldwork',this)">田野笔记</button>
+      <button class="tab-btn" onclick="switchTab('essays',this)">随笔</button>
+    </div>
+
+    <!-- 项目 -->
+    <div class="tab-panel active" id="tab-projects">
+      <div class="project-grid">
+
+        <!-- Value Tree - featured -->
+        <div class="proj-card featured">
+          <div class="proj-tag">公共艺术装置</div>
+          <div class="proj-title">The Value Tree · 价值之树</div>
+          <div class="proj-body">
+            <div>
+              <p class="proj-desc">从一块写着「愧疚」的石头出发——我意识到，问题从来不是缺乏知识，而是知识和行动之间有一道沟。我们选择了树，作为连接人与自然、知识与情感的媒介。</p>
+              <p class="proj-desc">装置以废弃纸板箱为树干（纸板来自树，再回归树的形态），贴上从香港本地采集的真实树皮；叶片分三类：绿色叶片承载树木生态知识，彩色叶片是与树互动的任务卡，透明叶片留给观众写下对树的感谢、承诺与心愿。</p>
+              <p class="proj-desc">核心问题：如何让人真正爱上树，并愿意为此改变一点点行为？</p>
+            </div>
+            <div class="proj-details">
+              <div class="proj-detail-row"><span class="pd-key">角色</span><span class="pd-val">地理与生态知识研究 · 树木科学内容设计 · 装置结构策划</span></div>
+              <div class="proj-detail-row"><span class="pd-key">材料</span><span class="pd-val">废弃纸板箱 · 本地白千层树皮 · 手工叶片卡 · 麻绳</span></div>
+              <div class="proj-detail-row"><span class="pd-key">延伸</span><span class="pd-val">可打印知识卡片 · 在线随机任务转盘，可携带至任意公园与树木互动</span></div>
+              <div class="proj-detail-row"><span class="pd-key">设计原则</span><span class="pd-val">不说教，只呈现与感受</span></div>
+            </div>
+          </div>
+
+          <!-- Image strip - placeholders for actual photos -->
+          <div class="img-strip" style="margin-top:2rem;">
+            <div class="img-strip-item">
+              <div class="img-placeholder">装置全景</div>
+            </div>
+            <div class="img-strip-item">
+              <div class="img-placeholder">树皮细节</div>
+            </div>
+            <div class="img-strip-item">
+              <div class="img-placeholder">叶片互动</div>
+            </div>
+            <div class="img-strip-item">
+              <div class="img-placeholder">知识卡片</div>
+            </div>
+            <div class="img-strip-item">
+              <div class="img-placeholder">观众参与</div>
+            </div>
+            <div class="img-strip-item">
+              <div class="img-placeholder">制作过程</div>
+            </div>
+          </div>
+          <p class="img-caption" style="margin-top:0.8rem;">← 点击图片区域可替换为实际照片</p>
+        </div>
+
+        <!-- HKonnect -->
+        <div class="proj-card small">
+          <div class="proj-tag">创业项目</div>
+          <div class="proj-title">HKonnect</div>
+          <p class="proj-desc">面向香港中文大学内地毕业生的行李托运服务。负责品牌定位、小红书与微信渠道从零搭建，及内容策划与推广。服务客户 100+，获客成本优化 25%。</p>
+        </div>
+
+        <!-- Climate action essay -->
+        <div class="proj-card small">
+          <div class="proj-tag">研究写作</div>
+          <div class="proj-title">气候行动的情感困境</div>
+          <p class="proj-desc">从一次拒绝塑料袋的经历出发，探讨为什么人类即使知道气候危机的严重性，依然难以将知识转化为集体行动。涉及心理距离效应、情感疲劳与体制性失灵。</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 田野笔记 -->
+    <div class="tab-panel" id="tab-fieldwork">
+      <div class="field-grid">
+        <div class="field-card">
+          <div class="field-loc">甘肃 · 2025年7月</div>
+          <div class="field-title">沙漠边缘，植被如何抵抗侵蚀</div>
+          <div class="field-note">从兰州黄土高原出发，穿越腾格里沙漠边缘，抵达巴丹吉林沙漠。稀疏的白刺、骆驼刺扎根沙丘，覆盖率不到30%，却是整个生态系统的锚点。沙漠不是无序的，而是一套脆弱的平衡——绿洲农业的过度灌溉，会让土壤盐渍化慢慢蚕食这种平衡。</div>
+          <div class="field-tags">
+            <span class="field-tag">植被调查</span><span class="field-tag">土壤剖面</span>
+            <span class="field-tag">NDVI分析</span><span class="field-tag">绿洲农业</span>
+          </div>
+        </div>
+        <div class="field-card">
+          <div class="field-loc">泰国 · 2025年5月</div>
+          <div class="field-title">大众旅游 vs 暗黑旅游：两种凝视</div>
+          <div class="field-note">曼谷的游客在大皇宫前调整相机角度，追求完美的社交媒体画面；而在北碧府的死亡铁路旁，人们不自觉地放慢脚步、压低声音。同样是旅游，一种是感官消费，另一种是慢慢发酵的情感共鸣——两周后还会反复回想的那种。</div>
+          <div class="field-tags">
+            <span class="field-tag">旅游地理</span><span class="field-tag">暗黑旅游</span>
+            <span class="field-tag">文化记忆</span><span class="field-tag">访谈研究</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 随笔 -->
+    <div class="tab-panel" id="tab-essays">
+      <div class="writing-grid">
+        <a href="https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32" target="_blank" class="w-card">
+          <div class="w-tag">城市观察</div>
+          <div class="w-title">柏林是五彩斑斓的黑</div>
+          <div class="w-excerpt">蠢蠢欲动却又克制。颓然不是颓废，是一种自我捍卫的努力。柏林在努力记住所有发生过的事——纪念碑阵、东边画廊、弹孔还在的墙……保存，然后展示。</div>
+          <div class="w-meta"><span>2025</span><span>→ 小红书</span></div>
+        </a>
+        <a href="https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32" target="_blank" class="w-card">
+          <div class="w-tag">城市观察</div>
+          <div class="w-title">阿姆斯特丹：水系、自行车和割裂感</div>
+          <div class="w-excerpt">水系密集的城市更包容，流动的状态会带来更多流动的自由的事物。地势的平坦为自行车创造可能，但更多推动自行车的还是拥挤的城市密度……</div>
+          <div class="w-meta"><span>2025</span><span>→ 小红书</span></div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-marker reveal"><span class="sec-num">04</span><div class="sec-line"></div></div>
+    <h2 class="sec-title reveal" style="margin-bottom:3rem;">技能</h2>
+    <div class="skills-layout reveal">
+      <div class="skill-block">
+        <div class="sb-num">01</div><div class="sb-name">视频创作</div><div class="sb-line"></div>
+        <div class="sb-items"><span class="sb-item">CapCut / 剪映</span><span class="sb-item">DaVinci Resolve</span><span class="sb-item">剪辑策划</span></div>
+      </div>
+      <div class="skill-block">
+        <div class="sb-num">02</div><div class="sb-name">视觉设计</div><div class="sb-line"></div>
+        <div class="sb-items"><span class="sb-item">Procreate</span><span class="sb-item">Adobe Illustrator</span><span class="sb-item">Photoshop</span><span class="sb-item">Canva</span><span class="sb-item">微信图文排版</span></div>
+      </div>
+      <div class="skill-block">
+        <div class="sb-num">03</div><div class="sb-name">AI 工具</div><div class="sb-line"></div>
+        <div class="sb-items"><span class="sb-item">ChatGPT / Claude</span><span class="sb-item">AIGC 内容生成</span><span class="sb-item">AI 辅助写作</span><span class="sb-item">工作流探索</span></div>
+      </div>
+      <div class="skill-block">
+        <div class="sb-num">04</div><div class="sb-name">语言 & 写作</div><div class="sb-line"></div>
+        <div class="sb-items"><span class="sb-item">普通话（母语）</span><span class="sb-item">英语（流利）</span><span class="sb-item">双语内容创作</span><span class="sb-item">议题写作</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-marker reveal"><span class="sec-num">05</span><div class="sec-line"></div></div>
+    <h2 class="sec-title reveal">联系我</h2>
+    <div class="contact-body">
+      <p class="contact-text reveal">寻找上海长期实习机会，2026年7月起可到岗，可实习至12月底。方向：ESG传播 / 公益倡导 / 品牌内容。欢迎联系。</p>
+      <div class="clinks reveal d1">
+        <a href="mailto:Aynnnlee@gmail.com" class="clink"><span class="clink-key">邮件</span><span class="clink-val">Aynnnlee@gmail.com</span><span class="clink-arr">→</span></a>
+        <a href="https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32" target="_blank" class="clink"><span class="clink-key">小红书</span><span class="clink-val">@Hangussss</span><span class="clink-arr">→</span></a>
+        <a href="https://space.bilibili.com/19484656" target="_blank" class="clink"><span class="clink-key">B站</span><span class="clink-val">@Fuldege</span><span class="clink-arr">→</span></a>
+        <a href="tel:+8613636511549" class="clink"><span class="clink-key">电话</span><span class="clink-val">+86 136-3651-1549</span><span class="clink-arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><span>© 2026 李静</span><span>上海 · 2026年7月可到岗</span></footer>
+
+<script>
+const canvas=document.getElementById('grain'),ctx=canvas.getContext('2d');
+let w,h;
+function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+function drawGrain(){ctx.clearRect(0,0,w,h);const img=ctx.createImageData(w,h),d=img.data;for(let i=0;i<d.length;i+=4){const v=Math.random()*255;d[i]=d[i+1]=d[i+2]=v;d[i+3]=Math.random()*15+3;}ctx.putImageData(img,0,0);requestAnimationFrame(drawGrain);}
+drawGrain();
+
+const cur=document.getElementById('cursor');
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function animCur(){cx+=(mx-cx)*0.18;cy+=(my-cy)*0.18;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(animCur);})();
+document.querySelectorAll('a,button,.atag,.tab-btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+});
+
+const heroName=document.getElementById('heroName');
+document.addEventListener('mousemove',e=>{
+  const x=(e.clientX/window.innerWidth-0.5)*16,y=(e.clientY/window.innerHeight-0.5)*8;
+  heroName.style.transform=`translate(${x}px,${y}px)`;
+});
+
+function toggleExp(btn){
+  const item=btn.closest('.exp-item'),isOpen=item.classList.contains('open');
+  document.querySelectorAll('.exp-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+
+function switchTab(name,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
