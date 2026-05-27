@@ -204,6 +204,29 @@ footer span{font-size:0.62rem;letter-spacing:0.1em;color:rgba(255,255,255,0.15);
   .proj-body{grid-template-columns:1fr;}
   footer{flex-direction:column;gap:0.4rem;}
 }
+
+/* LIGHTBOX */
+.lightbox{
+  display:none;position:fixed;inset:0;z-index:9000;
+  background:rgba(10,8,5,0.92);
+  align-items:center;justify-content:center;
+  cursor:zoom-out;
+}
+.lightbox.open{display:flex;}
+.lightbox img{
+  max-width:88vw;max-height:88vh;
+  object-fit:contain;
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 24px 80px rgba(0,0,0,0.6);
+  transition:opacity 0.2s;
+}
+.lightbox-close{
+  position:absolute;top:1.5rem;right:2rem;
+  font-size:1.6rem;color:rgba(255,255,255,0.5);
+  cursor:pointer;transition:color 0.2s;line-height:1;
+}
+.lightbox-close:hover{color:#fff;}
+.img-strip-item{cursor:zoom-in;}
 </style>
 </head>
 <body>
@@ -363,22 +386,20 @@ footer span{font-size:0.62rem;letter-spacing:0.1em;color:rgba(255,255,255,0.15);
             </div>
           </div>
 
-          <!-- Image strip - placeholders for actual photos -->
           <div class="img-strip" style="margin-top:2rem;">
-            <div class="img-strip-item">
+            <div class="img-strip-item" onclick="openLightbox('tree1.png')">
               <img src="tree1.png" alt="The Value Tree 装置" loading="lazy">
             </div>
-            <div class="img-strip-item">
+            <div class="img-strip-item" onclick="openLightbox('tree2.png')">
               <img src="tree2.png" alt="The Value Tree 细节" loading="lazy">
             </div>
-            <div class="img-strip-item">
+            <div class="img-strip-item" onclick="openLightbox('tree3.png')">
               <img src="tree3.png" alt="The Value Tree 互动" loading="lazy">
             </div>
-            <div class="img-strip-item">
+            <div class="img-strip-item" onclick="openLightbox('tree4.png')">
               <img src="tree4.png" alt="The Value Tree 制作" loading="lazy">
             </div>
           </div>
-          <p class="img-caption" style="margin-top:0.8rem;">← 点击图片区域可替换为实际照片</p>
         </div>
 
         <!-- HKonnect -->
@@ -530,6 +551,26 @@ function switchTab(name,btn){
 
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:0.08});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightbox-img').src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') closeLightbox();
+});
 </script>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">×</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
 </body>
 </html>
