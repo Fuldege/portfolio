@@ -115,7 +115,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .proj-desc:last-child{margin-bottom:0;}
 
 /* Image strip */
-.img-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;margin-top:2rem;background:var(--cream3);}
+.img-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;margin-top:2rem;background:var(--cream3);}
 .img-strip-item{aspect-ratio:4/3;background:var(--cream2);overflow:hidden;position:relative;}
 .img-strip-item img{width:100%;height:100%;object-fit:cover;filter:sepia(0.15) contrast(1.05);transition:transform 0.4s ease,filter 0.3s;}
 .img-strip-item:hover img{transform:scale(1.04);filter:sepia(0) contrast(1);}
@@ -366,22 +366,16 @@ footer span{font-size:0.62rem;letter-spacing:0.1em;color:rgba(255,255,255,0.15);
           <!-- Image strip - placeholders for actual photos -->
           <div class="img-strip" style="margin-top:2rem;">
             <div class="img-strip-item">
-              <div class="img-placeholder">装置全景</div>
+              <img src="tree1.png" alt="The Value Tree 装置" loading="lazy">
             </div>
             <div class="img-strip-item">
-              <div class="img-placeholder">树皮细节</div>
+              <img src="tree2.png" alt="The Value Tree 细节" loading="lazy">
             </div>
             <div class="img-strip-item">
-              <div class="img-placeholder">叶片互动</div>
+              <img src="tree3.png" alt="The Value Tree 互动" loading="lazy">
             </div>
             <div class="img-strip-item">
-              <div class="img-placeholder">知识卡片</div>
-            </div>
-            <div class="img-strip-item">
-              <div class="img-placeholder">观众参与</div>
-            </div>
-            <div class="img-strip-item">
-              <div class="img-placeholder">制作过程</div>
+              <img src="tree4.png" alt="The Value Tree 制作" loading="lazy">
             </div>
           </div>
           <p class="img-caption" style="margin-top:0.8rem;">← 点击图片区域可替换为实际照片</p>
