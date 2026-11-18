@@ -73,6 +73,7 @@
  .island .world-walker,.world-landscape .world-walker{width:18px;height:24px}
  .world-landscape{overflow:visible;margin-bottom:18px}
 }
+.world-landscape .world-walker{transition:none}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div><a href="#street">世界地图</a><button type="button" id="contact-open" class="contact-open">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -143,22 +144,20 @@ const atlas = {
     "B 站收录了我的影视剪辑和歌单。这里可以直接播放作品，看镜头怎样衔接，也可以听我为不同片段挑选的音乐。"
   ]
 };
-const landmarks = {
- 'value-tree': [[23,67],[49,53],[87,67]],
- hkonnect: [[26,47],[36,77],[86,48]],
- anker: [[17,75],[83,67],[55,36],[48,62]],
- writing: [[27,67],[61,62]]
+const districtLoop = [[23,39],[35,27],[56,24],[76,33],[84,49],[73,66],[53,76],[32,70],[19,56]];
+const districtStations = {
+ 'value-tree':[0,3,6], hkonnect:[0,6,4], anker:[7,5,2,0],
+ writing:[0,5], oalmr:[6,0,3], research:[3,0,6]
 };
 atlas.oalmr = ['交流活动广场','迎宾广场','展览廊','交流礼堂'];
 atlas.research = ['地理研究营地','地形观测台','地图工作室','研究档案室'];
-landmarks.oalmr = [[71,85],[27,66],[83,52]];
-landmarks.research = [[79,29],[24,61],[80,65]];
 let arrived = -1;
 function showJourney(index){
  if(arrived===index)return;
  arrived=index;
  const project=projects[index];
- const id=project.id, entries=atlas[id], positions=landmarks[id], count=positions.length;
+ const id=project.id, entries=atlas[id], stationIndices=districtStations[id];
+ const positions=stationIndices.map(i=>districtLoop[i]), count=positions.length;
  const map=$('project-map');
  map.dataset.world=id;
  const hasNotes=entries.length>count+1;
@@ -171,21 +170,29 @@ function showJourney(index){
   </div>
   <section class="fieldnote" aria-live="polite" ${hasNotes?'':'hidden'}></section>
  </div>`;
- paintWorld(map.querySelector('canvas'),[{id,points:positions}],[50,60]);
+ paintWorld(map.querySelector('canvas'),[{id,points:positions}],[50,52],districtLoop);
  const nodes=[...map.querySelectorAll('.world-landscape button')];
  const note=map.querySelector('.fieldnote');
  const walker=map.querySelector('.world-walker');
  paintAvatar(walker.querySelector('canvas'));
- function showStep(i){
+ let lastStep=0, districtMove;
+ function showStep(i,animate=false){
   nodes.forEach((node,j)=>node.setAttribute('aria-pressed',j===i));
-  walker.style.left=positions[i][0]+'%';
-  walker.style.top=positions[i][1]+'%';
+  districtMove?.cancel();
+  const path=pathAroundLoop(districtLoop,stationIndices[lastStep],stationIndices[i]);
+  const [x,y]=positions[i];
+  walker.style.left=x+'%';
+  walker.style.top=y+'%';
+  lastStep=i;
+  if(animate&&path.length>1&&!reducedMotion.matches){
+   districtMove=walker.animate(pathFrames(path),{duration:Math.min(1300,loopDistance(path)*14),easing:'linear'});
+  }
   if(!hasNotes)return;
   const link=id==='anker'&&i===0?'#retail':id==='writing'?(i===0?project.extra:project.link):'#'+id;
   const label=id==='writing'?(i===0?'阅读小红书手记':'播放 B 站作品'):id==='value-tree'?'看装置现场照片':id==='anker'&&i===0?'展开选址案例':'查看项目介绍';
   note.innerHTML='<h3>'+entries[i+1]+'</h3><p>'+entries[count+1+i]+'</p><a href="'+link+'">'+label+' ↗</a>';
  }
- nodes.forEach((node,i)=>node.onclick=()=>showStep(i));
+ nodes.forEach((node,i)=>node.onclick=()=>showStep(i,true));
  showStep(0);
 }
 const central = [50,59];
@@ -203,12 +210,21 @@ function loopDistance(route){
   length+Math.hypot((x-route[i][0])*1.5,y-route[i][1]),0);
 }
 
-function pathAroundIsland(from,to){
+function pathFrames(path){
+ const total=loopDistance(path);
+ let distance=0;
+ return path.map(([x,y],i)=>{
+  if(i)distance+=loopDistance([path[i-1],path[i]]);
+  return {left:x+'%',top:y+'%',offset:Math.min(1,distance/total)};
+ });
+}
+
+function pathAroundLoop(loop,from,to){
  function trace(direction){
-  const path=[islandLoop[from]];
+  const path=[loop[from]];
   for(let i=from;i!==to;){
-   i=(i+direction+islandLoop.length)%islandLoop.length;
-   path.push(islandLoop[i]);
+   i=(i+direction+loop.length)%loop.length;
+   path.push(loop[i]);
   }
   return path;
  }
@@ -260,13 +276,8 @@ function walk(index,animate=true){
   }
  };
  if(!animate||reducedMotion.matches||arrival<0||selected===arrival){finish();return;}
- const frames=pathAroundIsland(loopIndex.get(projects[arrival].id),loopIndex.get(destination.id));
- const distances=[0];
- for(let i=1;i<frames.length;i++){
-  distances.push(distances[i-1]+Math.hypot((frames[i][0]-frames[i-1][0])*1.5,frames[i][1]-frames[i-1][1]));
- }
- const total=distances.at(-1);
- movement=walker.animate(frames.map(([x,y],i)=>({left:x+'%',top:y+'%',offset:distances[i]/total})),{duration:Math.min(1600,Math.max(450,total*14))});
+ const frames=pathAroundLoop(islandLoop,loopIndex.get(projects[arrival].id),loopIndex.get(destination.id));
+ movement=walker.animate(pathFrames(frames),{duration:Math.min(1600,Math.max(450,loopDistance(frames)*14))});
  movement.onfinish=finish;
 }
 function stepAroundIsland(direction){
@@ -296,7 +307,7 @@ const colors={
  oalmr:['#778666','#566254','#d2ac99','#a87587'],
  research:['#74928f','#4d606c','#afbfcb','#8e9dbc']
 };
-function paintWorld(canvas,stops,center){
+function paintWorld(canvas,stops,center,loop=islandLoop){
  const ctx=canvas.getContext('2d');
  const {width:w,height:h}=canvas;
  const pos=([x,y])=>[Math.round(w*x/100),Math.round(h*y/100)];
@@ -410,16 +421,40 @@ function paintWorld(canvas,stops,center){
   }
   block(x-3,y-8,6,8,shade);block(x-4,y,9,2,'#d6b192');
  }
- block(0,0,w,h,'#252441');
- for(let i=0;i<120;i++){
-  const x=(i*57+13)%w,y=(i*37+11)%h;
-  block(x,y,5+i%9,1,i%9===0?'#675e82':'#3c395b');
-  if(i%7===0)block(x+3,y+2,4,1,'#4e496d');
+ const harbor=canvas.id==='harbor-map';
+ const district=harbor?'harbor':stops[0].id;
+ const sky={
+  harbor:['#222743','#3c4a68','#596985'],
+  'value-tree':['#252c40','#354a47','#66816d'],
+  hkonnect:['#252c4d','#3a4c70','#7d7991'],
+  anker:['#242940','#3e4963','#646681'],
+  writing:['#352842','#55405c','#ae7887'],
+  oalmr:['#2d304a','#4b5470','#917c8c'],
+  research:['#232944','#384865','#757d9a']
+ }[district];
+ block(0,0,w,h,sky[0]);
+ if(district==='harbor'||district==='hkonnect'){
+  for(let i=0;i<145;i++){
+   const x=(i*57+13)%w,y=(i*37+11)%h;
+   block(x,y,4+i%11,1,i%8===0?sky[2]:sky[1]);
+   if(i%9===0)block(x+5,y+2,5,1,sky[1]);
+  }
+ }else if(district==='anker'||district==='writing'){
+  block(0,0,w,h*.38,sky[1]);
+  for(let x=0;x<w;x+=12){
+   const height=8+(x*7)%31;
+   block(x,h*.38-height,10,height,sky[0]);
+   if(x%24===0)block(x+3,h*.38-height+5,2,2,sky[2]);
+  }
+ }else{
+  polygon([[0,h*.52],[0,h*.28],[w*.14,h*.12],[w*.30,h*.31],[w*.48,h*.08],[w*.71,h*.32],[w*.89,h*.14],[w,h*.28],[w,h*.52]],sky[1]);
+  for(let i=0;i<36;i++)block((i*67+9)%w,(i*19+8)%Math.floor(h*.34),i%5===0?3:1,1,sky[2]);
  }
  const [cx,cy]=pos(center);
- const harbor=canvas.id==='harbor-map';
  if(harbor){
   const coast=[[8,55],[11,38],[21,26],[36,15],[53,14],[70,19],[84,29],[91,49],[90,61],[79,75],[59,85],[38,86],[21,80],[11,68]].map(pos);
+  const surf=coast.map(([x,y])=>[Math.round(cx+(x-cx)*1.055),Math.round(cy+(y-cy)*1.10)+8]);
+  polygon(surf,'#3e526d');
   const lower=coast.map(([x,y])=>[x,y+10]);
   polygon(lower,'#181b36');
   coast.forEach(([x,y],i)=>{
@@ -435,20 +470,27 @@ function paintWorld(canvas,stops,center){
    const x=50+(i*29)%281,y=52+(i*37)%118;
    if(((x-192)/145)**2+((y-107)/60)**2<.94)block(x,y,i%3?2:4,1,i%2?'#809582':'#5c756a');
   }
-  ground(cx,cy-12,64,26,['#829680','#556b61']);
-  trail([...islandLoop,islandLoop[0]]);
-  for(const [dx,dy] of [[-27,-3],[-13,-19],[12,-18],[28,1],[8,10]]){
+  ground(cx-10,cy-15,73,27,['#8da084','#536f66']);
+  ground(cx-23,cy-24,40,15,['#9baa8d','#6b8374']);
+  polygon([[cx+12,cy-13],[cx+31,cy-19],[cx+54,cy-11],[cx+48,cy-4],[cx+23,cy-4]],'#445f75');
+  block(cx+27,cy-10,17,1,'#87a6a1');
+  block(cx+22,cy-7,11,1,'#748f9b');
+  trail([...loop,loop[0]]);
+  for(const [dx,dy] of [[-53,-19],[-42,-33],[-25,-37],[-13,-30],[10,-20],[53,-9],[59,-20],[-41,7],[12,11]]){
    tree(cx+dx,cy+dy,['#779b80','#4f6d66','#a9ad88'],true);
   }
  }else{
-  ground(cx,cy,128,56,colors[stops[0].id]);
-  for(const {points} of stops)trail([center,...points]);
+  const edge=[[8,47],[17,29],[30,17],[56,13],[75,19],[88,33],[92,50],[84,67],[69,79],[45,84],[25,79],[12,65]].map(pos);
+  polygon(edge.map(([x,y])=>[x,y+9]),colors[district][1]);
+  polygon(edge,colors[district][0]);
+  ground(cx,cy,53,17,colors[district]);
+  trail([...loop,loop[0]]);
  }
  for(const {id,points} of stops){
   const pins=harbor?points.slice(-1):points;
   pins.forEach((point,index)=>{
    const [x,y]=pos(point);
-   landmark(x-6,y-6,id,colors[id],index);
+   landmark(x-6,y-6,id,colors[id],harbor&&id==='oalmr'?1:index);
    if(id!=='hkonnect'){
     tree(x+20,y-4,['#7c987a','#526a67','#afab83'],true);
     block(x+6,y+3,5,2,'#d09887');
@@ -457,7 +499,7 @@ function paintWorld(canvas,stops,center){
   });
  }
  if(!harbor){
-  for(const [dx,dy] of [[-32,-23],[30,-21],[-41,18],[47,10]]){
+  for(const [dx,dy] of [[-22,-7],[15,-5],[-30,10]]){
    tree(cx+dx,cy+dy,['#789279','#52676a','#a6aa7e'],true);
   }
  }
