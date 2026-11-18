@@ -153,7 +153,6 @@ const buttons = projects.map((p,i)=>{
  $('points').append(button);
  return button;
 });
-$('list').innerHTML=projects.map((p,i)=>'<a class="work" href="#'+p.id+'"><small>0'+(i+1)+'</small><span><strong>'+p.label+'</strong><br>'+p.description+'</span><span>↗</span></a>').join('');
 const ctx=$('map').getContext('2d');
 const rect=(x,y,w,h,c)=>{ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),w,h)};
 let selected=0,x=51, target=51, frame=0;
