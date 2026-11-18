@@ -74,6 +74,40 @@
  .world-landscape{overflow:visible;margin-bottom:18px}
 }
 .world-landscape .world-walker{transition:none}
+
+/* Cool, layered surfaces frame the warm pixel-art lighting. */
+body{background:#171727}
+header{background:#1d1e31;border-bottom:1px solid #353753}
+.brand{letter-spacing:.09em}
+nav>div a,nav .contact-open{border-radius:8px;padding:6px 10px}
+nav>div a:hover,nav .contact-open:hover{background:#323453;color:#fff1dd}
+.game,.project-map{border-radius:12px;border-color:#444464;overflow:hidden;box-shadow:0 7px 22px #10101e80}
+.game-head,.game-foot{background:#24263d;color:#d4d6f2}
+.game-foot .arrows button{background:#343655;border-color:#53587d;border-radius:8px}
+.game-foot .arrows button:hover{background:#4d5081}
+.game-foot .enter{background:#999dff;color:#17172b;border-radius:8px}
+.game-foot .enter:hover{background:#b3b6ff}
+#contact{background:#24263b;border-color:#4c5072;border-radius:14px;box-shadow:0 12px 45px #100d20a6}
+#contact h2{margin-bottom:14px}
+#contact dl{grid-template-columns:minmax(78px,max-content) 1fr;gap:0 14px;margin:0}
+#contact dt,#contact dd{padding:9px 0;border-top:1px solid #454763}
+#contact dt{color:#c6c8e1}
+#contact dd a{color:#bdc0ff;text-underline-offset:4px}
+.world-title{background:#26283f;border-bottom:1px solid #424461}
+.island .world-walker,.world-landscape .world-walker{isolation:isolate;overflow:visible}
+.world-walker::before{
+ content:'';position:absolute;z-index:-1;pointer-events:none;
+ left:50%;bottom:-13px;width:clamp(64px,10vw,128px);height:clamp(36px,5vw,66px);
+ transform:translateX(-50%);border-radius:50%;
+ background:radial-gradient(ellipse at center,#fff0b88c 0%,#ffd48956 28%,#c9a8ff2b 51%,transparent 72%);
+}
+.island-pin.is-arrived,.world-landscape button[aria-pressed=true]{
+ color:#241e36;background:#ffd39b;border-color:#ffdfa9;
+ box-shadow:0 0 0 1px #ffdfa95c,0 0 15px #ffbf696b,3px 3px #191529
+}
+.island-pin[aria-pressed=true]:not(.is-arrived){background:#a7a7f3;color:#211e36;border-color:#c6c7ff}
+.island-pin:focus-visible,.world-landscape button:focus-visible,.contact-open:focus-visible,.contact-close:focus-visible{outline:2px solid #c9caff;outline-offset:3px}
+@media(max-width:640px){nav>div a,nav .contact-open{padding:6px}.game-head,.game-foot{padding-left:12px;padding-right:12px}}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div><a href="#street">世界地图</a><button type="button" id="contact-open" class="contact-open">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -90,7 +124,9 @@
 <section class="project-map" id="project-map" aria-label="当前项目地图"></section>
 </div>
 <article id="detail" class="detail" hidden></article>
-</main><dialog id="contact" aria-labelledby="contact-title"><form method="dialog"><button class="contact-close" aria-label="关闭联系方式">×</button></form><h2 id="contact-title">联系方式</h2><dl><dt>邮箱</dt><dd>aynnnlee@gmail.com</dd><dt>内地电话</dt><dd>+86 13636511549</dd><dt>香港电话</dt><dd>+852 63158830</dd></dl></dialog><footer><div class="wrap">Anne Li 李静 <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
+</main><dialog id="contact" aria-labelledby="contact-title"><form method="dialog"><button class="contact-close" aria-label="关闭联系方式">×</button></form><h2 id="contact-title">联系方式</h2><dl><dt>邮箱</dt><dd>aynnnlee@gmail.com</dd><dt>内地电话</dt><dd>+86 13636511549</dd><dt>香港电话</dt><dd>+852 63158830</dd>
+<dt>微信</dt><dd>Fuldege</dd>
+<dt>Instagram</dt><dd><a href="https://www.instagram.com/fuldegeeee/" rel="me">fuldegeeee <span aria-hidden="true">↗</span></a></dd></dl></dialog><footer><div class="wrap">Anne Li 李静 <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
 <script>
 const projectDetails = [
  {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', link:'tree1.png', linkText:'查看装置全图', image:'tree1.png'},
@@ -269,6 +305,7 @@ function walk(index,animate=true){
  movement=null;
  const finish=()=>{
   arrival=selected;
+  buttons.forEach((button,i)=>button.classList.toggle('is-arrived',i===arrival));
   placeWalker(end);
   showJourney(arrival);
   if(animate&&street.scrollWidth>street.clientWidth){
