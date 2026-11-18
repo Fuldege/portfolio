@@ -8,4 +8,6 @@ An original pixel-art portfolio with a twilight town as the work index.
 - Render world art on a low-resolution pixel grid. Keep interactive labels in HTML, with visible keyboard focus.
 - On desktop support arrows and A/D. On touch use prev/next controls and tappable stops. Keep direct project links below the map.
 - Detail pages open with a title and image, then brief sections about the idea and Anne’s contribution. Keep photos in their original style.
-- Add a station by extending the project list in index.html, adding the detail view and any local images, and assigning a matching map landmark. The five current stops include separate entries for the Anker internship and the retail site-selection project. Extend the canvas and waypoint layout together when adding stops.
+- The four main stations each have a project map below the street. Swap the map when the avatar finishes walking. Keep stage buttons keyboard and touch accessible, and stack the route vertically on mobile.
+- Keep retail site selection inside Anker’s project map. Preserve the direct case link.
+- To add a station, add a project record, journey steps, a waypoint and a map landmark.
