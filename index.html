@@ -2,18 +2,31 @@
 <style>
 :root{--ink:#15132c;--panel:#211c3b;--cream:#fff0d9;--peach:#ffad71;--mint:#a9e2ca;--muted:#c7bdd9;--border:#504669}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--cream);font:16px/1.75 system-ui,sans-serif}a{color:inherit}button{font:inherit;cursor:pointer}a:focus-visible,button:focus-visible{outline:3px solid var(--mint);outline-offset:4px}.wrap{width:min(1160px,calc(100% - 56px));margin:auto}header{border-bottom:1px solid var(--border)}nav{height:68px;display:flex;justify-content:space-between;align-items:center;gap:16px}nav a{text-decoration:none}nav div{display:flex;gap:25px}.brand,small,.mono{font-family:ui-monospace,monospace}.brand{font-weight:900;letter-spacing:.075em}.star{color:var(--peach)}.intro{padding:45px 0 30px;display:flex;align-items:end;justify-content:space-between;gap:32px}.intro h1,.detail h1{font-size:clamp(48px,8.7vw,118px);line-height:.87;letter-spacing:-.045em;margin:0}.intro h1 span{color:var(--peach)}.intro p{color:var(--muted);max-width:330px;margin:0;line-height:1.9}.intro p strong{color:var(--cream)}.game{background:var(--panel);border:1px solid var(--border);box-shadow:0 5px 0 #090818}.game-head,.game-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;gap:12px}.game-head{font-size:13px;color:var(--mint)}.scene{position:relative;isolation:isolate}canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.points{position:absolute;inset:0}.stop{position:absolute;top:53%;transform:translate(-50%,-50%);font-size:13px;font-weight:750;color:var(--cream);background:#211a39;border:2px solid #8973a4;box-shadow:3px 3px #110e24;padding:5px 9px;white-space:nowrap}.stop[aria-pressed=true]{background:var(--peach);color:var(--ink);border-color:var(--cream)}.arrows{display:flex;gap:6px}.arrows button,.enter{min-height:42px;padding:5px 13px;border:1px solid var(--border);color:var(--cream);background:var(--ink);text-decoration:none;display:inline-flex;align-items:center}.enter{background:var(--peach);color:var(--ink);font-weight:800;border:0}.hint{font-size:13px;color:var(--muted)}.works{padding:40px 0 64px}.works h2{font-size:34px;letter-spacing:-.025em;margin:0 0 12px}.work{display:grid;grid-template-columns:75px 1fr auto;align-items:center;gap:12px;border-top:1px solid var(--border);padding:14px 0;text-decoration:none}.work:hover{color:var(--peach)}.work small{color:var(--mint)}footer{border-top:1px solid var(--border);padding:22px 0;color:var(--muted)}.detail{margin:36px auto 60px;max-width:990px}.detail h1{font-size:clamp(46px,8vw,92px);margin:22px 0;line-height:.96}.detail .paper{background:var(--cream);color:#251b29;padding:clamp(20px,5vw,55px);margin-top:24px}.detail p{max-width:65ch}.detail figure{margin:0 0 24px}.detail img{display:block;width:100%;max-height:540px;object-fit:cover}.detail figcaption{font-size:13px;margin-top:8px}.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}.gallery img{aspect-ratio:1;object-fit:cover}[hidden]{display:none!important}
 @media(max-width:640px){.wrap{width:calc(100% - 28px)}nav{height:54px;font-size:13px}nav div{gap:14px}.intro{padding:32px 0 22px;display:block}.intro p{margin-top:17px;font-size:14px}.scene{overflow:hidden}.scene canvas{width:100%;height:auto;min-height:138px}.stop{font-size:10px;padding:4px 3px;top:53%;letter-spacing:0}.intro h1{font-size:clamp(40px,10.5vw,60px)}.hint{display:none}.game-foot,.game-head{padding:9px}.works{padding:28px 0 40px}.work{grid-template-columns:53px 1fr auto;font-size:14px}.detail img{max-height:350px}}
+
+.project-map{--route:#a9e2ca;margin-top:24px;background:#211c3b;border:1px solid var(--border);padding:clamp(16px,3vw,32px)}
+.project-map h2{margin:4px 0 3px;font-size:clamp(28px,4vw,50px);line-height:1.1;letter-spacing:-.025em}
+.project-map p{margin:6px 0;color:var(--muted)}
+.map-steps{display:grid;grid-template-columns:repeat(var(--stops),minmax(0,1fr));list-style:none;padding:0;margin:24px 0 0}
+.map-steps li{position:relative;border-top:2px dashed var(--route);min-width:0}
+.map-steps button{width:100%;background:none;border:0;color:var(--cream);padding:0 5px 12px;text-align:center;min-height:54px;font-weight:700}
+.map-steps button::before{content:'';display:block;width:12px;height:12px;background:var(--panel);border:2px solid var(--route);margin:-8px auto 8px}
+.map-steps button[aria-pressed=true]::before{background:var(--route);box-shadow:3px 3px #100d21}
+.map-note{padding:14px 18px;background:#15132c;border-left:3px solid var(--route);min-height:110px}
+.map-note strong{color:var(--route)}.map-detail{display:inline-block;margin-top:10px}
+@media(max-width:640px){.map-steps{grid-template-columns:1fr;margin:15px 0}.map-steps li{border-top:0;border-left:2px dashed var(--route)}.map-steps button{display:flex;align-items:center;text-align:left;gap:12px;min-height:42px;padding:4px 10px 4px 0}.map-steps button::before{flex:none;margin:0 0 0 -9px}}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div><a href="#works">作品</a><a href="mailto:Aynnnlee@gmail.com">联系 ↗</a></div></nav></header>
 <main class="wrap">
 <div id="home"><section class="intro"><h1>Hi, I’m <span>Anne.</span></h1><p><strong>李静 · 香港中文大学地理与资源管理</strong><br>我做过装置、搭过网站，也在研究门店怎么找到合适的位置。来小镇走走，看看我做过的东西。</p></section>
 <section class="game" aria-label="作品地图"><div class="game-head mono"><span>✦ 作品地图</span><span id="count"></span></div>
-<div class="scene"><canvas id="map" width="480" height="134" aria-hidden="true"></canvas><div class="points" id="points"></div></div>
-<div class="game-foot"><div class="arrows"><button id="prev" aria-label="往左走">←</button><button id="next" aria-label="往右走">→</button></div><span class="hint mono">← → 移动 · Enter 进入 · 也可点击站牌</span><a id="enter" class="enter" href="#value-tree">进入站点 ↗</a></div></section>
+<div class="scene"><canvas id="map" width="384" height="134" aria-hidden="true"></canvas><div class="points" id="points"></div></div>
+<div class="game-foot"><div class="arrows"><button id="prev" aria-label="往左走">←</button><button id="next" aria-label="往右走">→</button></div><span class="hint mono">← → 移动 · 到站自动显示项目地图</span><a id="enter" class="enter" href="#value-tree">查看详情 ↗</a></div></section>
+<section class="project-map" id="project-map" aria-label="当前项目地图"></section>
 <section class="works" id="works"><h2>作品与经历</h2><div id="list"></div></section></div>
 <article id="detail" class="detail" hidden></article>
 </main><footer><div class="wrap">Anne Li 李静 <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
 <script>
-const projects = [
+const projectDetails = [
  {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', link:'https://fuldege.github.io/portfolio/', linkText:'在旧站查看项目记录', image:'tree1.png'},
  {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'和伙伴一起做学生行李配送服务。', body:'HKonnect 为学生提供行李配送，服务过 100 多位客户。从第一次咨询到最终交付，每个环节都会影响客户是否愿意把行李交给我们。', role:'我和伙伴共同创立这项服务，搭建并部署网站，也负责处理客户咨询和协调配送。'},
  {id:'retail', label:'零售选址', title:'零售选址', kind:'零售策略项目', description:'从商场平面图判断一家店的位置。', body:'一个铺位可能从入口就看得见，但走过去需要绕路。评估铺位时，我关注这两件事，也会看扶梯上下行和客流汇合的位置。', role:'我参与整理门店落位评估的填报要求，并参与全球零售项目进度看板的设计。'},
@@ -21,7 +34,46 @@ const projects = [
  {id:'writing', label:'写作与影像', title:'写作与影像', kind:'个人创作', description:'议题随笔、旅行观察与影视剪辑。', body:'我在小红书写随笔和旅行观察，在 B 站分享影视剪辑和歌单。', link:'https://space.bilibili.com/19484656',linkText:'查看 B 站主页', extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
 ];
 const $ = id => document.getElementById(id);
-const points = [51,145,239,333,427];
+const projects = projectDetails.filter(project => project.id !== 'retail');
+const points = [51,145,239,333];
+const journeys = {
+ 'value-tree': {color:'#a9e2ca', steps:[
+  ['研究树木','我参与整理树木生态知识，挑选适合放进叶片卡的内容。'],
+  ['搭建装置','我参与装置结构策划。团队用废弃纸箱搭树干，贴上香港本地采集的树皮。'],
+  ['设计互动','团队用三种叶片承载生态知识、互动任务和观众留言。']]},
+ hkonnect:{color:'#ffad71',steps:[
+  ['搭建网站','我和伙伴共同创立 HKonnect，我负责搭建并部署网站。'],
+  ['回应咨询','我处理学生对行李配送的咨询。'],
+  ['协调配送','我协调行李交付。团队服务过 100 多位客户。']]},
+ anker:{color:'#ffd391',steps:[
+  ['零售选址','我参与整理落位评估方法，检查客流方向、门头可见性和到达路径，并结合扶梯上下行判断铺位。'],
+  ['开店筹备','我支持开店筹备，协助跟踪成本、采购和相关事项。'],
+  ['进度看板','我参与设计总部门店项目进度看板，梳理开店计划、单店进度和待解决事项。'],
+  ['门店体验','我协助配置德国门店顾客反馈问卷，并整理英德双语会员提示文案。']]},
+ writing:{color:'#d3baf5',steps:[
+  ['写作','我在小红书分享议题随笔和旅行观察。'],
+  ['影像','我在 B 站分享影视剪辑和歌单。']]}
+};
+let arrived = -1;
+function showJourney(index){
+ if(arrived===index)return;
+ arrived=index;
+ const project=projects[index];
+ const {color,steps}=journeys[project.id];
+ const map=$('project-map');
+ map.style.setProperty('--route',color);
+ map.style.setProperty('--stops',steps.length);
+ map.innerHTML='<small class="mono" style="color:var(--route)">✦ 到站 · 项目地图</small><h2>'+project.title+'</h2><p>'+project.description+'</p><ol class="map-steps">'+steps.map(([title])=>'<li><button type="button" aria-pressed="false">'+title+'</button></li>').join('')+'</ol><div class="map-note" aria-live="polite"></div><a class="map-detail" href="#'+project.id+'">查看完整详情 ↗</a>';
+ const nodes=[...map.querySelectorAll('button')];
+ const note=map.querySelector('.map-note');
+ function showStep(step){
+  nodes.forEach((node,j)=>node.setAttribute('aria-pressed',j===step));
+  const [title,description]=steps[step];
+  note.innerHTML='<strong>'+title+'</strong><p>'+description+'</p>'+(project.id==='anker'&&step===0?'<a href="#retail">看零售选址案例 ↗</a>':'');
+ }
+ nodes.forEach((node,j)=>node.onclick=()=>showStep(j));
+ showStep(0);
+}
 const mapWidth = $('map').width;
 const buttons = projects.map((p,i)=>{
  const button=document.createElement('button');
@@ -56,11 +108,11 @@ function draw(){
  }
  rect(0,83,mapWidth,51,'#5b6071');rect(0,100,mapWidth,22,'#b38380');rect(0,101,mapWidth,2,'#e2ad95');rect(0,119,mapWidth,3,'#7e626f');
  for(let i=0;i<85;i++){const y=104+(i*17)%30;rect((i*31+7)%(mapWidth-1),y,2,1,y<120?'#c99a8b':'#737788')}
- [12,94,191,288,384,467].forEach((px,i)=>tree(px,70+i%2*5,'#668e83'));
+ [12,94,191,288,371].forEach((px,i)=>tree(px,70+i%2*5,'#668e83'));
  // Tree installation, delivery shop, storefront, and screening room.
  tree(51,29,'#7fab8f');tree(41,40,'#688f82');tree(60,38,'#82aa8b');rect(37,63,28,19,'#79535a');
- [145,239,333,427].forEach((px,i)=>{
-  const palette=[['#d89270','#794b61'],['#91c7b0','#526583'],['#e9af79','#865168'],['#a799cf','#675181']][i];
+ [145,239,333].forEach((px,i)=>{
+  const palette=[['#d89270','#794b61'],['#91c7b0','#526583'],['#a799cf','#675181']][i];
   rect(px-27,49,54,35,palette[0]);rect(px-32,43,64,7,palette[1]);rect(px-24,39,48,5,palette[1]);
   rect(px-21,55,12,12,'#ffda9e');rect(px+8,55,12,12,'#ffda9e');rect(px-5,59,10,25,'#3a3050');
   rect(px-27,67,19,3,palette[1]);rect(px+8,67,19,3,palette[1]);
@@ -71,11 +123,11 @@ function draw(){
  rect(x-5,y-9,10,12,'#362944');rect(x-4,y-11,8,4,'#362944');rect(x-3,y-7,7,6,'#ffcc9b');
  rect(x-3,y-5,1,1,'#362944');rect(x+2,y-5,1,1,'#362944');rect(x-6,y-4,3,7,'#362944');
  rect(x-5,y+1,10,9,'#a9e2ca');rect(x-3,y+10,6,3,'#53466b');rect(x-4,y+13,3,4-step,'#332745');rect(x+1,y+13,3,3+step,'#332745');
- if(moving) requestAnimationFrame(draw); else running=false;
+ if(moving&&!reduce) requestAnimationFrame(draw); else {running=false;showJourney(selected);}
 }
 let running=false;
 function walk(i){select(i);if(!running){running=true;requestAnimationFrame(draw)}}
-buttons.forEach((b,i)=>b.onclick=()=>{if(selected===i)location.hash=projects[i].id;else walk(i);});
+buttons.forEach((b,i)=>b.onclick=()=>{walk(i);});
 $('prev').onclick=()=>walk(selected-1);$('next').onclick=()=>walk(selected+1);
 document.addEventListener('keydown',e=>{
  if($('home').hidden||e.altKey||e.ctrlKey||e.metaKey)return;
@@ -83,11 +135,11 @@ document.addEventListener('keydown',e=>{
  if(e.key==='Enter'&&[document.body,$('prev'),$('next')].includes(document.activeElement)){e.preventDefault(); location.hash=projects[selected].id;}
 });
 function route(){
- const p=projects.find(p=>'#'+p.id===location.hash);
+ const p=projectDetails.find(p=>'#'+p.id===location.hash);
  $('home').hidden=!!p;$('detail').hidden=!p;
  if(!p){if(location.hash==='#works')$('works').scrollIntoView();else window.scrollTo(0,0); return;}
  $('detail').innerHTML='<a href="#">← 返回地图</a><h1 tabindex="-1">'+p.title+'</h1><small>'+p.kind+'</small><section class="paper">'+(p.image?'<figure><img src="'+p.image+'" alt="价值之树装置现场"><figcaption>价值之树 · 装置现场</figcaption></figure>':'')+'<h2>'+p.description+'</h2><p>'+p.body+'</p>'+(p.role?'<h3>我做了什么</h3><p>'+p.role+'</p>':'')+(p.link?'<a href="'+p.link+'">'+p.linkText+' ↗</a>':'')+(p.extra?' · <a href="'+p.extra+'">小红书 ↗</a>':'')+(p.image?'<div class="gallery">'+[2,3,4].map(n=>'<a href="tree'+n+'.png"><img src="tree'+n+'.png" alt="价值之树项目照片 '+n+'"></a>').join('')+'</div>':'')+'</section>';
- walk(projects.indexOf(p));window.scrollTo(0,0);$('detail').querySelector('h1').focus({preventScroll:true});
+ walk(projects.findIndex(project=>project.id===(p.id==='retail'?'anker':p.id)));window.scrollTo(0,0);$('detail').querySelector('h1').focus({preventScroll:true});
 }
 select(0); draw();route();window.addEventListener('hashchange',route);
 </script></body></html>
