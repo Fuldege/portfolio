@@ -38,6 +38,20 @@
 .island-pin:hover,.island-pin[aria-pressed=true]{background:#ffe0ad;color:#23213b}
 .island-walker{z-index:3;margin-top:0;transform:translate(-50%,-75%);transition:none;box-shadow:none}
 @media(max-width:640px){.island-pin{min-height:30px;font-size:10px;padding:4px 5px}.island-walker{width:11px;height:17px}}
+
+.world-landscape{height:auto;aspect-ratio:1.30;background:#17182e}
+.district-art{position:absolute;width:300%;height:200%;max-width:none;inset:auto;top:0;left:0;display:block}
+[data-world=hkonnect] .district-art{left:-100%}
+[data-world=anker] .district-art{left:-200%}
+[data-world=writing] .district-art{top:-100%}
+[data-world=oalmr] .district-art{left:-100%;top:-100%}
+[data-world=research] .district-art{left:-200%;top:-100%}
+.world-landscape button{background:#17192bed;border-color:#e9d1a9}
+.world-landscape button[aria-pressed=true]{background:#ffe0ad;color:#221f31}
+.world-landscape .world-walker{z-index:3}
+.world-title{padding-bottom:16px}
+.fieldnote{margin-top:0}
+@media(max-width:640px){.world-landscape{aspect-ratio:1.15}}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div><a href="#street">世界地图</a><button type="button" id="contact-open" class="contact-open">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -45,7 +59,7 @@
 <section id="street" class="game" aria-label="作品地图"><div class="game-head mono"><span>✦ 作品地图</span><span id="count"></span></div>
 <div class="street-scroll" id="street-scroll">
  <div class="island" id="island">
-  <img src="anne-island.webp" width="1536" height="1024" alt="暮色中的像素岛屿，石径从中央车站通往商铺、校园、天文台和港口" fetchpriority="high">
+  <img src="anne-harbor.webp" width="1536" height="1024" alt="港湾像素地图，石径连接山顶观测站、林地、商街、校园与码头" fetchpriority="high">
   <div id="points" aria-label="岛上地点"></div>
   <span class="island-walker world-walker" id="island-walker" aria-hidden="true"></span>
  </div>
@@ -108,23 +122,16 @@ const atlas = {
     "B 站收录了我的影视剪辑和歌单。这里可以直接播放作品，看镜头怎样衔接，也可以听我为不同片段挑选的音乐。"
   ]
 };
-const artwork = {
-  "value-tree": "<path fill=\"#976e54\" d=\"M104 98h30V47h-13v29h-17z\"/><path fill=\"#5c997c\" d=\"M53 59V44h15V28h26V15h46v10h31v15h15v24h-24v10H75V59z\"/><path fill=\"#a5c48c\" d=\"M70 40h30V29h21v13h-17v10H70z\"/>",
-  "hkonnect": "<path fill=\"#4b6881\" d=\"M0 45h240v21H0z\"/><path fill=\"#e9be91\" d=\"M24 23h35v25H24zM164 68h42v27h-42z\"/><path fill=\"#b4694e\" d=\"M21 21h41v5H21zM161 65h49v6h-49z\"/><path fill=\"#efa961\" d=\"M99 42h26v17H99zM125 48h9v11h-9z\"/><path fill=\"#252338\" d=\"M103 57h6v5h-6zM124 57h6v5h-6z\"/>",
-  "anker": "<g fill=\"#344752\" stroke=\"#86a5a0\" stroke-width=\"1\"><path d=\"M8 9h64v24H8zM81 9h49v24H81zM141 9h89v24h-89zM8 77h57v23H8zM75 77h68v23H75zM153 77h77v23h-77z\"/></g><path fill=\"#b89362\" d=\"M151 10h39v23h-39z\"/><path d=\"M8 56h107l14-13h60\" fill=\"none\" stroke=\"#afa592\" stroke-width=\"2\" stroke-dasharray=\"4 3\"/>",
-  "writing": "<path fill=\"#ebd6b9\" d=\"M15 20h87v65H15z\"/><path fill=\"#957c87\" d=\"M22 32h64v3H22zM22 41h44v2H22zM22 50h60v2H22z\"/><path fill=\"#897db1\" d=\"M131 16h91v62h-91z\"/><path fill=\"#292640\" d=\"M138 24h77v41h-77z\"/><path fill=\"#c5b6e7\" d=\"m166 33 18 10-18 11z\"/>"
+const landmarks = {
+ 'value-tree': [[23,67],[49,53],[87,67]],
+ hkonnect: [[26,47],[36,77],[86,48]],
+ anker: [[17,75],[83,67],[55,36],[48,62]],
+ writing: [[27,67],[61,62]]
 };
-const landmarks = {"value-tree":[[18,46],[50,82],[83,38]],"hkonnect":[[16,68],[49,30],[82,76]],"anker":[[15,50],[41,70],[63,39],[86,58]],"writing":[[25,77],[75,78]]};
 atlas.oalmr = ['交流活动广场','迎宾广场','展览廊','交流礼堂'];
 atlas.research = ['地理研究营地','地形观测台','地图工作室','研究档案室'];
-landmarks.oalmr = [[16,65],[50,39],[84,63]];
-landmarks.research = [[16,43],[50,68],[84,39]];
-artwork.oalmr = '<path d="M54 104V56h133v48M95 56V24h50v32" fill="#ae765a"/><path d="M82 24h76v-6h-13v-6H96v6H82zM43 56h154v-7H43z" fill="#754251"/><path d="M113 62h14v42h-14zM66 65h17v16H66zM157 65h17v16h-17z" fill="#f5d39a"/><path d="M8 100h32V75H8zM199 100h33V75h-33z" fill="#65876f"/>';
-artwork.research = '<path d="M-4 75L46 14l55 61m10 2 58-65 73 65" fill="#496685"/><path d="m24 41 22-27 24 27-23-7zm115 4 30-33 36 33-35-12z" fill="#bdd2dd"/><path d="M88 100h63V75H88z" fill="#636682"/><path d="M83 75h72l-13-13H95z" fill="#b7a9d1"/><path d="M105 81h12v19h-12zM127 81h13v8h-13z" fill="#e8d7aa"/>';
-artwork["value-tree"] += "<path d=\"M0 90h60v12h175v6H0z\" fill=\"#4b755d\"/><path d=\"M9 76h18v-8h13v9h13v11H9zm174 3h17v-9h15v7h18v12h-50z\" fill=\"#5b8e71\"/><path d=\"M87 56h8v8h-8zm43-20h8v8h-8zm32 17h8v8h-8z\" fill=\"#edbb87\"/>";
-artwork["hkonnect"] += "<path d=\"M7 54h35m15 0h31m52 0h33m15 0h42\" stroke=\"#e5c7a0\" stroke-dasharray=\"4 3\"/><path d=\"M24 64h39v22H24zm157-47h41v19h-41z\" fill=\"#49636f\"/><path d=\"M34 70h19v12H34zm157-49h21v10h-21z\" fill=\"#8dafab\"/>";
-artwork["anker"] += "<path d=\"M17 18h37m39 0h27m51 68h40m-124 0h43\" stroke=\"#68848c\" stroke-width=\"3\"/><path d=\"M144 65l9-15m-5 15 9-15m-5 15 9-15\" stroke=\"#b5d0c5\" stroke-width=\"2\"/><path d=\"M217 57h15m-4-4 4 4-4 4\" fill=\"none\" stroke=\"#ffcf83\"/>";
-artwork["writing"] += "<path d=\"M122 80h113v16H122z\" fill=\"#302a43\"/><path d=\"M126 84h24v7h-24zm28 0h37v7h-37zm41 0h28v7h-28z\" fill=\"#a693cc\"/><path d=\"M18 92h62v5H18z\" fill=\"#af8798\"/>";
+landmarks.oalmr = [[71,85],[27,66],[83,52]];
+landmarks.research = [[79,29],[24,61],[80,65]];
 let arrived = -1;
 function showJourney(index){
  if(arrived===index)return;
@@ -133,12 +140,11 @@ function showJourney(index){
  const id=project.id, entries=atlas[id], positions=landmarks[id], count=positions.length;
  const map=$('project-map');
  map.dataset.world=id;
- const route=positions.map(([x,y])=>[x*2.4,y*1.08].join(',')).join(' ');
  const hasNotes=entries.length>count+1;
  map.innerHTML=`<div class="terrain">
   <div class="world-title"><h2>${project.title}</h2><p>${entries[0]}</p></div>
   <div class="world-landscape" aria-label="子项目地图">
-   <svg aria-hidden="true" viewBox="0 0 240 108" preserveAspectRatio="none">${artwork[id]}<polyline points="${route}" fill="none" stroke="#fff0cf" stroke-width="1.2" stroke-dasharray="2 2"/></svg>
+   <img class="district-art" src="district-tiles.webp" alt="" decoding="async">
    <span class="world-walker" aria-hidden="true"></span>
    ${positions.map(([x,y],i)=>`<button style="left:${x}%;top:${y}%" aria-pressed="false">${entries[i+1]}</button>`).join('')}
   </div>
@@ -159,15 +165,16 @@ function showJourney(index){
  nodes.forEach((node,i)=>node.onclick=()=>showStep(i));
  showStep(0);
 }
-const central = [49,74];
-const plaza = [[44,73],[39,69],[40,60],[43,51],[43,43]];
+const central = [47,83];
+const westPath = [[43,80],[37,74],[34,70],[31,66]];
+const eastPath = [[55,83],[61,79],[62,73],[59,69],[55,65],[55,59],[59,52],[64,47]];
 const islandRoutes = {
- 'value-tree': [...plaza,[40,38],[37,33]],
- hkonnect: [[57,73],[67,71],[74,68],[80,74],[86,76]],
- anker: [[42,73],[32,71],[23,68],[16,60],[17,53]],
- writing: [[42,73],[36,68],[34,61],[33,53]],
- oalmr: [...plaza,[49,39],[56,39],[63,39],[71,43],[77,48],[80,41],[78,30]],
- research: [...plaza,[39,34],[34,29],[29,26],[26,21],[23,17]]
+ 'value-tree': [...eastPath,[64,43],[58,42],[54,42],[51,39],[47,37]],
+ hkonnect: [[55,83],[61,79],[67,75],[73,74],[79,72]],
+ anker: [...westPath,[27,66],[22,65],[20,64]],
+ writing: [...westPath,[36,64],[42,62]],
+ oalmr: [...eastPath,[71,43],[74,41],[77,35],[79,31]],
+ research: [...westPath,[29,62],[26,57],[25,51],[27,47],[24,45],[19,43],[19,39],[22,34],[24,31],[22,28],[18,26],[19,22]]
 };
 const walker = $('island-walker');
 const street = $('street-scroll');
