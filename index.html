@@ -95,17 +95,18 @@ nav>div a:hover,nav .contact-open:hover{background:#323453;color:#fff1dd}
 #contact dd a{color:#bdc0ff;text-underline-offset:4px}
 .world-title{background:#26283f;border-bottom:1px solid #424461}
 .island .world-walker,.world-landscape .world-walker{isolation:isolate;overflow:visible}
-.world-walker::before{
- content:'';position:absolute;z-index:-1;pointer-events:none;
- left:50%;bottom:-13px;width:clamp(64px,10vw,128px);height:clamp(36px,5vw,66px);
- transform:translateX(-50%);border-radius:50%;
- background:radial-gradient(ellipse at center,#fff0b88c 0%,#ffd48956 28%,#c9a8ff2b 51%,transparent 72%);
+.station-light{
+ position:absolute;z-index:1;pointer-events:none;
+ transform:translate(-55%,-78%);
+ width:clamp(88px,19vw,210px);height:clamp(54px,12vw,124px);
+ background:radial-gradient(ellipse at center,#ffdb8f8c 0%,#ffce795c 32%,#b399e331 54%,transparent 73%);
+ mix-blend-mode:screen;
 }
-.island-pin.is-arrived,.world-landscape button[aria-pressed=true]{
+.island-pin.is-arrived,.world-landscape button.is-arrived{
  color:#241e36;background:#ffd39b;border-color:#ffdfa9;
  box-shadow:0 0 0 1px #ffdfa95c,0 0 15px #ffbf696b,3px 3px #191529
 }
-.island-pin[aria-pressed=true]:not(.is-arrived){background:#a7a7f3;color:#211e36;border-color:#c6c7ff}
+.island-pin[aria-pressed=true]:not(.is-arrived),.world-landscape button[aria-pressed=true]:not(.is-arrived){background:#a7a7f3;color:#211e36;border-color:#c6c7ff}
 .island-pin:focus-visible,.world-landscape button:focus-visible,.contact-open:focus-visible,.contact-close:focus-visible{outline:2px solid #c9caff;outline-offset:3px}
 @media(max-width:640px){nav>div a,nav .contact-open{padding:6px}.game-head,.game-foot{padding-left:12px;padding-right:12px}}
 </style></head><body>
@@ -117,6 +118,7 @@ nav>div a:hover,nav .contact-open:hover{background:#323453;color:#fff1dd}
  <div class="island" id="island">
   <canvas id="harbor-map" class="pixel-map" width="384" height="216" role="img" aria-label="一座由环岛路串联六个站点的像素岛"></canvas>
   <div id="points" aria-label="岛上地点"></div>
+  <span class="station-light" hidden aria-hidden="true"></span>
   <span class="island-walker world-walker" id="island-walker" aria-hidden="true"><canvas class="avatar-sprite" width="12" height="16"></canvas></span>
  </div>
 </div>
@@ -201,6 +203,7 @@ function showJourney(index){
   <div class="world-title"><h2>${project.title}</h2><p>${entries[0]}</p></div>
   <div class="world-landscape" aria-label="子项目地图">
    <canvas class="pixel-map" width="288" height="162" aria-hidden="true"></canvas>
+   <span class="station-light" hidden aria-hidden="true"></span>
    <span class="world-walker" aria-hidden="true"><canvas class="avatar-sprite" width="12" height="16"></canvas></span>
    ${positions.map(([x,y],i)=>`<button style="left:${x}%;top:${y}%" aria-pressed="false">${entries[i+1]}</button>`).join('')}
   </div>
@@ -211,6 +214,7 @@ function showJourney(index){
  const note=map.querySelector('.fieldnote');
  const walker=map.querySelector('.world-walker');
  paintAvatar(walker.querySelector('canvas'));
+ const light=map.querySelector('.station-light');
  let lastStep=0, districtMove;
  function showStep(i,animate=false){
   nodes.forEach((node,j)=>node.setAttribute('aria-pressed',j===i));
@@ -220,8 +224,13 @@ function showJourney(index){
   walker.style.left=x+'%';
   walker.style.top=y+'%';
   lastStep=i;
+  const arrive=()=>illuminateStation(light,nodes,i,positions[i]);
   if(animate&&path.length>1&&!reducedMotion.matches){
+   clearStationLight(light,nodes);
    districtMove=walker.animate(pathFrames(path),{duration:Math.min(1300,loopDistance(path)*14),easing:'linear'});
+   districtMove.onfinish=arrive;
+  }else{
+   arrive();
   }
   if(!hasNotes)return;
   const link=id==='anker'&&i===0?'#retail':id==='writing'?(i===0?project.extra:project.link):'#'+id;
@@ -267,7 +276,20 @@ function pathAroundLoop(loop,from,to){
  const forward=trace(1),backward=trace(-1);
  return loopDistance(forward)<=loopDistance(backward)?forward:backward;
 }
+function clearStationLight(light,pins){
+ light.hidden=true;
+ pins.forEach(pin=>pin.classList.remove('is-arrived'));
+}
+
+function illuminateStation(light,pins,active,[x,y]){
+ light.style.left=x+'%';
+ light.style.top=y+'%';
+ light.hidden=false;
+ pins.forEach((pin,i)=>pin.classList.toggle('is-arrived',i===active));
+}
+
 const walker = $('island-walker');
+const islandLight = walker.parentElement.querySelector('.station-light');
 const street = $('street-scroll');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let selected=0;
@@ -305,7 +327,7 @@ function walk(index,animate=true){
  movement=null;
  const finish=()=>{
   arrival=selected;
-  buttons.forEach((button,i)=>button.classList.toggle('is-arrived',i===arrival));
+  illuminateStation(islandLight,buttons,arrival,end);
   placeWalker(end);
   showJourney(arrival);
   if(animate&&street.scrollWidth>street.clientWidth){
@@ -313,6 +335,7 @@ function walk(index,animate=true){
   }
  };
  if(!animate||reducedMotion.matches||arrival<0||selected===arrival){finish();return;}
+ clearStationLight(islandLight,buttons);
  const frames=pathAroundLoop(islandLoop,loopIndex.get(projects[arrival].id),loopIndex.get(destination.id));
  movement=walker.animate(pathFrames(frames),{duration:Math.min(1600,Math.max(450,loopDistance(frames)*14))});
  movement.onfinish=finish;
