@@ -132,43 +132,65 @@ body:has(dialog[open]){overflow:hidden}
  #project-map .world-title{padding:10px 12px}
  #project-map .fieldnote{margin:10px}
 }
+
+.nav-actions{display:flex;align-items:center;gap:8px}
+.language-switch{padding:5px 9px;background:#30324b;color:var(--cream);border:1px solid #545777;border-radius:7px;white-space:nowrap}
+.language-switch:hover{background:#46496f}
+@media(max-width:420px){nav .brand{letter-spacing:.035em}.nav-actions{gap:3px}}
+#project-map .world-landscape button{max-width:32%;white-space:normal;line-height:1.2;font-size:clamp(10px,1.6vw,14px)}
+.case-sections{display:grid;gap:0;margin:24px 0}
+.case-sections section{border-top:1px solid #cbbba8;padding:18px 0 6px}
+.case-sections h3,.case-sections p{margin:0 0 9px}
+.case-demo{padding:clamp(16px,3vw,26px);color:var(--cream);background:#24263b;border:1px solid #555879;border-radius:9px}
+.case-demo h2,.case-demo h3,.case-demo p{margin:0 0 10px}
+.demo-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.case-demo button{color:inherit;background:#343655;border:1px solid #686c93;border-radius:6px;padding:5px 10px;min-height:38px}
+.case-demo button[aria-pressed="true"],.case-demo button[data-action]{background:#c7c8ff;color:#201e35}
+.demo-state{font-weight:750;color:#bde5cf}
+.demo-audit{border-top:1px solid #585a76;margin-top:16px;padding-top:12px}
+.demo-audit ol{margin:8px 0 0;padding-inline-start:22px}
 </style></head><body>
-<header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog">联系方式</button></nav></header>
+<header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div class="nav-actions"><button type="button" id="language-switch" class="language-switch"></button><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog" data-copy="contact">联系方式</button></div></nav></header>
 <main class="wrap">
-<div id="home"><section class="intro"><h1>Hi, I’m <span>Anne.</span></h1><p><strong>李静 · 香港中文大学地理与资源管理</strong><br>我做过装置、搭过网站，也在研究门店怎么找到合适的位置。沿着岛上的路走走，看看我做过的东西。</p></section>
-<section id="street" class="game" aria-label="作品地图"><div class="game-head mono"><span>✦ 作品地图</span><span id="count"></span></div>
+<div id="home"><section class="intro"><h1>Hi, I’m <span>Anne.</span></h1><p><strong data-copy="introName"></strong><br><span data-copy="intro"></span></p></section>
+<section id="street" class="game" aria-label="作品地图" data-label="map"><div class="game-head mono"><span data-copy="mapTitle">✦ 作品地图</span><span id="count"></span></div>
 <div class="street-scroll" id="street-scroll">
  <div class="island" id="island">
-  <canvas id="harbor-map" class="pixel-map" width="384" height="216" role="img" aria-label="一座由环岛路串联六个站点的像素岛"></canvas>
-  <div id="points" aria-label="岛上地点"></div>
+  <canvas id="harbor-map" class="pixel-map" width="384" height="216" role="img" data-label="island"></canvas>
+  <div id="points" data-label="stations"></div>
   <span class="island-walker world-walker" id="island-walker" aria-hidden="true"><canvas class="avatar-sprite" width="12" height="16"></canvas></span>
  </div>
 </div>
-<div class="game-foot"><div class="arrows"><button id="prev" aria-label="往左走">←</button><button id="next" aria-label="往右走">→</button></div><span class="hint mono">点击地标或用 ← → 沿环岛路走</span><button type="button" id="enter" class="enter" aria-haspopup="dialog">进入项目地图 ↗</button></div></section>
+<div class="game-foot"><div class="arrows"><button id="prev" data-label="previous">←</button><button id="next" data-label="next">→</button></div><span class="hint mono" data-copy="hint">点击地标或用 ← → 沿环岛路走</span><button type="button" id="enter" class="enter" data-copy="enter" aria-haspopup="dialog">进入项目地图 ↗</button></div></section>
 </div>
 <article id="detail" class="detail" hidden></article>
 </main>
 <dialog id="project-dialog" aria-labelledby="project-title">
- <div class="project-bar"><span class="mono">✦ 项目地图</span><form method="dialog"><button class="project-close" autofocus>← 返回总地图</button></form></div>
+ <div class="project-bar"><span class="mono" data-copy="projectMap">✦ 项目地图</span><form method="dialog"><button class="project-close" data-copy="back" autofocus>← 返回总地图</button></form></div>
  <div id="project-map"></div>
 </dialog>
-<dialog id="contact" aria-labelledby="contact-title"><form method="dialog"><button class="contact-close" aria-label="关闭联系方式">×</button></form><h2 id="contact-title">联系方式</h2><dl><dt>邮箱</dt><dd>aynnnlee@gmail.com</dd><dt>内地电话</dt><dd>+86 13636511549</dd><dt>香港电话</dt><dd>+852 63158830</dd>
-<dt>微信</dt><dd>Fuldege</dd>
-<dt>Instagram</dt><dd><a href="https://www.instagram.com/fuldegeeee/" rel="me">fuldegeeee <span aria-hidden="true">↗</span></a></dd><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/jing-li-aynnnlee/" rel="me">Jing Li <span aria-hidden="true">↗</span></a></dd></dl></dialog><footer><div class="wrap">Anne Li 李静 <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
+<dialog id="contact" aria-labelledby="contact-title"><form method="dialog"><button class="contact-close" data-label="closeContact">×</button></form><h2 id="contact-title" data-copy="contact">联系方式</h2><dl><dt data-copy="email">邮箱</dt><dd>aynnnlee@gmail.com</dd><dt data-copy="mainland">内地电话</dt><dd>+86 13636511549</dd><dt data-copy="hongkong">香港电话</dt><dd>+852 63158830</dd>
+<dt data-copy="wechat">微信</dt><dd>Fuldege</dd>
+<dt>Instagram</dt><dd><a href="https://www.instagram.com/fuldegeeee/" rel="me">fuldegeeee <span aria-hidden="true">↗</span></a></dd><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/jing-li-aynnnlee/" rel="me">Jing Li <span aria-hidden="true">↗</span></a></dd></dl></dialog><footer><div class="wrap"><span data-copy="footerName">Anne Li 李静</span> <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
 <script>
-const projectDetails = [
+const chineseDetails = [
  {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', link:'tree1.png', linkText:'查看装置全图', image:'tree1.png'},
  {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'和伙伴一起做学生行李配送服务。', body:'HKonnect 为学生提供行李配送，服务过 100 多位客户。从第一次咨询到最终交付，每个环节都会影响客户是否愿意把行李交给我们。', role:'我和伙伴共同创立这项服务，搭建并部署网站，也负责处理客户咨询和协调配送。'},
  {id:'retail', label:'零售选址', title:'零售选址', kind:'零售策略项目', description:'从商场平面图判断一家店的位置。', body:'一个铺位可能从入口就看得见，但走过去需要绕路。评估铺位时，我关注这两件事，也会看扶梯上下行和客流汇合的位置。', role:'我参与整理门店落位评估的填报要求，并参与全球零售项目进度看板的设计。'},
- {id:'anker', label:'安克实习', title:'安克 · 全球零售', kind:'实习经历 · 深圳', description:'参与全球直营门店拓展与开业筹备。', body:'我在安克的全球直营相关团队实习，协助推进新店从选址、设计施工和采购到开业筹备。不同地区的门店推进节奏各异，总部和本地团队需要对齐项目阶段、时间和待解决的问题。', role:'我参与设计门店项目进度看板，并支持门店选址评估、成本跟踪以及开店筹备。也参与了德国门店顾客反馈问卷和英德双语会员提示文案的配置与整理。', link:'#retail',linkText:'看我的零售选址项目'},
+ {id:'anker', label:'Anker Innovations', title:'Anker Innovations', kind:'全球零售实习 · 深圳', description:'把海外门店的立项流程做成一套多团队协作工具', body:'一家海外门店从市场筹备走到开业，需要多个团队共同判断、交接材料和跟进任务。我在安克负责搭建前期立项工具，也参与拆解了贯穿新店筹备与开业的工作分解结构（WBS）。'},
  {id:'writing', label:'写作与影像', title:'写作与影像', kind:'个人创作', description:'议题随笔、旅行观察与影视剪辑。', body:'我在小红书写随笔和旅行观察，在 B 站分享影视剪辑和歌单。', link:'https://space.bilibili.com/19484656',linkText:'查看 B 站主页', extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
 ];
 const $ = id => document.getElementById(id);
-const projects = [
+let projectDetails;
+let projects;
+function localProjects(){
+ projectDetails = language==='en' ? englishDetails : chineseDetails;
+ projects = [
  ...projectDetails.filter(project => project.id !== 'retail'),
  {id:'oalmr', label:'OALMR', title:'CUHK OALMR'},
- {id:'research', label:'科研学术', title:'科研学术'}
-];
+ {id:'research', label:t('research'), title:t('research')}
+ ];
+}
 
 const atlas = {
   "value-tree": [
@@ -190,15 +212,11 @@ const atlas = {
     "我还负责协调配送，把对客户的答复接到实际交付上。HKonnect 累计服务过 100 多位客户，这是整个团队的服务规模；我参与的是网站、咨询和配送之间的衔接。"
   ],
   "anker": [
-    "一家海外直营店，从候选铺位到顾客反馈",
-    "选址评估",
-    "开业筹备",
-    "总部看板",
-    "顾客体验",
-    "在商场入口能看到门头，真正走过去却可能要绕一圈。我参与重构铺位评估表，让填报人标出主要入口、具体扶梯的上下行、客流汇合点和门头首次可见的位置。总部可以沿图复核顾客怎么走，以及这条路线是否经过店前。",
-    "我参与开店成本跟踪，对照立项预算与图纸阶段的造价，整理差异供团队判断是否需要追加审批。我也梳理过柏林门店的许可问题，把招牌、外立面和消防等事项对应到申请主体、材料和办理时间。",
-    "我参与设计全球零售进度看板。总部要看全年开店计划，项目团队要定位单店卡在哪项任务。我把年度总览、单店工作分解和问题分析组织成三个视图，并区分计划与实际开业日期，避免预测和已发生的进度混在一起。",
-    "在德国门店的顾客体验工作中，我参与配置 NPS 问卷，也整理过会员系统的英德双语提示。问卷对应的是顾客体验后的反馈，会员提示对应的是顾客当下要完成的操作，两种文字各有自己的使用时机。"
+    "海外门店立项系统 · 从流程拆解到工具搭建",
+    "系统架构", "开店全流程", "AI 工作流",
+    "我负责前期立项工具的搭建，把区域提报、资料补充和总部审阅串在同一个项目里。为区域、职能团队和总部设计各自的视图，也搭建了填报模板和审批流，并接入内部数据。",
+    "我参与拆解海外门店的开店 WBS，从市场与选址准备、商务条款和经营测算，到立项、设计施工和开业。梳理前后置任务和团队交接，帮助我确定立项工具应覆盖哪些决策、在哪一步交接给后续团队。",
+    "我搭建了用于战略规划和铺位评估的 AI 工作流，把材料检查、分析和报告生成拆成独立步骤，让中间结果可以复核，再由人作最终判断。"
   ],
   "writing": [
     "从旅行观察的文字，到剪辑台上的画面",
@@ -210,25 +228,26 @@ const atlas = {
 };
 const districtLoop = [[23,39],[35,27],[56,24],[76,33],[84,49],[73,66],[53,76],[32,70],[19,56]];
 const districtStations = {
- 'value-tree':[0,3,6], hkonnect:[0,6,4], anker:[7,5,2,0],
+ 'value-tree':[0,3,6], hkonnect:[0,6,4], anker:[7,5,2],
  writing:[0,5], oalmr:[6,0,3], research:[3,0,6]
 };
 atlas.oalmr = ['交流活动广场','迎宾广场','展览廊','交流礼堂'];
 atlas.research = ['地理研究营地','地形观测台','地图工作室','研究档案室'];
 const projectDialog=$('project-dialog');
+const currentAtlas=()=>language==='en'?englishAtlas:atlas;
 let shownProject=-1;
 function showJourney(index){
  if(shownProject===index)return;
  shownProject=index;
  const project=projects[index];
- const id=project.id, entries=atlas[id], stationIndices=districtStations[id];
+ const id=project.id, entries=currentAtlas()[id], stationIndices=districtStations[id];
  const positions=stationIndices.map(i=>districtLoop[i]), count=positions.length;
  const map=$('project-map');
  map.dataset.world=id;
  const hasNotes=entries.length>count+1;
  map.innerHTML=`<div class="terrain">
   <div class="world-title"><h2 id="project-title">${project.title}</h2><p>${entries[0]}</p></div>
-  <div class="world-landscape" aria-label="子项目地图">
+  <div class="world-landscape" aria-label="${t('submap')}">
    <canvas class="pixel-map" width="288" height="162" aria-hidden="true"></canvas>
    <span class="world-walker" aria-hidden="true"><canvas class="avatar-sprite" width="12" height="16"></canvas></span>
    ${positions.map(([x,y],i)=>`<button style="left:${x}%;top:${y}%" aria-pressed="false">${entries[i+1]}</button>`).join('')}
@@ -266,13 +285,109 @@ function showJourney(index){
  function updateNote(i){
   note.removeAttribute('aria-busy');
   if(!hasNotes)return;
-  const link=id==='anker'&&i===0?'#retail':id==='writing'?(i===0?project.extra:project.link):'#'+id;
-  const label=id==='writing'?(i===0?'阅读小红书手记':'播放 B 站作品'):id==='value-tree'?'看装置现场照片':id==='anker'&&i===0?'展开选址案例':'查看项目介绍';
+  const link=id==='writing'?(i===0?project.extra:project.link):'#'+id;
+  const label=id==='writing'?t(i===0?'readNotes':'watch'):t(id==='anker'?'caseLink':id==='value-tree'?'photos':'overview');
   note.innerHTML='<h3>'+entries[i+1]+'</h3><p>'+entries[count+1+i]+'</p><a href="'+link+'">'+label+' ↗</a>';
  }
  nodes.forEach((node,i)=>node.onclick=()=>showStep(i,true));
  showStep(0);
 }
+const copy={
+ zh:{
+  introName:'李静 · 香港中文大学地理与资源管理', intro:'我做过装置，和朋友搭过学生行李配送服务，也做过让不同团队一起推进海外开店的工具。沿着岛走走，看看我做过的项目。',
+  contact:'联系方式',closeContact:'关闭联系方式',email:'邮箱',mainland:'内地电话',hongkong:'香港电话',wechat:'微信',footerName:'Anne Li 李静',
+  map:'作品地图',mapTitle:'✦ 作品地图',island:'一座由环岛路串联六个站点的像素岛',stations:'岛上地点',previous:'往左走',next:'往右走',hint:'点击地标或用 ← → 沿环岛路走',enter:'进入项目地图 ↗',projectMap:'✦ 项目地图',submap:'项目地标',back:'← 返回总地图',research:'科研学术',readNotes:'阅读小红书手记',watch:'播放 B 站作品',photos:'看装置现场照片',overview:'查看项目介绍',caseLink:'阅读完整案例',myWork:'我做了什么',treePhoto:'价值之树 · 装置现场'
+ },
+ en:{
+  introName:'Anne (Jing) Li · Geography and Resource Management, CUHK',intro:'I’ve made a public art installation, co-founded a student luggage service, and built tools for teams opening stores overseas. Explore the island to see how each project came together.',
+  contact:'Contact',closeContact:'Close contact details',email:'Email',mainland:'Mainland China',hongkong:'Hong Kong',wechat:'WeChat',footerName:'Anne (Jing) Li',
+  map:'Project map',mapTitle:'✦ Project map',island:'A pixel-art island with six stops on a circular path',stations:'Island landmarks',previous:'Walk left',next:'Walk right',hint:'Select a landmark or use ← → to walk around the island',enter:'Open project map ↗',projectMap:'✦ Project map',submap:'Project landmarks',back:'← Back to island',research:'Research',readNotes:'Read on Xiaohongshu',watch:'Watch on Bilibili',photos:'See the installation photos',overview:'Read project overview',caseLink:'Read the full case study',myWork:'My contribution',treePhoto:'The Value Tree installation'
+ }
+};
+const englishDetails=[
+ {id:'value-tree',label:'The Value Tree',title:'The Value Tree',kind:'Public art installation',description:'An invitation to notice the trees around us',body:'We built a tree from discarded cardboard and covered it with bark collected in Hong Kong. Green leaves explained tree ecology, colourful leaves offered small activities, and transparent leaves gave visitors space to leave their own messages.',role:'I contributed research on tree ecology, helped write the science content, and helped plan the structure.',link:'tree1.png',linkText:'View installation photo',image:'tree1.png'},
+ {id:'hkonnect',label:'HKonnect',title:'HKonnect',kind:'Student venture',description:'A luggage delivery service for students',body:'HKonnect served more than 100 customers. Each step, from the first enquiry to delivery, gave us a chance to earn their trust.',role:'I co-founded the service, built and deployed the website, handled customer enquiries, and coordinated deliveries.'},
+ {id:'retail',label:'Retail site assessment',title:'Retail Site Assessment',kind:'Retail strategy project',description:'Reading a shopping centre floor plan',body:'A storefront can be visible from an entrance and still be difficult to reach. I looked at how escalator direction and intersecting routes affected whether shoppers would pass the site.',role:'I helped define what teams should capture when assessing a candidate unit and contributed to the global retail project dashboard.'},
+ {id:'anker',label:'Anker Innovations',title:'Anker Innovations',kind:'Global Retail Internship · Shenzhen',description:'Building a tool for cross-team decisions on new stores',body:'Opening a store overseas involves decisions, documents and handoffs across several teams. At Anker, I built a tool for the pre-approval stage and contributed to the work breakdown structure (WBS) for the full store opening process.'},
+ {id:'writing',label:'Writing & Film',title:'Writing & Film',kind:'Personal work',description:'Essays, travel observations and video edits',body:'I write essays and travel notes on Xiaohongshu and share video edits and playlists on Bilibili.',link:'https://space.bilibili.com/19484656',linkText:'Visit my Bilibili channel',extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
+];
+const englishAtlas={
+ 'value-tree':['An invitation to spend time with a tree','Ecology cards','Cardboard & bark','Three kinds of leaves','A stone marked “guilt” started our discussion about why people rarely pause to notice trees. I helped turn ecology research into short cards visitors could read beside the installation.','I helped plan the structure. Our team built the trunk from reused cardboard and covered it with locally collected paperbark.','Visitors could read about trees, pick an activity, or leave a message. Printable cards and an online activity picker extended the experience into the park.'],
+ hkonnect:['Follow a bag from enquiry to delivery','Website','Customer enquiries','Delivery','I co-founded HKonnect and built and deployed the website so students could find out about our luggage service on their own.','I answered customer questions directly and saw how much the details mattered when someone was deciding whether to trust us with their luggage.','I coordinated deliveries and followed through on what we told customers. Our team served more than 100 customers.'],
+ anker:['Overseas store approvals, from process design to implementation','System design','Store opening process','AI workflows','I built role-specific views for regional teams, specialist teams and headquarters, alongside intake templates and an approval workflow connected to internal data.','I helped break down the full opening process, from market and site preparation through commercial review, design, construction and launch. Mapping the handoffs helped define where the approval tool should start and end.','I built AI-assisted workflows for strategic planning and site assessment. I separated material checks, analysis and report generation so the outputs could be reviewed before a person made the decision.'],
+ writing:['From travel notes to the editing desk','Writing','Video edits','I publish travel observations and essays on Xiaohongshu.','I share film edits and playlists on Bilibili.'],
+ oalmr:['Student exchange and campus programmes','Welcome Plaza','Exhibition Hall','Assembly Hall'],
+ research:['A camp for geography projects','Observation Deck','Mapping Studio','Research Archive']
+};
+const caseSections={
+ zh:[
+  ['梳理开店全流程','我参与拆解海外门店从市场筹备、选址、商务和 P&L 测算，到立项、设计施工及开业营销的任务。把这些任务组织进 WBS 后，可以看出各团队何时接手、哪些材料要先到位，也帮助我界定立项工具覆盖到哪里。'],
+  ['搭建多角色立项系统','我负责搭建前期立项工具，包括区域、职能团队和总部的前端视图、填报模板、数据接入和审批流。设计的核心是让同一门店项目贯穿不同角色的工作：区域有地方提交和补充材料，职能团队能看到自己需要处理的信息，总部拿到可以审阅的立项资料。'],
+  ['把 AI 放到可复核的环节','我搭建了用于战略规划和铺位评估的 AI 工作流，分别处理材料检查、分析及报告生成。拆开这些步骤，便于确认哪些材料齐了、哪些结果还要复核，以及在哪里交由人判断。']
+ ],
+ en:[
+  ['Mapping the full store opening process','I helped break down tasks from market preparation, site assessment, commercial review and P&L modelling through project approval, design, construction and launch marketing. The WBS made team handoffs visible and helped me define the scope of the approval tool.'],
+  ['Building a system for multiple teams','I built the pre-approval tool, including role-specific interfaces for regional teams, specialist functions and headquarters, along with intake templates, data integration and the approval workflow. Teams worked from the same store project, with different actions and information available at each handoff.'],
+  ['Designing AI workflows with review points','I built AI-assisted workflows for strategic planning and site assessment. I separated material checks, analysis and report generation so people could review intermediate outputs and make the final decision.']
+ ]
+};
+const queryLanguage=new URLSearchParams(location.search).get('lang');
+function savedLanguage(){
+ try{return localStorage.getItem('anne-world-language');}catch{return null;}
+}
+let language=[queryLanguage,savedLanguage()].find(value=>value==='en'||value==='zh')??(navigator.language.toLowerCase().startsWith('zh')?'zh':'en');
+const t=key=>copy[language][key];
+
+function applyLanguage(){
+ document.documentElement.lang=language==='en'?'en':'zh-CN';
+ document.title=language==='en'?'Anne’s World · Jing Li':'Anne’s World · 李静';
+ document.querySelectorAll('[data-copy]').forEach(el=>el.textContent=t(el.dataset.copy));
+ document.querySelectorAll('[data-label]').forEach(el=>el.setAttribute('aria-label',t(el.dataset.label)));
+ const toggle=$('language-switch');
+ toggle.textContent=language==='en'?'中文':'English';
+ toggle.lang=language==='en'?'zh-CN':'en';
+ toggle.setAttribute('aria-label',language==='en'?'切换至中文':'Switch to English');
+}
+$('language-switch').onclick=()=>{
+ language=language==='en'?'zh':'en';
+ try{localStorage.setItem('anne-world-language',language);}catch{}
+ const url=new URL(location.href);
+ url.searchParams.set('lang',language);
+ history.replaceState(null,'',url);
+ applyLanguage();
+ localProjects();
+ buttons.forEach((button,index)=>button.textContent=projects[index].label);
+ $('count').textContent=projects[selected].label;
+ shownProject=-1;
+ route(false);
+};
+
+const demoCopy={
+ zh:{title:'体验一次跨团队交接',intro:'原创模拟 · 校园摄影展。切换角色，跟同一个项目从提报走到审核。',status:'项目状态',roles:['发起人','场地协调','审核人'],states:['草稿','待确认场地','待审核','退回补充','已批准'],project:'校园摄影展 · 图书馆展厅',task:['提交展览计划','确认展厅与布展时段','退回补充无障碍安排','补充无障碍通道说明','批准展览计划'],wait:'当前由其他角色处理。可以切换角色查看待办。',audit:'查看交接记录',empty:'还没有交接记录。',reset:'从头开始'},
+ en:{title:'Try a cross-team handoff',intro:'Original simulation · A campus photo exhibition. Switch roles to follow the same project from proposal to approval.',status:'Project status',roles:['Organiser','Venue coordinator','Reviewer'],states:['Draft','Venue confirmation needed','Ready for review','Changes requested','Approved'],project:'Campus photo exhibition · Library gallery',task:['Submit exhibition proposal','Confirm the gallery and setup window','Request an accessibility plan','Add the step-free access plan','Approve exhibition proposal'],wait:'Another role owns the next action. Switch roles to see their task.',audit:'Show handoff history',empty:'No handoffs recorded yet.',reset:'Start over'}
+};
+const demoOwners=[0,1,2,0,2];
+const demoStatuses=[0,1,2,3,2,4];
+let demoRole=0;
+let demoStep=0;
+function renderDemo(){
+ const demo=$('case-demo');
+ const d=demoCopy[language];
+ const stage=demoStep;
+ const priorFocus=demo.contains(document.activeElement)?document.activeElement.dataset.focus:null;
+ const open=demo.querySelector('details')?.open;
+ demo.innerHTML=`<h2>${d.title}</h2><p>${d.intro}</p><div class="demo-tabs" role="group" aria-label="${language==='en'?'Project roles':'项目角色'}">
+  ${d.roles.map((role,i)=>`<button type="button" data-role="${i}" data-focus="role-${i}" aria-pressed="${i===demoRole}">${role}</button>`).join('')}
+  </div><h3>${d.project}</h3><p class="demo-state" aria-live="polite">${d.status} · ${d.states[demoStatuses[stage]]}</p>
+  ${stage<demoOwners.length?(demoOwners[stage]===demoRole?`<button type="button" data-action data-focus="action">${d.task[stage]}</button>`:`<p>${d.wait}</p>`):`<button type="button" data-reset data-focus="reset">${d.reset}</button>`}
+  <details class="demo-audit" ${open?'open':''}><summary>${d.audit}</summary>${stage?`<ol>${d.task.slice(0,stage).map((task,i)=>`<li>${d.roles[demoOwners[i]]} · ${task}</li>`).join('')}</ol>`:`<p>${d.empty}</p>`}</details>`;
+ demo.querySelectorAll('[data-role]').forEach(button=>button.onclick=()=>{demoRole=Number(button.dataset.role);renderDemo();});
+ demo.querySelector('[data-action]')?.addEventListener('click',()=>{demoStep++;renderDemo();});
+ demo.querySelector('[data-reset]')?.addEventListener('click',()=>{demoStep=0;demoRole=0;renderDemo();});
+ if(priorFocus)(demo.querySelector(`[data-focus="${priorFocus}"]`)??demo.querySelector(`[data-role="${demoRole}"]`)).focus({preventScroll:true});
+}
+
+localProjects();
 const central = [50,59];
 const islandLoop = [
  [22,40,'value-tree'],[30,27],[42,22,'research'],[58,22],
@@ -385,13 +500,25 @@ document.addEventListener('keydown',e=>{
  if(['ArrowLeft','a','ArrowRight','d'].includes(e.key)){e.preventDefault();if(!e.repeat)stepAroundIsland(['ArrowLeft','a'].includes(e.key)?-1:1);}
  if(e.key==='Enter'&&[document.body,$('prev'),$('next')].includes(document.activeElement)){e.preventDefault(); openJourney();}
 });
-function route(){
+function route(navigate=true){
  const p=projectDetails.find(p=>'#'+p.id===location.hash);
  $('home').hidden=!!p;$('detail').hidden=!p;
- if(!p){if(!location.hash)window.scrollTo(0,0); return;}
+ if(!p){if(navigate&&!location.hash)window.scrollTo(0,0); return;}
  if(projectDialog.open)projectDialog.close();
- $('detail').innerHTML='<a href="#">← 返回地图</a><h1 tabindex="-1">'+p.title+'</h1><small>'+p.kind+'</small><section class="paper">'+(p.image?'<figure><img src="'+p.image+'" alt="价值之树装置现场"><figcaption>价值之树 · 装置现场</figcaption></figure>':'')+'<h2>'+p.description+'</h2><p>'+p.body+'</p>'+(p.role?'<h3>我做了什么</h3><p>'+p.role+'</p>':'')+(p.link?'<a href="'+p.link+'">'+p.linkText+' ↗</a>':'')+(p.extra?' · <a href="'+p.extra+'">小红书 ↗</a>':'')+(p.image?'<div class="gallery">'+[2,3,4].map(n=>'<a href="tree'+n+'.png"><img src="tree'+n+'.png" alt="价值之树项目照片 '+n+'"></a>').join('')+'</div>':'')+'</section>';
- walk(projects.findIndex(project=>project.id===(p.id==='retail'?'anker':p.id)),false);window.scrollTo(0,0);$('detail').querySelector('h1').focus({preventScroll:true});
+ const pictures=p.image?`<figure><img src="${p.image}" alt="${t('treePhoto')}"><figcaption>${t('treePhoto')}</figcaption></figure>`:'';
+ const gallery=p.image?`<div class="gallery">${[2,3,4].map(n=>`<a href="tree${n}.png"><img src="tree${n}.png" alt="${t('treePhoto')} ${n}"></a>`).join('')}</div>`:'';
+ const ankerCase=p.id==='anker'?`<div class="case-sections">${caseSections[language].map(([heading,body])=>`<section><h3>${heading}</h3><p>${body}</p></section>`).join('')}</div><section class="case-demo" id="case-demo"></section>`:'';
+ $('detail').innerHTML=`<a href="#">${t('back')}</a><h1 tabindex="-1">${p.title}</h1><small>${p.kind}</small>
+  <section class="paper">${pictures}<h2>${p.description}</h2><p>${p.body}</p>
+  ${p.role?`<h3>${t('myWork')}</h3><p>${p.role}</p>`:''}
+  ${p.link?`<a href="${p.link}">${p.linkText} ↗</a>`:''}${p.extra?` · <a href="${p.extra}">Xiaohongshu ↗</a>`:''}
+  ${gallery}${ankerCase}</section>`;
+ if(ankerCase)renderDemo();
+ if(navigate){
+  walk(projects.findIndex(project=>project.id===(p.id==='retail'?'anker':p.id)),false);
+  window.scrollTo(0,0);
+  $('detail').querySelector('h1').focus({preventScroll:true});
+ }
 }
 $('contact-open').onclick=()=>$('contact').showModal();
 const colors={
@@ -638,6 +765,7 @@ function paintAvatar(canvas){
  }));
 }
 
+applyLanguage();
 paintAvatar(walker.querySelector('canvas'));
-placeWalker(central); walk(0,false);route();window.addEventListener('hashchange',route);
+placeWalker(central); walk(0,false);route();window.addEventListener('hashchange',()=>route());
 </script></body></html>
