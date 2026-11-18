@@ -40,18 +40,28 @@
 @media(max-width:640px){.island-pin{min-height:30px;font-size:10px;padding:4px 5px}.island-walker{width:11px;height:17px}}
 
 .world-landscape{height:auto;aspect-ratio:1.30;background:#17182e}
-.district-art{position:absolute;width:300%;height:200%;max-width:none;inset:auto;top:0;left:0;display:block}
-[data-world=hkonnect] .district-art{left:-100%}
-[data-world=anker] .district-art{left:-200%}
-[data-world=writing] .district-art{top:-100%}
-[data-world=oalmr] .district-art{left:-100%;top:-100%}
-[data-world=research] .district-art{left:-200%;top:-100%}
+
+
+
+
+
+
 .world-landscape button{background:#17192bed;border-color:#e9d1a9}
 .world-landscape button[aria-pressed=true]{background:#ffe0ad;color:#221f31}
 .world-landscape .world-walker{z-index:3}
 .world-title{padding-bottom:16px}
 .fieldnote{margin-top:0}
 @media(max-width:640px){.world-landscape{aspect-ratio:1.15}}
+
+.pixel-map{display:block;width:100%;height:auto;image-rendering:pixelated}
+.world-landscape{height:auto;aspect-ratio:auto;position:relative;overflow:hidden}
+.world-landscape .pixel-map{position:static}
+.island-pin,.world-landscape button{background:#26223c;border:2px solid #8e799e;box-shadow:3px 3px #130f26}
+.island-pin{transform:translate(-50%,5px);margin-top:0}
+.island-pin::after{top:auto;bottom:100%;transform:translate(-50%,-2px) rotate(45deg)}
+.world-landscape button{transform:translate(-50%,5px)}
+.island-pin[aria-pressed=true],.world-landscape button[aria-pressed=true]{border-color:#ffc58a;background:#ffc58a;color:#25203a}
+@media(max-width:640px){.world-landscape{aspect-ratio:auto}}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div><a href="#street">世界地图</a><button type="button" id="contact-open" class="contact-open">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -59,7 +69,7 @@
 <section id="street" class="game" aria-label="作品地图"><div class="game-head mono"><span>✦ 作品地图</span><span id="count"></span></div>
 <div class="street-scroll" id="street-scroll">
  <div class="island" id="island">
-  <img src="anne-harbor.webp" width="1536" height="1024" alt="港湾像素地图，石径连接山顶观测站、林地、商街、校园与码头" fetchpriority="high">
+  <canvas id="harbor-map" class="pixel-map" width="384" height="216" role="img" aria-label="桥梁连接六个地区的像素港湾"></canvas>
   <div id="points" aria-label="岛上地点"></div>
   <span class="island-walker world-walker" id="island-walker" aria-hidden="true"></span>
  </div>
@@ -144,12 +154,13 @@ function showJourney(index){
  map.innerHTML=`<div class="terrain">
   <div class="world-title"><h2>${project.title}</h2><p>${entries[0]}</p></div>
   <div class="world-landscape" aria-label="子项目地图">
-   <img class="district-art" src="district-tiles.webp" alt="" decoding="async">
+   <canvas class="pixel-map" width="288" height="162" aria-hidden="true"></canvas>
    <span class="world-walker" aria-hidden="true"></span>
    ${positions.map(([x,y],i)=>`<button style="left:${x}%;top:${y}%" aria-pressed="false">${entries[i+1]}</button>`).join('')}
   </div>
   <section class="fieldnote" aria-live="polite" ${hasNotes?'':'hidden'}></section>
  </div>`;
+ paintWorld(map.querySelector('canvas'),[{id,points:positions}],[50,60]);
  const nodes=[...map.querySelectorAll('.world-landscape button')];
  const note=map.querySelector('.fieldnote');
  const walker=map.querySelector('.world-walker');
@@ -165,16 +176,14 @@ function showJourney(index){
  nodes.forEach((node,i)=>node.onclick=()=>showStep(i));
  showStep(0);
 }
-const central = [47,83];
-const westPath = [[43,80],[37,74],[34,70],[31,66]];
-const eastPath = [[55,83],[61,79],[62,73],[59,69],[55,65],[55,59],[59,52],[64,47]];
+const central = [50,59];
 const islandRoutes = {
- 'value-tree': [...eastPath,[64,43],[58,42],[54,42],[51,39],[47,37]],
- hkonnect: [[55,83],[61,79],[67,75],[73,74],[79,72]],
- anker: [...westPath,[27,66],[22,65],[20,64]],
- writing: [...westPath,[36,64],[42,62]],
- oalmr: [...eastPath,[71,43],[74,41],[77,35],[79,31]],
- research: [...westPath,[29,62],[26,57],[25,51],[27,47],[24,45],[19,43],[19,39],[22,34],[24,31],[22,28],[18,26],[19,22]]
+ 'value-tree': [[43,54],[36,45],[27,38]],
+ hkonnect: [[60,65],[69,72],[83,80]],
+ anker: [[40,63],[29,68],[17,73]],
+ writing: [[50,68],[49,78],[48,86]],
+ oalmr: [[60,54],[70,46],[82,39]],
+ research: [[50,48],[51,36],[53,25]]
 };
 const walker = $('island-walker');
 const street = $('street-scroll');
@@ -246,5 +255,95 @@ function route(){
  walk(projects.findIndex(project=>project.id===(p.id==='retail'?'anker':p.id)));window.scrollTo(0,0);$('detail').querySelector('h1').focus({preventScroll:true});
 }
 $('contact-open').onclick=()=>$('contact').showModal();
+const colors={
+ 'value-tree':['#628466','#4b5e50','#dfaa78','#816071'],
+ hkonnect:['#9a836f','#625367','#91a7ad','#557995'],
+ anker:['#657789','#434c65','#789cbf','#4978a8'],
+ writing:['#886b81','#584963','#b98d93','#a36e83'],
+ oalmr:['#778666','#566254','#d2ac99','#a87587'],
+ research:['#74928f','#4d606c','#afbfcb','#8e9dbc']
+};
+function paintWorld(canvas,stops,center){
+ const ctx=canvas.getContext('2d');
+ const {width:w,height:h}=canvas;
+ const pos=([x,y])=>[Math.round(w*x/100),Math.round(h*y/100)];
+ function block(x,y,width,height,color){
+  ctx.fillStyle=color;
+  ctx.fillRect(Math.round(x),Math.round(y),width,height);
+ }
+ function polygon(vertices,color){
+  const ys=vertices.map(p=>p[1]);
+  for(let y=Math.ceil(Math.min(...ys));y<Math.max(...ys);y++){
+   const edges=[];
+   for(let i=0;i<vertices.length;i++){
+    const [ax,ay]=vertices[i],[bx,by]=vertices[(i+1)%vertices.length];
+    if((ay<=y&&by>y)||(by<=y&&ay>y))edges.push(ax+(y-ay)*(bx-ax)/(by-ay));
+   }
+   edges.sort((a,b)=>a-b);
+   for(let i=0;i+1<edges.length;i+=2){
+    block(edges[i],y,Math.round(edges[i+1])-Math.round(edges[i]),1,color);
+   }
+  }
+ }
+ function ground(x,y,r,d,palette){
+  polygon([[x-r,y],[x,y+d],[x,y+d+8],[x-r,y+8]],palette[1]);
+  polygon([[x,y+d],[x+r,y],[x+r,y+8],[x,y+d+8]],'#39394f');
+  polygon([[x-r,y],[x,y-d],[x+r,y],[x,y+d]],palette[0]);
+  polygon([[x-r,y],[x,y-d],[x+r,y],[x+r-5,y],[x,y-d+2],[x-r+5,y]],'#a39c86');
+ }
+ function trail(points){
+  for(let i=1;i<points.length;i++){
+   const [x,y]=pos(points[i-1]),[a,b]=pos(points[i]);
+   const steps=Math.max(Math.abs(a-x),Math.abs(b-y),1);
+   for(let j=0;j<=steps;j++)block(x+(a-x)*j/steps-3,y+(b-y)*j/steps-2,7,5,'#594f60');
+   for(let j=0;j<=steps;j++)block(x+(a-x)*j/steps-2,y+(b-y)*j/steps-2,5,3,j%4===0?'#aa9282':'#d1ae94');
+  }
+ }
+ function landmark(x,y,id,palette,index){
+  if(id==='value-tree'||(id==='oalmr'&&index===0)){
+   block(x-2,y-12,4,13,'#634651');
+   block(x-11,y-23,22,13,palette[3]);block(x-7,y-27,14,8,palette[2]);
+   block(x-9,y-19,5,3,'#efbc88');block(x+4,y-22,5,3,'#efbc88');
+   return;
+  }
+  if(id==='hkonnect'&&index>0){
+   polygon([[x-15,y-7],[x+14,y-7],[x+10,y],[x-10,y]],'#47405a');
+   block(x-8,y-14,7,7,'#dba573');block(x+1,y-16,9,9,'#af7b6e');
+   return;
+  }
+  const r=id==='oalmr'?18:13;
+  block(x-r,y-18,2*r,18,palette[2]);
+  polygon([[x+r,y-18],[x+r+7,y-24],[x+r+7,y-6],[x+r,y]],palette[1]);
+  polygon([[x-r-2,y-18],[x-r+6,y-26],[x+r+8,y-26],[x+r+2,y-18]],palette[3]);
+  if(id==='research'&&index===0){
+   block(x-8,y-27,16,8,'#adb6d0');
+   block(x-5,y-31,10,6,'#d5c7d4');block(x+4,y-29,7,3,'#515071');
+  }
+  for(let i=x-r+3;i<x+r-2;i+=7)block(i,y-14,4,5,'#ffd19a');
+  block(x-3,y-8,6,8,'#443851');
+ }
+ block(0,0,w,h,'#252441');
+ for(let i=0;i<175;i++)block((i*57+13)%w,(i*37+11)%h,3+i%8,1,i%7===0?'#5c5379':'#363650');
+ const [cx,cy]=pos(center);
+ const harbor=canvas.id==='harbor-map';
+ if(!harbor)ground(cx,cy,128,56,colors[stops[0].id]);
+ for(const {id,points} of stops){
+  const [x,y]=pos(points.at(-1));
+  if(harbor)ground(x,y-3,38,17,colors[id]);
+ }
+ if(harbor)ground(cx,cy-3,33,15,colors.anker);
+ for(const {points} of stops)trail([center,...points]);
+ for(const {id,points} of stops){
+  const pins=harbor?points.slice(-1):points;
+  pins.forEach((point,index)=>{
+   const [x,y]=pos(point);
+   landmark(x-6,y-6,id,colors[id],index);
+   block(x+19,y-8,2,8,'#59475d');block(x+18,y-10,4,3,'#ffce8a');
+  });
+ }
+ if(harbor)landmark(cx,cy-6,'writing',colors.writing,0);
+}
+
+paintWorld($('harbor-map'),Object.entries(islandRoutes).map(([id,points])=>({id,points})),central);
 placeWalker(central); walk(0,false);route();window.addEventListener('hashchange',route);
 </script></body></html>
