@@ -14,17 +14,33 @@
 .map-note{padding:14px 18px;background:#15132c;border-left:3px solid var(--route);min-height:110px}
 .map-note strong{color:var(--route)}.map-detail{display:inline-block;margin-top:10px}
 @media(max-width:640px){.map-steps{grid-template-columns:1fr;margin:15px 0}.map-steps li{border-top:0;border-left:2px dashed var(--route)}.map-steps button{display:flex;align-items:center;text-align:left;gap:12px;min-height:42px;padding:4px 10px 4px 0}.map-steps button::before{flex:none;margin:0 0 0 -9px}}
-[data-world]{--land:#273d38;--grid:#344c43;--accent:#abdcb7}[data-world=hkonnect]{--land:#3c3547;--grid:#504451;--accent:#ffc998}[data-world=anker]{--land:#1c3342;--grid:#2c4855;--accent:#ffcf83}[data-world=writing]{--land:#40354a;--grid:#55465b;--accent:#d9c7ff}.atlas-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:24px;margin-top:20px;align-items:stretch}.terrain{position:relative;min-height:240px;background-color:var(--land);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:16px 16px;overflow:hidden}.terrain svg{position:absolute;inset:0;width:100%;height:100%}.terrain button{position:absolute;transform:translate(-50%,-50%);font:bold 14px system-ui;padding:8px;color:#fff0d9;background:#211d32;border:2px solid var(--accent);box-shadow:3px 3px #12101d;white-space:nowrap}.terrain button[aria-pressed=true]{background:var(--accent);color:#201d2e}.fieldnote{background:#f8efdd;color:#272336;padding:22px}.fieldnote h3{margin:0;font-size:24px}.fieldnote p{color:#403847;line-height:1.9;margin:10px 0 16px}.fieldnote a{font-weight:700}@media(max-width:720px){.atlas-grid{grid-template-columns:1fr;gap:10px}.terrain{min-height:190px}.terrain button{font-size:12px;padding:6px}.fieldnote{padding:16px}}</style></head><body>
-<header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div><a href="#works">作品</a><a href="mailto:Aynnnlee@gmail.com">联系 ↗</a></div></nav></header>
+[data-world]{--land:#273d38;--grid:#344c43;--accent:#abdcb7}[data-world=hkonnect]{--land:#3c3547;--grid:#504451;--accent:#ffc998}[data-world=anker]{--land:#1c3342;--grid:#2c4855;--accent:#ffcf83}[data-world=writing]{--land:#40354a;--grid:#55465b;--accent:#d9c7ff}.atlas-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:24px;margin-top:20px;align-items:stretch}.terrain{position:relative;min-height:240px;background-color:var(--land);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:16px 16px;overflow:hidden}.terrain svg{position:absolute;inset:0;width:100%;height:100%}.terrain button{position:absolute;transform:translate(-50%,-50%);font:bold 14px system-ui;padding:8px;color:#fff0d9;background:#211d32;border:2px solid var(--accent);box-shadow:3px 3px #12101d;white-space:nowrap}.terrain button[aria-pressed=true]{background:var(--accent);color:#201d2e}.fieldnote{background:#f8efdd;color:#272336;padding:22px}.fieldnote h3{margin:0;font-size:24px}.fieldnote p{color:#403847;line-height:1.9;margin:10px 0 16px}.fieldnote a{font-weight:700}@media(max-width:720px){.atlas-grid{grid-template-columns:1fr;gap:10px}.terrain{min-height:190px}.terrain button{font-size:12px;padding:6px}.fieldnote{padding:16px}}
+.street-scroll{overflow-x:auto}.street-scroll .scene{min-width:720px}.scene canvas{min-height:0}
+.stop{min-height:34px}.project-map{padding:0;margin:28px 0 44px}
+.terrain{min-height:0;overflow:visible}.world-title{padding:20px clamp(16px,4vw,40px) 8px}.world-title p{color:#f1e6d7}
+.world-landscape{height:clamp(225px,36vw,460px);position:relative;overflow:hidden}
+.world-landscape svg{shape-rendering:crispEdges}.world-landscape button{z-index:2}
+.world-walker{position:absolute;z-index:1;margin-top:19px;transform:translateX(-50%);width:16px;height:24px;background:linear-gradient(#482c50 18%,#ffce9e 18% 44%,#a9e2ca 44% 76%,#432c55 76%);clip-path:polygon(19% 0,81% 0,81% 14%,100% 14%,100% 78%,81% 78%,81% 100%,58% 100%,58% 85%,42% 85%,42% 100%,19% 100%,19% 78%,0 78%,0 14%,19% 14%);transition:left .55s ease,top .55s ease}
+.fieldnote{position:relative;margin:0 clamp(12px,4vw,40px) 28px;border:3px solid var(--accent);box-shadow:5px 5px #171729;background:#201d32;color:var(--cream)}.fieldnote p{color:#eee2eb;max-width:75ch}.fieldnote a{color:var(--accent)}
+.terrain:has(.fieldnote[hidden]){padding-bottom:16px}
+[data-world=oalmr]{--land:#334b3d;--grid:#405848;--accent:#f3d09b}[data-world=research]{--land:#263950;--grid:#314a60;--accent:#c8dbf1}
+.contact-open,.contact-close{color:var(--cream);background:none;border:0;padding:0}
+#contact{background:var(--panel);border:1px solid var(--border);color:var(--cream);width:min(420px,calc(100% - 32px));padding:24px 28px;box-shadow:5px 5px #100d20}
+#contact::backdrop{background:#100d20bf}#contact h2{margin:0}.contact-close{float:right;font-size:28px;line-height:1}
+#contact dl{display:grid;grid-template-columns:5em 1fr;gap:10px}#contact dd{margin:0;user-select:all;overflow-wrap:anywhere}
+@media(max-width:640px){.world-landscape button{font-size:11px;padding:5px 4px}.fieldnote{padding:12px}.street-scroll .scene{min-width:640px}}
+@media(prefers-reduced-motion:reduce){.world-walker{transition:none}}
+</style></head><body>
+<header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div><a href="#street">世界地图</a><button type="button" id="contact-open" class="contact-open">联系方式</button></div></nav></header>
 <main class="wrap">
 <div id="home"><section class="intro"><h1>Hi, I’m <span>Anne.</span></h1><p><strong>李静 · 香港中文大学地理与资源管理</strong><br>我做过装置、搭过网站，也在研究门店怎么找到合适的位置。来小镇走走，看看我做过的东西。</p></section>
-<section class="game" aria-label="作品地图"><div class="game-head mono"><span>✦ 作品地图</span><span id="count"></span></div>
-<div class="scene"><canvas id="map" width="384" height="134" aria-hidden="true"></canvas><div class="points" id="points"></div></div>
+<section id="street" class="game" aria-label="作品地图"><div class="game-head mono"><span>✦ 作品地图</span><span id="count"></span></div>
+<div class="street-scroll" id="street-scroll"><div class="scene"><canvas id="map" width="576" height="134" aria-hidden="true"></canvas><div class="points" id="points"></div></div></div>
 <div class="game-foot"><div class="arrows"><button id="prev" aria-label="往左走">←</button><button id="next" aria-label="往右走">→</button></div><span class="hint mono">← → 移动 · 到站自动显示项目地图</span><a id="enter" class="enter" href="#value-tree">查看详情 ↗</a></div></section>
 <section class="project-map" id="project-map" aria-label="当前项目地图"></section>
-<section class="works" id="works"><h2>作品与经历</h2><div id="list"></div></section></div>
+</div>
 <article id="detail" class="detail" hidden></article>
-</main><footer><div class="wrap">Anne Li 李静 <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
+</main><dialog id="contact" aria-labelledby="contact-title"><form method="dialog"><button class="contact-close" aria-label="关闭联系方式">×</button></form><h2 id="contact-title">联系方式</h2><dl><dt>邮箱</dt><dd>aynnnlee@gmail.com</dd><dt>内地电话</dt><dd>+86 13636511549</dd><dt>香港电话</dt><dd>+852 63158830</dd></dl></dialog><footer><div class="wrap">Anne Li 李静 <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
 <script>
 const projectDetails = [
  {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', link:'tree1.png', linkText:'查看装置全图', image:'tree1.png'},
@@ -34,8 +50,12 @@ const projectDetails = [
  {id:'writing', label:'写作与影像', title:'写作与影像', kind:'个人创作', description:'议题随笔、旅行观察与影视剪辑。', body:'我在小红书写随笔和旅行观察，在 B 站分享影视剪辑和歌单。', link:'https://space.bilibili.com/19484656',linkText:'查看 B 站主页', extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
 ];
 const $ = id => document.getElementById(id);
-const projects = projectDetails.filter(project => project.id !== 'retail');
-const points = [51,145,239,333];
+const projects = [
+ ...projectDetails.filter(project => project.id !== 'retail'),
+ {id:'oalmr', label:'OALMR', title:'CUHK OALMR'},
+ {id:'research', label:'科研学术', title:'科研学术'}
+];
+const points = projects.map((_,index)=>51+94*index);
 const atlas = {
   "value-tree": [
     "把生态知识变成一次与树的相遇",
@@ -81,6 +101,16 @@ const artwork = {
   "writing": "<path fill=\"#ebd6b9\" d=\"M15 20h87v65H15z\"/><path fill=\"#957c87\" d=\"M22 32h64v3H22zM22 41h44v2H22zM22 50h60v2H22z\"/><path fill=\"#897db1\" d=\"M131 16h91v62h-91z\"/><path fill=\"#292640\" d=\"M138 24h77v41h-77z\"/><path fill=\"#c5b6e7\" d=\"m166 33 18 10-18 11z\"/>"
 };
 const landmarks = {"value-tree":[[18,46],[50,82],[83,38]],"hkonnect":[[16,68],[49,30],[82,76]],"anker":[[15,50],[41,70],[63,39],[86,58]],"writing":[[25,77],[75,78]]};
+atlas.oalmr = ['交流活动广场','迎宾广场','展览廊','交流礼堂'];
+atlas.research = ['地理研究营地','地形观测台','地图工作室','研究档案室'];
+landmarks.oalmr = [[16,65],[50,39],[84,63]];
+landmarks.research = [[16,43],[50,68],[84,39]];
+artwork.oalmr = '<path d="M54 104V56h133v48M95 56V24h50v32" fill="#ae765a"/><path d="M82 24h76v-6h-13v-6H96v6H82zM43 56h154v-7H43z" fill="#754251"/><path d="M113 62h14v42h-14zM66 65h17v16H66zM157 65h17v16h-17z" fill="#f5d39a"/><path d="M8 100h32V75H8zM199 100h33V75h-33z" fill="#65876f"/>';
+artwork.research = '<path d="M-4 75L46 14l55 61m10 2 58-65 73 65" fill="#496685"/><path d="m24 41 22-27 24 27-23-7zm115 4 30-33 36 33-35-12z" fill="#bdd2dd"/><path d="M88 100h63V75H88z" fill="#636682"/><path d="M83 75h72l-13-13H95z" fill="#b7a9d1"/><path d="M105 81h12v19h-12zM127 81h13v8h-13z" fill="#e8d7aa"/>';
+artwork["value-tree"] += "<path d=\"M0 90h60v12h175v6H0z\" fill=\"#4b755d\"/><path d=\"M9 76h18v-8h13v9h13v11H9zm174 3h17v-9h15v7h18v12h-50z\" fill=\"#5b8e71\"/><path d=\"M87 56h8v8h-8zm43-20h8v8h-8zm32 17h8v8h-8z\" fill=\"#edbb87\"/>";
+artwork["hkonnect"] += "<path d=\"M7 54h35m15 0h31m52 0h33m15 0h42\" stroke=\"#e5c7a0\" stroke-dasharray=\"4 3\"/><path d=\"M24 64h39v22H24zm157-47h41v19h-41z\" fill=\"#49636f\"/><path d=\"M34 70h19v12H34zm157-49h21v10h-21z\" fill=\"#8dafab\"/>";
+artwork["anker"] += "<path d=\"M17 18h37m39 0h27m51 68h40m-124 0h43\" stroke=\"#68848c\" stroke-width=\"3\"/><path d=\"M144 65l9-15m-5 15 9-15m-5 15 9-15\" stroke=\"#b5d0c5\" stroke-width=\"2\"/><path d=\"M217 57h15m-4-4 4 4-4 4\" fill=\"none\" stroke=\"#ffcf83\"/>";
+artwork["writing"] += "<path d=\"M122 80h113v16H122z\" fill=\"#302a43\"/><path d=\"M126 84h24v7h-24zm28 0h37v7h-37zm41 0h28v7h-28z\" fill=\"#a693cc\"/><path d=\"M18 92h62v5H18z\" fill=\"#af8798\"/>";
 let arrived = -1;
 function showJourney(index){
  if(arrived===index)return;
@@ -90,11 +120,24 @@ function showJourney(index){
  const map=$('project-map');
  map.dataset.world=id;
  const route=positions.map(([x,y])=>[x*2.4,y*1.08].join(',')).join(' ');
- map.innerHTML='<h2>'+project.title+'</h2><p>'+entries[0]+'</p><div class="atlas-grid"><div class="terrain"><svg aria-hidden="true" viewBox="0 0 240 108" preserveAspectRatio="none">'+artwork[id]+'<polyline points="'+route+'" fill="none" stroke="#fff0cf" stroke-width="1.2" stroke-dasharray="2 2"/></svg>'+positions.map(([x,y],i)=>'<button style="left:'+x+'%;top:'+y+'%" aria-pressed="false">'+entries[i+1]+'</button>').join('')+'</div><section class="fieldnote" aria-live="polite"></section></div>';
- const nodes=[...map.querySelectorAll('button')];
+ const hasNotes=entries.length>count+1;
+ map.innerHTML=`<div class="terrain">
+  <div class="world-title"><h2>${project.title}</h2><p>${entries[0]}</p></div>
+  <div class="world-landscape" aria-label="子项目地图">
+   <svg aria-hidden="true" viewBox="0 0 240 108" preserveAspectRatio="none">${artwork[id]}<polyline points="${route}" fill="none" stroke="#fff0cf" stroke-width="1.2" stroke-dasharray="2 2"/></svg>
+   <span class="world-walker" aria-hidden="true"></span>
+   ${positions.map(([x,y],i)=>`<button style="left:${x}%;top:${y}%" aria-pressed="false">${entries[i+1]}</button>`).join('')}
+  </div>
+  <section class="fieldnote" aria-live="polite" ${hasNotes?'':'hidden'}></section>
+ </div>`;
+ const nodes=[...map.querySelectorAll('.world-landscape button')];
  const note=map.querySelector('.fieldnote');
+ const walker=map.querySelector('.world-walker');
  function showStep(i){
   nodes.forEach((node,j)=>node.setAttribute('aria-pressed',j===i));
+  walker.style.left=positions[i][0]+'%';
+  walker.style.top=positions[i][1]+'%';
+  if(!hasNotes)return;
   const link=id==='anker'&&i===0?'#retail':id==='writing'?(i===0?project.extra:project.link):'#'+id;
   const label=id==='writing'?(i===0?'阅读小红书手记':'播放 B 站作品'):id==='value-tree'?'看装置现场照片':id==='anker'&&i===0?'展开选址案例':'查看项目介绍';
   note.innerHTML='<h3>'+entries[i+1]+'</h3><p>'+entries[count+1+i]+'</p><a href="'+link+'">'+label+' ↗</a>';
@@ -106,7 +149,7 @@ const mapWidth = $('map').width;
 const buttons = projects.map((p,i)=>{
  const button=document.createElement('button');
  button.className='stop'; button.style.left=(points[i]/mapWidth*100)+'%'; button.textContent=p.label;
- button.onclick=()=>{ if(selected===i) location.hash=p.id; else select(i); };
+
  $('points').append(button);
  return button;
 });
@@ -119,7 +162,9 @@ function select(i){
  selected=(i+projects.length)%projects.length; target=points[selected];
  buttons.forEach((b,j)=>b.setAttribute('aria-pressed',j===selected));
  $('count').textContent=(selected+1)+' / '+projects.length+' · '+projects[selected].label;
- $('enter').href='#'+projects[selected].id;
+ const entry=$('enter');
+ entry.hidden=!projects[selected].kind;
+ entry.href='#'+projects[selected].id;
 }
 function tree(x,y,c){
  rect(x-2,y+13,4,11,'#423452'); rect(x-9,y+7,18,10,c); rect(x-6,y+3,12,13,c); rect(x-3,y,6,10,c); rect(x-5,y+7,3,3,'#a8d3a6');
@@ -139,8 +184,8 @@ function draw(){
  [12,94,191,288,371].forEach((px,i)=>tree(px,70+i%2*5,'#668e83'));
  // Tree installation, delivery shop, storefront, and screening room.
  tree(51,29,'#7fab8f');tree(41,40,'#688f82');tree(60,38,'#82aa8b');rect(37,63,28,19,'#79535a');
- [145,239,333].forEach((px,i)=>{
-  const palette=[['#d89270','#794b61'],['#91c7b0','#526583'],['#a799cf','#675181']][i];
+ points.slice(1).forEach((px,i)=>{
+  const palette=[['#d89270','#794b61'],['#91c7b0','#526583'],['#a799cf','#675181'],['#e7b78f','#914f5e'],['#a3bacf','#536382']][i];
   rect(px-27,49,54,35,palette[0]);rect(px-32,43,64,7,palette[1]);rect(px-24,39,48,5,palette[1]);
   rect(px-21,55,12,12,'#ffda9e');rect(px+8,55,12,12,'#ffda9e');rect(px-5,59,10,25,'#3a3050');
   rect(px-27,67,19,3,palette[1]);rect(px+8,67,19,3,palette[1]);
@@ -151,6 +196,10 @@ function draw(){
  rect(x-5,y-9,10,12,'#362944');rect(x-4,y-11,8,4,'#362944');rect(x-3,y-7,7,6,'#ffcc9b');
  rect(x-3,y-5,1,1,'#362944');rect(x+2,y-5,1,1,'#362944');rect(x-6,y-4,3,7,'#362944');
  rect(x-5,y+1,10,9,'#a9e2ca');rect(x-3,y+10,6,3,'#53466b');rect(x-4,y+13,3,4-step,'#332745');rect(x+1,y+13,3,3+step,'#332745');
+ const street=$('street-scroll'), scene=$('map');
+ if(street.scrollWidth>street.clientWidth && (moving||running)){
+  street.scrollLeft=x/mapWidth*scene.clientWidth-street.clientWidth/2;
+ }
  if(moving&&!reduce) requestAnimationFrame(draw); else {running=false;showJourney(selected);}
 }
 let running=false;
@@ -158,16 +207,17 @@ function walk(i){select(i);if(!running){running=true;requestAnimationFrame(draw)
 buttons.forEach((b,i)=>b.onclick=()=>{walk(i);});
 $('prev').onclick=()=>walk(selected-1);$('next').onclick=()=>walk(selected+1);
 document.addEventListener('keydown',e=>{
- if($('home').hidden||e.altKey||e.ctrlKey||e.metaKey)return;
+ if($('home').hidden||$('contact').open||e.altKey||e.ctrlKey||e.metaKey)return;
  if(['ArrowLeft','a','ArrowRight','d'].includes(e.key)){e.preventDefault();walk(selected+(['ArrowLeft','a'].includes(e.key)?-1:1));}
- if(e.key==='Enter'&&[document.body,$('prev'),$('next')].includes(document.activeElement)){e.preventDefault(); location.hash=projects[selected].id;}
+ if(e.key==='Enter'&&[document.body,$('prev'),$('next')].includes(document.activeElement)){e.preventDefault(); if(projects[selected].kind) location.hash=projects[selected].id;}
 });
 function route(){
  const p=projectDetails.find(p=>'#'+p.id===location.hash);
  $('home').hidden=!!p;$('detail').hidden=!p;
- if(!p){if(location.hash==='#works')$('works').scrollIntoView();else window.scrollTo(0,0); return;}
+ if(!p){if(!location.hash)window.scrollTo(0,0); return;}
  $('detail').innerHTML='<a href="#">← 返回地图</a><h1 tabindex="-1">'+p.title+'</h1><small>'+p.kind+'</small><section class="paper">'+(p.image?'<figure><img src="'+p.image+'" alt="价值之树装置现场"><figcaption>价值之树 · 装置现场</figcaption></figure>':'')+'<h2>'+p.description+'</h2><p>'+p.body+'</p>'+(p.role?'<h3>我做了什么</h3><p>'+p.role+'</p>':'')+(p.link?'<a href="'+p.link+'">'+p.linkText+' ↗</a>':'')+(p.extra?' · <a href="'+p.extra+'">小红书 ↗</a>':'')+(p.image?'<div class="gallery">'+[2,3,4].map(n=>'<a href="tree'+n+'.png"><img src="tree'+n+'.png" alt="价值之树项目照片 '+n+'"></a>').join('')+'</div>':'')+'</section>';
  walk(projects.findIndex(project=>project.id===(p.id==='retail'?'anker':p.id)));window.scrollTo(0,0);$('detail').querySelector('h1').focus({preventScroll:true});
 }
+$('contact-open').onclick=()=>$('contact').showModal();
 select(0); draw();route();window.addEventListener('hashchange',route);
 </script></body></html>
