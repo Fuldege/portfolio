@@ -62,6 +62,17 @@
 .world-landscape button{transform:translate(-50%,5px)}
 .island-pin[aria-pressed=true],.world-landscape button[aria-pressed=true]{border-color:#ffc58a;background:#ffc58a;color:#25203a}
 @media(max-width:640px){.world-landscape{aspect-ratio:auto}}
+
+.island .world-walker,.world-landscape .world-walker{
+ width:24px;height:32px;margin:0;transform:translate(-50%,-100%);
+ background:none;clip-path:none;pointer-events:none
+}
+.avatar-sprite{display:block;width:100%;height:100%;image-rendering:pixelated}
+.island-pin,.world-landscape button{transform:translate(-50%,9px)}
+@media(max-width:640px){
+ .island .world-walker,.world-landscape .world-walker{width:18px;height:24px}
+ .world-landscape{overflow:visible;margin-bottom:18px}
+}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div><a href="#street">世界地图</a><button type="button" id="contact-open" class="contact-open">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -71,7 +82,7 @@
  <div class="island" id="island">
   <canvas id="harbor-map" class="pixel-map" width="384" height="216" role="img" aria-label="桥梁连接六个地区的像素港湾"></canvas>
   <div id="points" aria-label="岛上地点"></div>
-  <span class="island-walker world-walker" id="island-walker" aria-hidden="true"></span>
+  <span class="island-walker world-walker" id="island-walker" aria-hidden="true"><canvas class="avatar-sprite" width="12" height="16"></canvas></span>
  </div>
 </div>
 <div class="game-foot"><div class="arrows"><button id="prev" aria-label="往左走">←</button><button id="next" aria-label="往右走">→</button></div><span class="hint mono">点击地标或用 ← → 探索岛屿</span><a id="enter" class="enter" href="#value-tree">查看详情 ↗</a></div></section>
@@ -155,7 +166,7 @@ function showJourney(index){
   <div class="world-title"><h2>${project.title}</h2><p>${entries[0]}</p></div>
   <div class="world-landscape" aria-label="子项目地图">
    <canvas class="pixel-map" width="288" height="162" aria-hidden="true"></canvas>
-   <span class="world-walker" aria-hidden="true"></span>
+   <span class="world-walker" aria-hidden="true"><canvas class="avatar-sprite" width="12" height="16"></canvas></span>
    ${positions.map(([x,y],i)=>`<button style="left:${x}%;top:${y}%" aria-pressed="false">${entries[i+1]}</button>`).join('')}
   </div>
   <section class="fieldnote" aria-live="polite" ${hasNotes?'':'hidden'}></section>
@@ -164,6 +175,7 @@ function showJourney(index){
  const nodes=[...map.querySelectorAll('.world-landscape button')];
  const note=map.querySelector('.fieldnote');
  const walker=map.querySelector('.world-walker');
+ paintAvatar(walker.querySelector('canvas'));
  function showStep(i){
   nodes.forEach((node,j)=>node.setAttribute('aria-pressed',j===i));
   walker.style.left=positions[i][0]+'%';
@@ -415,6 +427,35 @@ function paintWorld(canvas,stops,center){
  }
 }
 
+function paintAvatar(canvas){
+ const palette={o:'#352b43',h:'#50384c',l:'#785264',s:'#efbd97',e:'#513b4d',c:'#8ba99e',a:'#c0c7a9',b:'#635476',p:'#d5a08e'};
+ const rows=[
+  '...oooooo...',
+  '..ohllllho..',
+  '.ohhhhhhhho.',
+  '.ohhssshhho.',
+  '.ohseseshho.',
+  '.ohssssshho.',
+  '.ohhssshhho.',
+  '.ohhccchhho.',
+  '.ohcacaccho.',
+  '.ohccccccco.',
+  '.ohcaaaccao.',
+  '..occcccco..',
+  '...obbbbo...',
+  '...obobbo...',
+  '...op.opo...',
+  '...oo.ooo...'
+ ];
+ const ctx=canvas.getContext('2d');
+ rows.forEach((row,y)=>Array.from(row).forEach((pixel,x)=>{
+  if(pixel=='.')return;
+  ctx.fillStyle=palette[pixel];
+  ctx.fillRect(x,y,1,1);
+ }));
+}
+
 paintWorld($('harbor-map'),Object.entries(islandRoutes).map(([id,points])=>({id,points})),central);
+paintAvatar(walker.querySelector('canvas'));
 placeWalker(central); walk(0,false);route();window.addEventListener('hashchange',route);
 </script></body></html>
