@@ -30,13 +30,27 @@
 #contact dl{display:grid;grid-template-columns:5em 1fr;gap:10px}#contact dd{margin:0;user-select:all;overflow-wrap:anywhere}
 @media(max-width:640px){.world-landscape button{font-size:11px;padding:5px 4px}.fieldnote{padding:12px}.street-scroll .scene{min-width:640px}}
 @media(prefers-reduced-motion:reduce){.world-walker{transition:none}}
+
+.island{position:relative;isolation:isolate;min-width:0;line-height:1}
+.island>img{display:block;width:100%;height:auto}
+.island-pin{position:absolute;z-index:2;transform:translate(-50%,-100%);margin-top:-9px;white-space:nowrap;background:#18192eec;color:#fff2db;border:1px solid #f6d5a7;box-shadow:3px 3px #15132cd9;font-size:clamp(11px,1.25vw,16px);font-weight:800;padding:6px 10px;min-height:34px}
+.island-pin::after{content:'';position:absolute;top:100%;left:50%;width:6px;height:6px;background:#f6d5a7;transform:translate(-50%,4px) rotate(45deg)}
+.island-pin:hover,.island-pin[aria-pressed=true]{background:#ffe0ad;color:#23213b}
+.island-walker{z-index:3;margin-top:0;transform:translate(-50%,-75%);transition:none;box-shadow:none}
+@media(max-width:640px){.island-pin{min-height:30px;font-size:10px;padding:4px 5px}.island-walker{width:11px;height:17px}}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div><a href="#street">世界地图</a><button type="button" id="contact-open" class="contact-open">联系方式</button></div></nav></header>
 <main class="wrap">
-<div id="home"><section class="intro"><h1>Hi, I’m <span>Anne.</span></h1><p><strong>李静 · 香港中文大学地理与资源管理</strong><br>我做过装置、搭过网站，也在研究门店怎么找到合适的位置。来小镇走走，看看我做过的东西。</p></section>
+<div id="home"><section class="intro"><h1>Hi, I’m <span>Anne.</span></h1><p><strong>李静 · 香港中文大学地理与资源管理</strong><br>我做过装置、搭过网站，也在研究门店怎么找到合适的位置。沿着岛上的路走走，看看我做过的东西。</p></section>
 <section id="street" class="game" aria-label="作品地图"><div class="game-head mono"><span>✦ 作品地图</span><span id="count"></span></div>
-<div class="street-scroll" id="street-scroll"><div class="scene"><canvas id="map" width="576" height="134" aria-hidden="true"></canvas><div class="points" id="points"></div></div></div>
-<div class="game-foot"><div class="arrows"><button id="prev" aria-label="往左走">←</button><button id="next" aria-label="往右走">→</button></div><span class="hint mono">← → 移动 · 到站自动显示项目地图</span><a id="enter" class="enter" href="#value-tree">查看详情 ↗</a></div></section>
+<div class="street-scroll" id="street-scroll">
+ <div class="island" id="island">
+  <img src="anne-island.webp" width="1536" height="1024" alt="暮色中的像素岛屿，石径从中央车站通往商铺、校园、天文台和港口" fetchpriority="high">
+  <div id="points" aria-label="岛上地点"></div>
+  <span class="island-walker world-walker" id="island-walker" aria-hidden="true"></span>
+ </div>
+</div>
+<div class="game-foot"><div class="arrows"><button id="prev" aria-label="往左走">←</button><button id="next" aria-label="往右走">→</button></div><span class="hint mono">点击地标或用 ← → 探索岛屿</span><a id="enter" class="enter" href="#value-tree">查看详情 ↗</a></div></section>
 <section class="project-map" id="project-map" aria-label="当前项目地图"></section>
 </div>
 <article id="detail" class="detail" hidden></article>
@@ -55,7 +69,7 @@ const projects = [
  {id:'oalmr', label:'OALMR', title:'CUHK OALMR'},
  {id:'research', label:'科研学术', title:'科研学术'}
 ];
-const points = projects.map((_,index)=>51+94*index);
+
 const atlas = {
   "value-tree": [
     "把生态知识变成一次与树的相遇",
@@ -145,65 +159,72 @@ function showJourney(index){
  nodes.forEach((node,i)=>node.onclick=()=>showStep(i));
  showStep(0);
 }
-const mapWidth = $('map').width;
-const buttons = projects.map((p,i)=>{
- const button=document.createElement('button');
- button.className='stop'; button.style.left=(points[i]/mapWidth*100)+'%'; button.textContent=p.label;
+const central = [49,74];
+const plaza = [[44,73],[39,69],[40,60],[43,51],[43,43]];
+const islandRoutes = {
+ 'value-tree': [...plaza,[40,38],[37,33]],
+ hkonnect: [[57,73],[67,71],[74,68],[80,74],[86,76]],
+ anker: [[42,73],[32,71],[23,68],[16,60],[17,53]],
+ writing: [[42,73],[36,68],[34,61],[33,53]],
+ oalmr: [...plaza,[49,39],[56,39],[63,39],[71,43],[77,48],[80,41],[78,30]],
+ research: [...plaza,[39,34],[34,29],[29,26],[26,21],[23,17]]
+};
+const walker = $('island-walker');
+const street = $('street-scroll');
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let selected=0;
+let arrival=-1;
+let movement;
 
+function placeWalker([x,y]){
+ walker.style.left=x+'%';
+ walker.style.top=y+'%';
+}
+
+const buttons=projects.map((project,index)=>{
+ const [x,y]=islandRoutes[project.id].at(-1);
+ const button=document.createElement('button');
+ button.type='button';
+ button.className='island-pin';
+ button.style.left=x+'%';
+ button.style.top=y+'%';
+ button.textContent=project.label;
+ button.onclick=()=>walk(index);
  $('points').append(button);
  return button;
 });
-const ctx=$('map').getContext('2d');
-const rect=(x,y,w,h,c)=>{ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),w,h)};
-let selected=0,x=51, target=51, frame=0;
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function select(i){
- selected=(i+projects.length)%projects.length; target=points[selected];
- buttons.forEach((b,j)=>b.setAttribute('aria-pressed',j===selected));
- $('count').textContent=(selected+1)+' / '+projects.length+' · '+projects[selected].label;
+
+function walk(index,animate=true){
+ selected=(index+projects.length)%projects.length;
+ const destination=projects[selected];
+ const path=islandRoutes[destination.id];
+ const end=path.at(-1);
+ buttons.forEach((button,i)=>button.setAttribute('aria-pressed',i===selected));
+ $('count').textContent=destination.label;
  const entry=$('enter');
- entry.hidden=!projects[selected].kind;
- entry.href='#'+projects[selected].id;
-}
-function tree(x,y,c){
- rect(x-2,y+13,4,11,'#423452'); rect(x-9,y+7,18,10,c); rect(x-6,y+3,12,13,c); rect(x-3,y,6,10,c); rect(x-5,y+7,3,3,'#a8d3a6');
-}
-function draw(){
- const moving=Math.abs(target-x)>.6;
- x=reduce||!moving?target:x+(target-x)*.13; frame++;
- rect(0,0,mapWidth,134,'#3d3063'); rect(0,32,mapWidth,54,'#544177');
- for(let i=0;i<46;i++)rect((i*73+17)%mapWidth,(i*19+3)%55,i%7===0?2:1,1,i%4===0?'#ffdbaf':'#8f7aa6');
- rect(318,11,22,19,'#ffca91');rect(321,8,16,25,'#ffca91');rect(324,6,10,29,'#ffca91');rect(321,20,18,1,'#e7a77d');
- for(let i=0;i<18;i++){
-  const px=(i*27)%(mapWidth+8), y=43+(i*7)%19;
-  rect(px,y,24,40,'#473761');rect(px+4,y-4,15,33,'#473761');
+ entry.hidden=!destination.kind;
+ entry.href='#'+destination.id;
+ movement?.cancel();
+ movement=null;
+ const origin=arrival<0?[]:islandRoutes[projects[arrival].id].slice().reverse();
+ const finish=()=>{
+  arrival=selected;
+  placeWalker(end);
+  showJourney(arrival);
+  if(animate&&street.scrollWidth>street.clientWidth){
+   street.scrollTo({left:end[0]/100*street.scrollWidth-street.clientWidth/2,behavior:reducedMotion.matches?'instant':'smooth'});
+  }
+ };
+ if(!animate||reducedMotion.matches||selected===arrival){finish();return;}
+ const frames=[...origin,central,...path];
+ const distances=[0];
+ for(let i=1;i<frames.length;i++){
+  distances.push(distances[i-1]+Math.hypot((frames[i][0]-frames[i-1][0])*1.5,frames[i][1]-frames[i-1][1]));
  }
- rect(0,83,mapWidth,51,'#5b6071');rect(0,100,mapWidth,22,'#b38380');rect(0,101,mapWidth,2,'#e2ad95');rect(0,119,mapWidth,3,'#7e626f');
- for(let i=0;i<85;i++){const y=104+(i*17)%30;rect((i*31+7)%(mapWidth-1),y,2,1,y<120?'#c99a8b':'#737788')}
- [12,94,191,288,371].forEach((px,i)=>tree(px,70+i%2*5,'#668e83'));
- // Tree installation, delivery shop, storefront, and screening room.
- tree(51,29,'#7fab8f');tree(41,40,'#688f82');tree(60,38,'#82aa8b');rect(37,63,28,19,'#79535a');
- points.slice(1).forEach((px,i)=>{
-  const palette=[['#d89270','#794b61'],['#91c7b0','#526583'],['#a799cf','#675181'],['#e7b78f','#914f5e'],['#a3bacf','#536382']][i];
-  rect(px-27,49,54,35,palette[0]);rect(px-32,43,64,7,palette[1]);rect(px-24,39,48,5,palette[1]);
-  rect(px-21,55,12,12,'#ffda9e');rect(px+8,55,12,12,'#ffda9e');rect(px-5,59,10,25,'#3a3050');
-  rect(px-27,67,19,3,palette[1]);rect(px+8,67,19,3,palette[1]);
- });
- points.forEach((px,i)=>{rect(px-9,86,18,14,'#8a737c');rect(px-4,94,8,3,i===selected?'#ffbd80':'#c8b1ba');});
- rect(x-7,117,15,3,'#755a68');
- const step=moving&&!reduce?Math.floor(frame/5)%2:0, y=98-step;
- rect(x-5,y-9,10,12,'#362944');rect(x-4,y-11,8,4,'#362944');rect(x-3,y-7,7,6,'#ffcc9b');
- rect(x-3,y-5,1,1,'#362944');rect(x+2,y-5,1,1,'#362944');rect(x-6,y-4,3,7,'#362944');
- rect(x-5,y+1,10,9,'#a9e2ca');rect(x-3,y+10,6,3,'#53466b');rect(x-4,y+13,3,4-step,'#332745');rect(x+1,y+13,3,3+step,'#332745');
- const street=$('street-scroll'), scene=$('map');
- if(street.scrollWidth>street.clientWidth && (moving||running)){
-  street.scrollLeft=x/mapWidth*scene.clientWidth-street.clientWidth/2;
- }
- if(moving&&!reduce) requestAnimationFrame(draw); else {running=false;showJourney(selected);}
+ const total=distances.at(-1);
+ movement=walker.animate(frames.map(([x,y],i)=>({left:x+'%',top:y+'%',offset:distances[i]/total})),{duration:Math.min(1600,Math.max(450,total*14))});
+ movement.onfinish=finish;
 }
-let running=false;
-function walk(i){select(i);if(!running){running=true;requestAnimationFrame(draw)}}
-buttons.forEach((b,i)=>b.onclick=()=>{walk(i);});
 $('prev').onclick=()=>walk(selected-1);$('next').onclick=()=>walk(selected+1);
 document.addEventListener('keydown',e=>{
  if($('home').hidden||$('contact').open||e.altKey||e.ctrlKey||e.metaKey)return;
@@ -218,5 +239,5 @@ function route(){
  walk(projects.findIndex(project=>project.id===(p.id==='retail'?'anker':p.id)));window.scrollTo(0,0);$('detail').querySelector('h1').focus({preventScroll:true});
 }
 $('contact-open').onclick=()=>$('contact').showModal();
-select(0); draw();route();window.addEventListener('hashchange',route);
+placeWalker(central); walk(0,false);route();window.addEventListener('hashchange',route);
 </script></body></html>
