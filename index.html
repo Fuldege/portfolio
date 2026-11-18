@@ -79,8 +79,8 @@
 body{background:#171727}
 header{background:#1d1e31;border-bottom:1px solid #353753}
 .brand{letter-spacing:.09em}
-nav>div a,nav .contact-open{border-radius:8px;padding:6px 10px}
-nav>div a:hover,nav .contact-open:hover{background:#323453;color:#fff1dd}
+nav .contact-open{border-radius:8px;padding:6px 10px}
+nav .contact-open:hover{background:#323453;color:#fff1dd}
 .game,.project-map{border-radius:12px;border-color:#444464;overflow:hidden;box-shadow:0 7px 22px #10101e80}
 .game-head,.game-foot{background:#24263d;color:#d4d6f2}
 .game-foot .arrows button{background:#343655;border-color:#53587d;border-radius:8px}
@@ -94,23 +94,46 @@ nav>div a:hover,nav .contact-open:hover{background:#323453;color:#fff1dd}
 #contact dt{color:#c6c8e1}
 #contact dd a{color:#bdc0ff;text-underline-offset:4px}
 .world-title{background:#26283f;border-bottom:1px solid #424461}
-.island .world-walker,.world-landscape .world-walker{isolation:isolate;overflow:visible}
-.station-light{
- position:absolute;z-index:1;pointer-events:none;
- transform:translate(-55%,-78%);
- width:clamp(88px,19vw,210px);height:clamp(54px,12vw,124px);
- background:radial-gradient(ellipse at center,#ffdb8f8c 0%,#ffce795c 32%,#b399e331 54%,transparent 73%);
- mix-blend-mode:screen;
-}
-.island-pin.is-arrived,.world-landscape button.is-arrived{
- color:#241e36;background:#ffd39b;border-color:#ffdfa9;
- box-shadow:0 0 0 1px #ffdfa95c,0 0 15px #ffbf696b,3px 3px #191529
-}
-.island-pin[aria-pressed=true]:not(.is-arrived),.world-landscape button[aria-pressed=true]:not(.is-arrived){background:#a7a7f3;color:#211e36;border-color:#c6c7ff}
 .island-pin:focus-visible,.world-landscape button:focus-visible,.contact-open:focus-visible,.contact-close:focus-visible{outline:2px solid #c9caff;outline-offset:3px}
-@media(max-width:640px){nav>div a,nav .contact-open{padding:6px}.game-head,.game-foot{padding-left:12px;padding-right:12px}}
+@media(max-width:640px){nav .contact-open{padding:6px}.game-head,.game-foot{padding-left:12px;padding-right:12px}}
+
+body:has(dialog[open]){overflow:hidden}
+.game{margin-bottom:36px}
+#project-dialog{
+ width:min(740px,calc(100% - 28px));max-height:calc(100dvh - 36px);margin:auto;
+ padding:0;color:var(--cream);background:#24263b;border:1px solid #585b83;
+ border-radius:14px;box-shadow:0 16px 70px #0c0b1cba;overscroll-behavior:contain;
+}
+#project-dialog::backdrop{background:#110e21bf}
+.project-bar{
+ position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;
+ padding:10px 16px;background:#24263b;border-bottom:1px solid #424461;
+}
+.project-bar span{color:#c6c8e1;font-size:13px}
+.project-close{
+ min-height:40px;padding:4px 12px;border:1px solid #53587d;border-radius:8px;
+ background:#343655;color:#fff0d9;font-size:14px;
+}
+.project-close:hover{background:#4d5081}
+#project-map .world-title{background:none;padding:14px 20px}
+#project-map .world-title h2{font-size:clamp(23px,4vw,34px);line-height:1.18;margin:0;letter-spacing:0}
+#project-map .world-title p{margin:4px 0 0;color:#d6cce2;font-size:14px}
+#project-map .world-landscape{overflow:hidden;margin-bottom:0}
+#project-map .fieldnote{margin:14px 16px 18px;padding:12px 14px;border-width:1px 1px 1px 3px;box-shadow:none}
+#project-map .fieldnote h3{font-size:19px}
+#project-map .fieldnote p{margin:4px 0 8px;font-size:14px}
+#project-map .terrain:has(.fieldnote[hidden]){padding-bottom:0}
+#project-map .world-landscape button[aria-pressed=true],.island-pin[aria-pressed=true]{
+ background:#31334f;color:#fff0d9;border-color:#c2b7e1;
+}
+@media(max-width:640px){
+ #project-dialog{max-height:calc(100dvh - 20px);width:calc(100% - 20px)}
+ .project-bar{padding:6px 10px}
+ #project-map .world-title{padding:10px 12px}
+ #project-map .fieldnote{margin:10px}
+}
 </style></head><body>
-<header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div><a href="#street">世界地图</a><button type="button" id="contact-open" class="contact-open">联系方式</button></div></nav></header>
+<header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog">联系方式</button></nav></header>
 <main class="wrap">
 <div id="home"><section class="intro"><h1>Hi, I’m <span>Anne.</span></h1><p><strong>李静 · 香港中文大学地理与资源管理</strong><br>我做过装置、搭过网站，也在研究门店怎么找到合适的位置。沿着岛上的路走走，看看我做过的东西。</p></section>
 <section id="street" class="game" aria-label="作品地图"><div class="game-head mono"><span>✦ 作品地图</span><span id="count"></span></div>
@@ -118,17 +141,20 @@ nav>div a:hover,nav .contact-open:hover{background:#323453;color:#fff1dd}
  <div class="island" id="island">
   <canvas id="harbor-map" class="pixel-map" width="384" height="216" role="img" aria-label="一座由环岛路串联六个站点的像素岛"></canvas>
   <div id="points" aria-label="岛上地点"></div>
-  <span class="station-light" hidden aria-hidden="true"></span>
   <span class="island-walker world-walker" id="island-walker" aria-hidden="true"><canvas class="avatar-sprite" width="12" height="16"></canvas></span>
  </div>
 </div>
-<div class="game-foot"><div class="arrows"><button id="prev" aria-label="往左走">←</button><button id="next" aria-label="往右走">→</button></div><span class="hint mono">点击地标或用 ← → 沿环岛路走</span><a id="enter" class="enter" href="#value-tree">查看详情 ↗</a></div></section>
-<section class="project-map" id="project-map" aria-label="当前项目地图"></section>
+<div class="game-foot"><div class="arrows"><button id="prev" aria-label="往左走">←</button><button id="next" aria-label="往右走">→</button></div><span class="hint mono">点击地标或用 ← → 沿环岛路走</span><button type="button" id="enter" class="enter" aria-haspopup="dialog">进入项目地图 ↗</button></div></section>
 </div>
 <article id="detail" class="detail" hidden></article>
-</main><dialog id="contact" aria-labelledby="contact-title"><form method="dialog"><button class="contact-close" aria-label="关闭联系方式">×</button></form><h2 id="contact-title">联系方式</h2><dl><dt>邮箱</dt><dd>aynnnlee@gmail.com</dd><dt>内地电话</dt><dd>+86 13636511549</dd><dt>香港电话</dt><dd>+852 63158830</dd>
+</main>
+<dialog id="project-dialog" aria-labelledby="project-title">
+ <div class="project-bar"><span class="mono">✦ 项目地图</span><form method="dialog"><button class="project-close" autofocus>← 返回总地图</button></form></div>
+ <div id="project-map"></div>
+</dialog>
+<dialog id="contact" aria-labelledby="contact-title"><form method="dialog"><button class="contact-close" aria-label="关闭联系方式">×</button></form><h2 id="contact-title">联系方式</h2><dl><dt>邮箱</dt><dd>aynnnlee@gmail.com</dd><dt>内地电话</dt><dd>+86 13636511549</dd><dt>香港电话</dt><dd>+852 63158830</dd>
 <dt>微信</dt><dd>Fuldege</dd>
-<dt>Instagram</dt><dd><a href="https://www.instagram.com/fuldegeeee/" rel="me">fuldegeeee <span aria-hidden="true">↗</span></a></dd></dl></dialog><footer><div class="wrap">Anne Li 李静 <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
+<dt>Instagram</dt><dd><a href="https://www.instagram.com/fuldegeeee/" rel="me">fuldegeeee <span aria-hidden="true">↗</span></a></dd><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/jing-li-aynnnlee/" rel="me">Jing Li <span aria-hidden="true">↗</span></a></dd></dl></dialog><footer><div class="wrap">Anne Li 李静 <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
 <script>
 const projectDetails = [
  {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', link:'tree1.png', linkText:'查看装置全图', image:'tree1.png'},
@@ -189,10 +215,11 @@ const districtStations = {
 };
 atlas.oalmr = ['交流活动广场','迎宾广场','展览廊','交流礼堂'];
 atlas.research = ['地理研究营地','地形观测台','地图工作室','研究档案室'];
-let arrived = -1;
+const projectDialog=$('project-dialog');
+let shownProject=-1;
 function showJourney(index){
- if(arrived===index)return;
- arrived=index;
+ if(shownProject===index)return;
+ shownProject=index;
  const project=projects[index];
  const id=project.id, entries=atlas[id], stationIndices=districtStations[id];
  const positions=stationIndices.map(i=>districtLoop[i]), count=positions.length;
@@ -200,21 +227,20 @@ function showJourney(index){
  map.dataset.world=id;
  const hasNotes=entries.length>count+1;
  map.innerHTML=`<div class="terrain">
-  <div class="world-title"><h2>${project.title}</h2><p>${entries[0]}</p></div>
+  <div class="world-title"><h2 id="project-title">${project.title}</h2><p>${entries[0]}</p></div>
   <div class="world-landscape" aria-label="子项目地图">
    <canvas class="pixel-map" width="288" height="162" aria-hidden="true"></canvas>
-   <span class="station-light" hidden aria-hidden="true"></span>
    <span class="world-walker" aria-hidden="true"><canvas class="avatar-sprite" width="12" height="16"></canvas></span>
    ${positions.map(([x,y],i)=>`<button style="left:${x}%;top:${y}%" aria-pressed="false">${entries[i+1]}</button>`).join('')}
   </div>
   <section class="fieldnote" aria-live="polite" ${hasNotes?'':'hidden'}></section>
  </div>`;
- paintWorld(map.querySelector('canvas'),[{id,points:positions}],[50,52],districtLoop);
+ const canvas=map.querySelector('.pixel-map');
+ const drawDistrict=active=>paintWorld(canvas,[{id,points:positions}],[50,52],districtLoop,active);
  const nodes=[...map.querySelectorAll('.world-landscape button')];
  const note=map.querySelector('.fieldnote');
  const walker=map.querySelector('.world-walker');
  paintAvatar(walker.querySelector('canvas'));
- const light=map.querySelector('.station-light');
  let lastStep=0, districtMove;
  function showStep(i,animate=false){
   nodes.forEach((node,j)=>node.setAttribute('aria-pressed',j===i));
@@ -223,15 +249,22 @@ function showJourney(index){
   const [x,y]=positions[i];
   walker.style.left=x+'%';
   walker.style.top=y+'%';
-  lastStep=i;
-  const arrive=()=>illuminateStation(light,nodes,i,positions[i]);
+  const arrive=()=>{
+   lastStep=i;
+   drawDistrict(positions[i]);
+   updateNote(i);
+  };
   if(animate&&path.length>1&&!reducedMotion.matches){
-   clearStationLight(light,nodes);
+   drawDistrict();
+   note.setAttribute('aria-busy','true');
    districtMove=walker.animate(pathFrames(path),{duration:Math.min(1300,loopDistance(path)*14),easing:'linear'});
    districtMove.onfinish=arrive;
   }else{
    arrive();
   }
+ }
+ function updateNote(i){
+  note.removeAttribute('aria-busy');
   if(!hasNotes)return;
   const link=id==='anker'&&i===0?'#retail':id==='writing'?(i===0?project.extra:project.link):'#'+id;
   const label=id==='writing'?(i===0?'阅读小红书手记':'播放 B 站作品'):id==='value-tree'?'看装置现场照片':id==='anker'&&i===0?'展开选址案例':'查看项目介绍';
@@ -276,20 +309,10 @@ function pathAroundLoop(loop,from,to){
  const forward=trace(1),backward=trace(-1);
  return loopDistance(forward)<=loopDistance(backward)?forward:backward;
 }
-function clearStationLight(light,pins){
- light.hidden=true;
- pins.forEach(pin=>pin.classList.remove('is-arrived'));
-}
-
-function illuminateStation(light,pins,active,[x,y]){
- light.style.left=x+'%';
- light.style.top=y+'%';
- light.hidden=false;
- pins.forEach((pin,i)=>pin.classList.toggle('is-arrived',i===active));
-}
-
 const walker = $('island-walker');
-const islandLight = walker.parentElement.querySelector('.station-light');
+const harborCanvas=$('harbor-map');
+const harborStations=loopStops.map(id=>({id,points:[stationPoint(id)]}));
+const drawIsland=active=>paintWorld(harborCanvas,harborStations,central,islandLoop,active);
 const street = $('street-scroll');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let selected=0;
@@ -309,37 +332,48 @@ const buttons=projects.map((project,index)=>{
  button.style.left=x+'%';
  button.style.top=y+'%';
  button.textContent=project.label;
+ button.setAttribute('aria-haspopup','dialog');
  button.onclick=()=>walk(index);
  $('points').append(button);
  return button;
 });
 
-function walk(index,animate=true){
+function walk(index,openProject=true){
  selected=(index+projects.length)%projects.length;
  const destination=projects[selected];
  const end=stationPoint(destination.id);
  buttons.forEach((button,i)=>button.setAttribute('aria-pressed',i===selected));
  $('count').textContent=destination.label;
- const entry=$('enter');
- entry.hidden=!destination.kind;
- entry.href='#'+destination.id;
  movement?.cancel();
  movement=null;
  const finish=()=>{
+  movement=null;
   arrival=selected;
-  illuminateStation(islandLight,buttons,arrival,end);
+  drawIsland(end);
   placeWalker(end);
-  showJourney(arrival);
-  if(animate&&street.scrollWidth>street.clientWidth){
+  if(openProject&&!$('home').hidden)openJourney();
+  if(openProject&&street.scrollWidth>street.clientWidth){
    street.scrollTo({left:end[0]/100*street.scrollWidth-street.clientWidth/2,behavior:reducedMotion.matches?'instant':'smooth'});
   }
  };
- if(!animate||reducedMotion.matches||arrival<0||selected===arrival){finish();return;}
- clearStationLight(islandLight,buttons);
+ if(!openProject||reducedMotion.matches||arrival<0||selected===arrival){finish();return;}
+ drawIsland();
  const frames=pathAroundLoop(islandLoop,loopIndex.get(projects[arrival].id),loopIndex.get(destination.id));
  movement=walker.animate(pathFrames(frames),{duration:Math.min(1600,Math.max(450,loopDistance(frames)*14))});
  movement.onfinish=finish;
 }
+function openJourney(){
+ if(movement||projectDialog.open||$('contact').open)return;
+ showJourney(arrival);
+ projectDialog.scrollTop=0;
+ projectDialog.showModal();
+}
+$('enter').onclick=openJourney;
+projectDialog.addEventListener('click',event=>{
+ if(event.target!==projectDialog)return;
+ const {left,right,top,bottom}=projectDialog.getBoundingClientRect();
+ if(event.clientX<left||event.clientX>right||event.clientY<top||event.clientY>bottom)projectDialog.close();
+});
 function stepAroundIsland(direction){
  const current=loopStops.indexOf(projects[selected].id);
  const id=loopStops[(current+direction+loopStops.length)%loopStops.length];
@@ -347,16 +381,17 @@ function stepAroundIsland(direction){
 }
 $('prev').onclick=()=>stepAroundIsland(-1);$('next').onclick=()=>stepAroundIsland(1);
 document.addEventListener('keydown',e=>{
- if($('home').hidden||$('contact').open||e.altKey||e.ctrlKey||e.metaKey)return;
- if(['ArrowLeft','a','ArrowRight','d'].includes(e.key)){e.preventDefault();stepAroundIsland(['ArrowLeft','a'].includes(e.key)?-1:1);}
- if(e.key==='Enter'&&[document.body,$('prev'),$('next')].includes(document.activeElement)){e.preventDefault(); if(projects[selected].kind) location.hash=projects[selected].id;}
+ if($('home').hidden||projectDialog.open||$('contact').open||e.altKey||e.ctrlKey||e.metaKey)return;
+ if(['ArrowLeft','a','ArrowRight','d'].includes(e.key)){e.preventDefault();if(!e.repeat)stepAroundIsland(['ArrowLeft','a'].includes(e.key)?-1:1);}
+ if(e.key==='Enter'&&[document.body,$('prev'),$('next')].includes(document.activeElement)){e.preventDefault(); openJourney();}
 });
 function route(){
  const p=projectDetails.find(p=>'#'+p.id===location.hash);
  $('home').hidden=!!p;$('detail').hidden=!p;
  if(!p){if(!location.hash)window.scrollTo(0,0); return;}
+ if(projectDialog.open)projectDialog.close();
  $('detail').innerHTML='<a href="#">← 返回地图</a><h1 tabindex="-1">'+p.title+'</h1><small>'+p.kind+'</small><section class="paper">'+(p.image?'<figure><img src="'+p.image+'" alt="价值之树装置现场"><figcaption>价值之树 · 装置现场</figcaption></figure>':'')+'<h2>'+p.description+'</h2><p>'+p.body+'</p>'+(p.role?'<h3>我做了什么</h3><p>'+p.role+'</p>':'')+(p.link?'<a href="'+p.link+'">'+p.linkText+' ↗</a>':'')+(p.extra?' · <a href="'+p.extra+'">小红书 ↗</a>':'')+(p.image?'<div class="gallery">'+[2,3,4].map(n=>'<a href="tree'+n+'.png"><img src="tree'+n+'.png" alt="价值之树项目照片 '+n+'"></a>').join('')+'</div>':'')+'</section>';
- walk(projects.findIndex(project=>project.id===(p.id==='retail'?'anker':p.id)));window.scrollTo(0,0);$('detail').querySelector('h1').focus({preventScroll:true});
+ walk(projects.findIndex(project=>project.id===(p.id==='retail'?'anker':p.id)),false);window.scrollTo(0,0);$('detail').querySelector('h1').focus({preventScroll:true});
 }
 $('contact-open').onclick=()=>$('contact').showModal();
 const colors={
@@ -367,7 +402,7 @@ const colors={
  oalmr:['#778666','#566254','#d2ac99','#a87587'],
  research:['#74928f','#4d606c','#afbfcb','#8e9dbc']
 };
-function paintWorld(canvas,stops,center,loop=islandLoop){
+function paintWorld(canvas,stops,center,loop,active){
  const ctx=canvas.getContext('2d');
  const {width:w,height:h}=canvas;
  const pos=([x,y])=>[Math.round(w*x/100),Math.round(h*y/100)];
@@ -428,11 +463,17 @@ function paintWorld(canvas,stops,center,loop=islandLoop){
   block(x-5,y-20,5,2,palette[2]);
   block(x+3,y-17,4,2,palette[2]);
  }
- function landmark(x,y,id,palette,index){
+ function landmark(x,y,id,palette,index,lit){
+  const windowLight=lit?'#ffe6a5':'#987e88';
   const shade='#332e44';
   block(x-17,y-1,42,4,'#2b2b4055');
   if(id==='value-tree'||(id==='oalmr'&&index===0)){
-   tree(x,y,['#b67968','#826071','#edbb84']);
+   tree(x,y,lit?['#dfa066','#9e746e','#ffda9c']:['#b67968','#826071','#edbb84']);
+   if(lit){
+    block(x-9,y-12,2,2,'#fff1c0');
+    block(x+4,y-9,3,2,'#ffd28a');
+    block(x-2,y-16,2,2,'#fff1c0');
+   }
    block(x-14,y-5,7,3,'#e4bb92');block(x+8,y-3,5,3,'#e5b58b');
    return;
   }
@@ -441,12 +482,14 @@ function paintWorld(canvas,stops,center,loop=islandLoop){
    for(let i=-18;i<23;i+=5)block(x+i,y-4,4,3,'#c29478');
    polygon([[x-15,y-8],[x+16,y-8],[x+12,y],[x-10,y]],'#423751');
    block(x-10,y-15,8,7,'#bb8968');block(x-8,y-16,4,2,'#e8b782');
+   if(lit)block(x-18,y-5,38,1,'#ffd793');
    if(index!==1){
-    block(x+2,y-15,10,8,'#afbbc0');block(x+3,y-14,6,3,'#54627e');
+    block(x+2,y-15,10,8,'#afbbc0');block(x+3,y-14,6,3,lit?'#fff0ad':'#54627e');
     block(x+6,y-20,2,6,'#e8b782');
    }else{
     block(x+1,y-13,6,6,'#a57461');block(x+9,y-14,7,7,'#dbb278');
    }
+   if(lit)block(x-7,y-13,3,3,'#fff0ad');
    return;
   }
   const retail=id==='anker', campus=id==='oalmr', studio=id==='writing';
@@ -459,12 +502,12 @@ function paintWorld(canvas,stops,center,loop=islandLoop){
   block(x-r-1,y-height,2*r+3,2,shade);
   if(retail){
    block(x-r+2,y-height+4,2*r-4,9,'#34475e');
-   for(let i=x-r+4;i<x+r-2;i+=6)block(i,y-height+5,4,7,'#9dd9cc');
+   for(let i=x-r+4;i<x+r-2;i+=6)block(i,y-height+5,4,7,lit?'#ffe8a7':'#83adaf');
    block(x-r-2,y-height+2,2*r+4,2,'#c1b2d6');
   }else{
    for(let i=x-r+3;i<x+r-2;i+=7){
     block(i-1,y-height+5,6,7,'#60506d');
-    block(i,y-height+6,4,5,'#ffd39a');
+    block(i,y-height+6,4,5,windowLight);
    }
   }
   if(campus){
@@ -477,9 +520,10 @@ function paintWorld(canvas,stops,center,loop=islandLoop){
   }
   if(id==='research'&&index===0){
    polygon([[x-10,y-21],[x-9,y-27],[x-6,y-32],[x+5,y-32],[x+9,y-28],[x+10,y-21]],'#bdbed5');
-   block(x-5,y-30,4,3,'#e8d4dd');block(x+3,y-28,5,6,'#5d5b78');
+   block(x-5,y-30,4,3,lit?'#ffedba':'#e8d4dd');block(x+3,y-28,5,6,'#5d5b78');
   }
-  block(x-3,y-8,6,8,shade);block(x-4,y,9,2,'#d6b192');
+  block(x-3,y-8,6,8,lit?'#ffdc95':shade);
+  block(x-4,y,9,2,lit?'#ffe8a5':'#d6b192');
  }
  const harbor=canvas.id==='harbor-map';
  const district=harbor?'harbor':stops[0].id;
@@ -550,12 +594,13 @@ function paintWorld(canvas,stops,center,loop=islandLoop){
   const pins=harbor?points.slice(-1):points;
   pins.forEach((point,index)=>{
    const [x,y]=pos(point);
-   landmark(x-6,y-6,id,colors[id],harbor&&id==='oalmr'?1:index);
+   const lit=point===active;
+   landmark(x-6,y-6,id,colors[id],harbor&&id==='oalmr'?1:index,lit);
    if(id!=='hkonnect'){
     tree(x+20,y-4,['#7c987a','#526a67','#afab83'],true);
     block(x+6,y+3,5,2,'#d09887');
    }
-   block(x+19,y-8,2,8,'#59475d');block(x+18,y-10,4,3,'#ffce8a');
+   block(x+19,y-8,2,8,'#59475d');block(x+18,y-10,4,3,lit?'#fff3c4':'#a68e95');
   });
  }
  if(!harbor){
@@ -593,7 +638,6 @@ function paintAvatar(canvas){
  }));
 }
 
-paintWorld($('harbor-map'),loopStops.map(id=>({id,points:[stationPoint(id)]})),central);
 paintAvatar(walker.querySelector('canvas'));
 placeWalker(central); walk(0,false);route();window.addEventListener('hashchange',route);
 </script></body></html>

@@ -6,8 +6,8 @@ An original pixel-art portfolio with a twilight town as the work index.
 - Borrow playful violet contrast from Discord and warm stepped accents and spacious display typography from Mistral. Use original sprites and scenery.
 - Use heavy display type with moderate negative tracking (−0.045em) for names, readable sans-serif for body text and monospace for controls. Keep plenty of space around project photos.
 - Render world art on a low-resolution pixel grid. Keep interactive labels in HTML, with visible keyboard focus.
-- On desktop support arrows and A/D. On touch use prev/next controls and tappable stops. Keep direct project links below the map.
+- On desktop support arrows and A/D. On touch use prev/next controls and tappable stops. Open the selected station’s project map in a dialog after arrival. The map stays on the island behind the dialog.
 - Detail pages open with a title and image, then brief sections about the idea and Anne’s contribution. Keep photos in their original style.
-- The four main stations each have a project map below the street. Swap the map when the avatar finishes walking. Keep stage buttons keyboard and touch accessible, and stack the route vertically on mobile.
+- Give each station a compact pixel map with a loop and clickable landmarks. Change the destination’s windows, lamps or canopy lights after the avatar arrives. Keep the sprite unchanged during lighting changes. Use a scrollable project dialog with a sticky return button on desktop and mobile.
 - Keep retail site selection inside Anker’s project map. Preserve the direct case link.
 - To add a station, add a project record, journey steps, a waypoint and a map landmark.
