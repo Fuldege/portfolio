@@ -80,12 +80,12 @@
 <section id="street" class="game" aria-label="作品地图"><div class="game-head mono"><span>✦ 作品地图</span><span id="count"></span></div>
 <div class="street-scroll" id="street-scroll">
  <div class="island" id="island">
-  <canvas id="harbor-map" class="pixel-map" width="384" height="216" role="img" aria-label="桥梁连接六个地区的像素港湾"></canvas>
+  <canvas id="harbor-map" class="pixel-map" width="384" height="216" role="img" aria-label="一座由环岛路串联六个站点的像素岛"></canvas>
   <div id="points" aria-label="岛上地点"></div>
   <span class="island-walker world-walker" id="island-walker" aria-hidden="true"><canvas class="avatar-sprite" width="12" height="16"></canvas></span>
  </div>
 </div>
-<div class="game-foot"><div class="arrows"><button id="prev" aria-label="往左走">←</button><button id="next" aria-label="往右走">→</button></div><span class="hint mono">点击地标或用 ← → 探索岛屿</span><a id="enter" class="enter" href="#value-tree">查看详情 ↗</a></div></section>
+<div class="game-foot"><div class="arrows"><button id="prev" aria-label="往左走">←</button><button id="next" aria-label="往右走">→</button></div><span class="hint mono">点击地标或用 ← → 沿环岛路走</span><a id="enter" class="enter" href="#value-tree">查看详情 ↗</a></div></section>
 <section class="project-map" id="project-map" aria-label="当前项目地图"></section>
 </div>
 <article id="detail" class="detail" hidden></article>
@@ -189,14 +189,32 @@ function showJourney(index){
  showStep(0);
 }
 const central = [50,59];
-const islandRoutes = {
- 'value-tree': [[43,54],[36,45],[27,38]],
- hkonnect: [[60,65],[69,72],[83,80]],
- anker: [[40,63],[29,68],[17,73]],
- writing: [[50,68],[49,78],[48,86]],
- oalmr: [[60,54],[70,46],[82,39]],
- research: [[50,48],[51,36],[53,25]]
-};
+const islandLoop = [
+ [22,40,'value-tree'],[30,27],[42,22,'research'],[58,22],
+ [73,29,'oalmr'],[82,42],[83,58,'hkonnect'],[74,70],
+ [58,77,'writing'],[41,77],[25,71,'anker'],[17,57]
+];
+const loopIndex = new Map(islandLoop.flatMap(([, ,id],i)=>id?[[id,i]]:[]));
+const loopStops = islandLoop.filter(([, ,id])=>id).map(([, ,id])=>id);
+const stationPoint = id => islandLoop[loopIndex.get(id)];
+
+function loopDistance(route){
+ return route.slice(1).reduce((length,[x,y],i)=>
+  length+Math.hypot((x-route[i][0])*1.5,y-route[i][1]),0);
+}
+
+function pathAroundIsland(from,to){
+ function trace(direction){
+  const path=[islandLoop[from]];
+  for(let i=from;i!==to;){
+   i=(i+direction+islandLoop.length)%islandLoop.length;
+   path.push(islandLoop[i]);
+  }
+  return path;
+ }
+ const forward=trace(1),backward=trace(-1);
+ return loopDistance(forward)<=loopDistance(backward)?forward:backward;
+}
 const walker = $('island-walker');
 const street = $('street-scroll');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -210,7 +228,7 @@ function placeWalker([x,y]){
 }
 
 const buttons=projects.map((project,index)=>{
- const [x,y]=islandRoutes[project.id].at(-1);
+ const [x,y]=stationPoint(project.id);
  const button=document.createElement('button');
  button.type='button';
  button.className='island-pin';
@@ -225,8 +243,7 @@ const buttons=projects.map((project,index)=>{
 function walk(index,animate=true){
  selected=(index+projects.length)%projects.length;
  const destination=projects[selected];
- const path=islandRoutes[destination.id];
- const end=path.at(-1);
+ const end=stationPoint(destination.id);
  buttons.forEach((button,i)=>button.setAttribute('aria-pressed',i===selected));
  $('count').textContent=destination.label;
  const entry=$('enter');
@@ -234,7 +251,6 @@ function walk(index,animate=true){
  entry.href='#'+destination.id;
  movement?.cancel();
  movement=null;
- const origin=arrival<0?[]:islandRoutes[projects[arrival].id].slice().reverse();
  const finish=()=>{
   arrival=selected;
   placeWalker(end);
@@ -243,8 +259,8 @@ function walk(index,animate=true){
    street.scrollTo({left:end[0]/100*street.scrollWidth-street.clientWidth/2,behavior:reducedMotion.matches?'instant':'smooth'});
   }
  };
- if(!animate||reducedMotion.matches||selected===arrival){finish();return;}
- const frames=[...origin,central,...path];
+ if(!animate||reducedMotion.matches||arrival<0||selected===arrival){finish();return;}
+ const frames=pathAroundIsland(loopIndex.get(projects[arrival].id),loopIndex.get(destination.id));
  const distances=[0];
  for(let i=1;i<frames.length;i++){
   distances.push(distances[i-1]+Math.hypot((frames[i][0]-frames[i-1][0])*1.5,frames[i][1]-frames[i-1][1]));
@@ -253,10 +269,15 @@ function walk(index,animate=true){
  movement=walker.animate(frames.map(([x,y],i)=>({left:x+'%',top:y+'%',offset:distances[i]/total})),{duration:Math.min(1600,Math.max(450,total*14))});
  movement.onfinish=finish;
 }
-$('prev').onclick=()=>walk(selected-1);$('next').onclick=()=>walk(selected+1);
+function stepAroundIsland(direction){
+ const current=loopStops.indexOf(projects[selected].id);
+ const id=loopStops[(current+direction+loopStops.length)%loopStops.length];
+ walk(projects.findIndex(project=>project.id===id));
+}
+$('prev').onclick=()=>stepAroundIsland(-1);$('next').onclick=()=>stepAroundIsland(1);
 document.addEventListener('keydown',e=>{
  if($('home').hidden||$('contact').open||e.altKey||e.ctrlKey||e.metaKey)return;
- if(['ArrowLeft','a','ArrowRight','d'].includes(e.key)){e.preventDefault();walk(selected+(['ArrowLeft','a'].includes(e.key)?-1:1));}
+ if(['ArrowLeft','a','ArrowRight','d'].includes(e.key)){e.preventDefault();stepAroundIsland(['ArrowLeft','a'].includes(e.key)?-1:1);}
  if(e.key==='Enter'&&[document.body,$('prev'),$('next')].includes(document.activeElement)){e.preventDefault(); if(projects[selected].kind) location.hash=projects[selected].id;}
 });
 function route(){
@@ -397,16 +418,32 @@ function paintWorld(canvas,stops,center){
  }
  const [cx,cy]=pos(center);
  const harbor=canvas.id==='harbor-map';
- if(!harbor)ground(cx,cy,128,56,colors[stops[0].id]);
- for(const {id,points} of stops){
-  const [x,y]=pos(points.at(-1));
-  if(harbor){
-   ground(x,y-3,id==='research'?35:42,id==='research'?20:18,colors[id]);
-   if(id==='research')ground(x-8,y-11,23,10,['#8d9caa','#5c637b']);
+ if(harbor){
+  const coast=[[8,55],[11,38],[21,26],[36,15],[53,14],[70,19],[84,29],[91,49],[90,61],[79,75],[59,85],[38,86],[21,80],[11,68]].map(pos);
+  const lower=coast.map(([x,y])=>[x,y+10]);
+  polygon(lower,'#181b36');
+  coast.forEach(([x,y],i)=>{
+   const [a,b]=coast[(i+1)%coast.length];
+   if(a>x)return;
+   polygon([[x,y],[a,b],[a,b+8],[x,y+8]],i%2?'#464758':'#5c5363');
+   block((x+a)/2,(y+b)/2+5,4,2,'#766574');
+  });
+  polygon(coast,'#75917a');
+  const inner=coast.map(([x,y])=>[Math.round(cx+(x-cx)*.92),Math.round(cy+(y-cy)*.92)]);
+  polygon(inner,'#667f70');
+  for(let i=0;i<100;i++){
+   const x=50+(i*29)%281,y=52+(i*37)%118;
+   if(((x-192)/145)**2+((y-107)/60)**2<.94)block(x,y,i%3?2:4,1,i%2?'#809582':'#5c756a');
   }
+  ground(cx,cy-12,64,26,['#829680','#556b61']);
+  trail([...islandLoop,islandLoop[0]]);
+  for(const [dx,dy] of [[-27,-3],[-13,-19],[12,-18],[28,1],[8,10]]){
+   tree(cx+dx,cy+dy,['#779b80','#4f6d66','#a9ad88'],true);
+  }
+ }else{
+  ground(cx,cy,128,56,colors[stops[0].id]);
+  for(const {points} of stops)trail([center,...points]);
  }
- if(harbor)ground(cx,cy-3,33,15,colors.anker);
- for(const {points} of stops)trail([center,...points]);
  for(const {id,points} of stops){
   const pins=harbor?points.slice(-1):points;
   pins.forEach((point,index)=>{
@@ -419,8 +456,7 @@ function paintWorld(canvas,stops,center){
    block(x+19,y-8,2,8,'#59475d');block(x+18,y-10,4,3,'#ffce8a');
   });
  }
- if(harbor)landmark(cx,cy-6,'writing',colors.writing,0);
- else {
+ if(!harbor){
   for(const [dx,dy] of [[-32,-23],[30,-21],[-41,18],[47,10]]){
    tree(cx+dx,cy+dy,['#789279','#52676a','#a6aa7e'],true);
   }
@@ -455,7 +491,7 @@ function paintAvatar(canvas){
  }));
 }
 
-paintWorld($('harbor-map'),Object.entries(islandRoutes).map(([id,points])=>({id,points})),central);
+paintWorld($('harbor-map'),loopStops.map(id=>({id,points:[stationPoint(id)]})),central);
 paintAvatar(walker.querySelector('canvas'));
 placeWalker(central); walk(0,false);route();window.addEventListener('hashchange',route);
 </script></body></html>
