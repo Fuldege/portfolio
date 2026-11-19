@@ -204,7 +204,6 @@ body:has(dialog[open]){overflow:hidden}
 .tree-hero p{color:#eaebd5;margin:0;line-height:1.65}
 .tree-canopy{position:relative;min-height:340px;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 60% 35%,#59714b 0,#2d4738 55%,#21382f 100%)}
 .tree-canopy::before{content:"";position:absolute;inset:8%;border:1px solid #dae3b94a;border-radius:50% 50% 10px 10px}
-.tree-form{position:absolute;inset:7% 13% 0;background:repeating-linear-gradient(77deg,#67543f 0 9px,#897253 9px 19px,#79664b 19px 25px);clip-path:polygon(43% 88%,47% 56%,19% 33%,10% 10%,14% 8%,24% 29%,48% 46%,52% 21%,63% 5%,67% 7%,58% 23%,55% 46%,77% 33%,87% 15%,91% 17%,83% 38%,57% 56%,59% 87%,78% 94%,88% 98%,58% 96%,47% 100%,41% 95%,15% 99%,28% 92%)}
 .tree-leaf{position:absolute;z-index:1;display:grid;place-items:center;transform:translate(-50%,-50%) rotate(-11deg);border:1px solid #e0dead;border-radius:63% 14% 63% 14%;min-width:100px;max-width:40%;min-height:62px;padding:8px 12px;color:#152b23;background:#b9d79d;box-shadow:4px 6px 0 #17292370;line-height:1.2;font-weight:750}
 .tree-leaf span{transform:rotate(11deg)}
 .tree-leaf:nth-of-type(1){left:23%;top:42%}
@@ -312,7 +311,8 @@ body:has(dialog[open]){overflow:hidden}
 .detail-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:19px}
 .detail-links a{background:#e6dcfa;color:#29233c;border-radius:6px;padding:6px 12px;font-weight:700;text-decoration:none}
 .detail-links a:hover{text-decoration:underline}
-.detail :is(h1,h2,dt,.tree-canopy):focus-visible{outline:2px solid #8876c0;outline-offset:5px}
+.detail :is(h1,h2,dt)[tabindex="-1"]:focus{outline:none}
+.detail .tree-canopy:focus-visible{outline:2px solid var(--detail-accent);outline-offset:4px}
 @media(max-width:760px){
  .detail-toolbar{display:grid;gap:3px;padding:5px 8px}
  .detail-toolbar>a{justify-self:start}
@@ -345,6 +345,108 @@ body:has(dialog[open]){overflow:hidden}
 .campus-experience strong{color:#3a5d48;font-size:15px}
 .campus-experience p{margin:8px 0 0;line-height:1.65}
 @media(max-width:570px){.campus-works,.campus-experiences{grid-template-columns:1fr}.campus-works .photo-open img{aspect-ratio:auto}}
+/* Project panels borrow the stepped frames and palette of the island maps. */
+.detail{
+ --case-surface:#23263c;--case-inset:#191c2e;--case-edge:#595877;
+ --case-shadow:#0e1020;--case-text:#d8d6e8;--case-heading:#fff0d9;
+ --pixel-corner:polygon(0 8px,8px 8px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 8px) calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 8px),0 calc(100% - 8px));
+ margin-bottom:68px;
+}
+.detail[data-project="oalmr"],.detail[data-project="value-tree"]{
+ --case-surface:#233631;--case-inset:#192b29;--case-edge:#526b5d;--case-text:#dbe7d7;
+}
+.detail[data-project="hkonnect"]{--case-surface:#222f44;--case-inset:#192438;--case-edge:#506682}
+.detail[data-project="research"]{--case-surface:#252f44;--case-inset:#1b2335;--case-edge:#536782}
+.detail[data-project="writing"]{--case-surface:#32273e;--case-inset:#271d33;--case-edge:#6b5678}
+.detail .detail-toolbar{
+ margin-bottom:22px;background:var(--case-inset);border:2px solid var(--case-edge);
+ border-radius:0;box-shadow:4px 4px var(--case-shadow);
+}
+.detail-toolbar a{border-radius:0}
+.detail-jumps{scrollbar-color:var(--case-edge) var(--case-inset)}
+.detail-toolbar>a{background:var(--case-surface);box-shadow:inset 0 -2px var(--case-edge)}
+.detail-toolbar a[aria-current="location"]{box-shadow:inset 0 -3px #16192755}
+.detail-jumps a:not(:first-child)::before{
+ content:"";width:6px;height:6px;margin-right:7px;border:1px solid var(--detail-accent);flex:none;
+}
+.detail-jumps a[aria-current="location"]::before{border-color:var(--case-inset);background:var(--case-inset)}
+.detail .case-hero,.detail .tree-hero{
+ position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+ align-items:center;gap:clamp(16px,3.5vw,44px);min-height:0;
+ padding:clamp(24px,4vw,44px);border:0;border-radius:0;
+ background:var(--case-surface);color:var(--case-heading);clip-path:var(--pixel-corner);
+}
+.detail :is(.case-hero,.tree-hero)::before{
+ content:"";position:absolute;inset:0;pointer-events:none;border:2px solid var(--case-edge);
+ border-top:4px solid var(--detail-accent);clip-path:var(--pixel-corner);
+}
+.detail :is(.case-hero,.tree-hero) small{
+ display:inline-flex;align-items:center;gap:10px;color:var(--detail-accent);font-size:14px;line-height:1.5;
+}
+.detail :is(.case-hero,.tree-hero) small::before,.detail :is(.case-chapter,.geo-topic,.tree-story,.campus-gallery,.campus-clubs,.hk-content,.case-demo) h2::before{
+ content:"";flex:none;display:inline-block;width:8px;height:8px;background:var(--detail-accent);
+ box-shadow:3px 3px var(--case-shadow);
+}
+.case-hero-copy,.detail .tree-hero-copy{min-width:0;padding:0}
+.detail :is(.case-hero,.tree-hero) h1{
+ font:850 clamp(34px,5.3vw,72px)/1.04 system-ui,sans-serif;letter-spacing:-.06em;
+ margin:13px 0 16px;text-shadow:3px 3px var(--case-shadow);overflow-wrap:anywhere;
+}
+.detail .case-hero h2{color:var(--detail-accent);font-size:clamp(18px,2.25vw,26px);line-height:1.35;margin:0 0 11px}
+.detail :is(.case-hero,.tree-hero) p{color:var(--case-text);line-height:1.68}
+.case-scene{
+ display:block;width:100%;height:auto;image-rendering:pixelated;background:var(--case-inset);
+ border:4px solid var(--case-edge);box-shadow:6px 6px var(--case-shadow);
+}
+.detail .case-content,.detail .hk-content,.detail .tree-content{
+ display:grid;gap:18px;background:none;border:0;border-radius:0;color:var(--case-text);padding:0;
+ margin:22px 0 0;
+}
+.detail :is(.tree-case,.paper){border:0;border-radius:0;background:none;overflow:visible}
+.detail .tree-case{color:var(--case-text)}
+.detail :is(.case-chapter,.hk-content>section,.geo-topic,.geo-publication,.tree-leaf-panel,.tree-story>section,.tree-photos,.tree-crux,.campus-gallery,.campus-clubs,.case-demo){
+ margin:0;border:2px solid var(--case-edge);border-radius:0;padding:clamp(17px,3.3vw,34px);
+ background:var(--case-surface);color:var(--case-text);box-shadow:4px 4px var(--case-shadow);
+}
+.detail :is(.case-chapter,.geo-topic,.tree-story,.campus-gallery,.campus-clubs,.hk-content,.case-demo) h2{
+ display:flex;align-items:baseline;gap:11px;
+}
+.detail :is(.case-content,.hk-content,.tree-content) :is(h2,h3,dt){color:var(--case-heading)}
+.detail :is(.case-chapter p,.case-roles dd,.case-visual figcaption,.tree-photo-grid figcaption,.publication-authors,.campus-case .case-chapter small,.campus-experience small){color:var(--case-text)}
+.detail :is(.case-roles,.campus-account,.tree-leaf-panel button,.campus-works figure,.campus-experience,.hk-route li,.case-track li){
+ background:var(--case-inset);color:var(--case-text);border:1px solid var(--case-edge);border-radius:0;
+}
+.detail :is(.case-roles div,.hk-work dl div,.demo-audit){border-color:var(--case-edge)}
+.detail .case-track li::before{background:var(--detail-accent)}
+.detail .case-track :is(.is-scope,.is-ai li:last-child){color:var(--case-inset);background:var(--detail-accent);font-weight:750}
+.detail .case-track :is(.is-scope,.is-ai li:last-child)::before{background:var(--case-inset)}
+.detail :is(.campus-experience strong,.hk-route strong,.geo-publication h2,.geo-publication a,.demo-state){color:var(--detail-accent)}
+.detail :is(.campus-account a,.detail-links a,.hk-site){border-radius:0;background:var(--detail-accent);color:var(--case-inset);box-shadow:3px 3px var(--case-shadow)}
+.detail :is(.case-demo button,.campus-works .photo-open){border-radius:0}
+.detail .campus-works .photo-open img{background:var(--case-inset)}
+.detail .campus-works figcaption strong{color:var(--case-heading)}
+.detail :is(.tree-story h2,.tree-photos h2){font:750 clamp(22px,3vw,34px)/1.18 system-ui,sans-serif}
+.detail .tree-story{gap:18px}
+.detail .tree-crux{border-left:5px solid var(--detail-accent)}
+.detail .tree-canopy{
+ min-height:300px;display:grid;place-items:center;background:#252c40;
+ border:4px solid var(--case-edge);box-shadow:6px 6px var(--case-shadow);
+}
+.detail .tree-canopy::before{content:none}
+.detail .tree-canopy canvas{position:absolute;inset:0;height:100%;object-fit:cover}
+.detail .tree-leaf{transform:translate(-50%,-50%);border-radius:0;min-height:39px;padding:7px 9px;box-shadow:4px 4px #151b28}
+.detail .tree-leaf span{transform:none}
+.detail .tree-leaf:nth-of-type(2){left:58%;top:27%}
+.detail .tree-leaf:nth-of-type(3){left:73%;top:62%;background:#35544f}
+.detail .tree-leaf[aria-expanded=true]{outline-offset:3px}
+#photo-dialog,#photo-dialog .preview-x{border-radius:0}
+@media(max-width:700px){
+ .detail .case-hero,.detail .tree-hero{grid-template-columns:1fr;gap:20px;padding:22px}
+ .detail .case-scene{width:100%;max-width:470px;margin:0 auto}
+ .detail .tree-canopy{min-height:0;aspect-ratio:16/10}
+ .detail .detail-toolbar{margin-bottom:15px}
+}
+@media(max-width:410px){.detail .hk-route{grid-template-columns:1fr}}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div class="nav-actions"><button type="button" id="language-switch" class="language-switch"></button><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog" data-copy="contact">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -616,6 +718,24 @@ const caseVisuals={
  }
 };
 
+function detailPixelScene(){
+ return '<canvas class="case-scene" width="288" height="162" aria-hidden="true"></canvas>';
+}
+function renderCaseHero(project,extras=''){
+ return `<header class="case-hero"><div class="case-hero-copy">
+  <small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1><h2>${project.description}</h2>
+  ${project.id==='oalmr'?'':`<p>${project.body}</p>`}${extras}
+ </div>${detailPixelScene()}</header>`;
+}
+function drawDetailScene(project,section){
+ const canvas=$('detail').querySelector('.case-scene');
+ if(!canvas?.classList?.contains('case-scene'))return;
+ const id=project.id==='retail'?'anker':project.id;
+ const points=districtStations[id].map(i=>districtLoop[i]);
+ const active=districtSections[id]?.indexOf(section)??-1;
+ paintWorld(canvas,[{id,points}],[50,52],districtLoop,points[Math.max(active,0)]);
+}
+
 function renderAnkerCase(project){
  const visuals=caseVisuals[language];
  const sections=caseSections[language];
@@ -624,8 +744,7 @@ function renderAnkerCase(project){
  const workflow=`<ol class="case-track is-ai">${visuals.ai.map(stage=>`<li>${stage}</li>`).join('')}</ol>`;
  const chapters=[[sections[1],roles],[sections[0],lifecycle],[sections[2],workflow]];
  return `
-  <header class="case-hero"><small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1>
-  <h2>${project.description}</h2><p>${project.body}</p></header>
+  ${renderCaseHero(project)}
   <div class="case-content">${chapters.map(([[title,body],visual],i)=>`<section class="case-chapter" id="anker/${districtSections.anker[i]}"><div><h2 tabindex="-1">${title}</h2><p>${body}</p></div>${visual}</section>`).join('')}
   <section class="case-demo" id="anker/demo"></section></div>`;
 }
@@ -686,7 +805,7 @@ function renderTreeCase(project){
  return `<div class="tree-case">
   <header class="tree-hero"><div class="tree-hero-copy"><small>${project.kind}</small>
    <h1 tabindex="-1">${project.title}</h1><p><strong>${tree.question}</strong></p><p>${tree.start}</p></div>
-   <div class="tree-canopy" id="value-tree/leaf-interactions" tabindex="-1"><div class="tree-form" aria-hidden="true"></div>
+   <div class="tree-canopy" id="value-tree/leaf-interactions" tabindex="-1">${detailPixelScene()}
     ${tree.choices.map((label,i)=>`<button type="button" class="tree-leaf" data-leaf="${i}" aria-expanded="false" aria-controls="tree-leaf-panel"><span>${label}</span></button>`).join('')}
    </div></header>
   <div class="tree-content"><section class="tree-leaf-panel" id="tree-leaf-panel" aria-live="polite"></section>
@@ -775,9 +894,9 @@ const campusPosters=[
  ['farming-culture',1020,880]
 ];
 function renderOalmrCase(project){
- const {kind,title,description,office,topics,body,output,worksIntro,posters,experiences}=project;
+ const {office,topics,body,output,worksIntro,posters,experiences}=project;
  return `<div class="campus-case">
-  <header class="case-hero"><small>${kind}</small><h1 tabindex="-1">${title}</h1><h2>${description}</h2></header>
+  ${renderCaseHero(project)}
   <div class="case-content">
    <section class="case-chapter" id="oalmr/instagram" aria-labelledby="oalmr-role">
     <div><small>${office}</small><h2 id="oalmr-role" tabindex="-1">${topics[0]}</h2><p>${body}</p></div>
@@ -802,11 +921,8 @@ function renderOalmrCase(project){
 function renderHkonnectCase(project){
  const hk=hkonnectCopy[language];
  return `<div class="hk-case">
-  <header class="case-hero"><small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1>
-   <h2>${project.description}</h2><p>${project.body}</p>
-   <div class="hk-hero-foot"><span class="hk-count"><strong>100+</strong> ${hk.customers}</span>
-    <a class="hk-site" href="${project.link}">${project.linkText} ↗</a></div>
-  </header>
+   ${renderCaseHero(project,`<div class="hk-hero-foot"><span class="hk-count"><strong>100+</strong> ${hk.customers}</span>
+   <a class="hk-site" href="${project.link}">${project.linkText}</a></div>`)}
   <div class="hk-content"><section id="hkonnect/journey"><h2 tabindex="-1">${hk.journey}</h2>
    <ol class="hk-route">${hk.stages.map(([title,body])=>`<li><strong>${title}</strong><p>${body}</p></li>`).join('')}</ol>
   </section><section class="hk-work"><h2>${t('myWork')}</h2>
@@ -850,8 +966,7 @@ function renderResearch(project){
  const paper=researchPublication;
  const [heading,role,summary,link]=project.publication;
  return `<div class="geo-case">
-  <header class="case-hero"><small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1>
-   <h2>${project.description}</h2><p>${project.body}</p></header>
+  ${renderCaseHero(project)}
   <div class="case-content">
    <section class="geo-publication" id="research/publication" aria-labelledby="publication-heading">
     <h2 id="publication-heading" tabindex="-1">${heading} · ${role}</h2>
@@ -1051,15 +1166,14 @@ function route(navigate=true){
   renderedDetail=p.id;
   renderedLanguage=language;
   detail.dataset.project=p.id;
-  const content=isAnker?renderAnkerCase(p):isTree?renderTreeCase(p):p.id==='hkonnect'?renderHkonnectCase(p):p.id==='research'?renderResearch(p):p.id==='oalmr'?renderOalmrCase(p):`<header class="case-hero"><small>${p.kind}</small>
-   <h1 tabindex="-1">${p.title}</h1><h2>${p.description}</h2><p>${p.body}</p>
+  const content=isAnker?renderAnkerCase(p):isTree?renderTreeCase(p):p.id==='hkonnect'?renderHkonnectCase(p):p.id==='research'?renderResearch(p):p.id==='oalmr'?renderOalmrCase(p):renderCaseHero(p,`
    ${p.role?`<h2>${t('myWork')}</h2><p>${p.role}</p>`:''}
-   ${p.link?`<div class="detail-links"><a href="${p.link}">${p.linkText}</a>${p.extra?`<a href="${p.extra}">${t('readNotes')}</a>`:''}</div>`:''}
-   </header>`;
+   ${p.link?`<div class="detail-links"><a href="${p.link}">${p.linkText}</a>${p.extra?`<a href="${p.extra}">${t('readNotes')}</a>`:''}</div>`:''}`);
   detail.innerHTML=detailToolbar(p)+content;
   if(isAnker)renderDemo();
   if(isTree||p.id==='oalmr')bindPhotoPreviews();
  }
+ drawDetailScene(p,sectionKey);
  if(isTree&&(render||sectionKey==='ecology-cards'))bindTreeCase();
  const destination='#'+p.id+(sectionKey?'/'+sectionKey:'');
  detail.querySelectorAll('.detail-jumps a').forEach(link=>{
