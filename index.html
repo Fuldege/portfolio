@@ -349,6 +349,19 @@ body:has(dialog[open]){overflow:hidden}
 <dt>Instagram</dt><dd><a href="https://www.instagram.com/fuldegeeee/" rel="me">fuldegeeee <span aria-hidden="true">↗</span></a></dd><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/jing-li-aynnnlee/" rel="me">Jing Li <span aria-hidden="true">↗</span></a></dd></dl></dialog><footer><div class="wrap"><span data-copy="footerName">Anne Li 李静</span> <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
 <script>
 const hkonnectSite='https://fuldege.github.io/hkonnect/';
+const oalmrInstagram='https://www.instagram.com/oalmr_cuhk/';
+const oalmrProfile={
+ zh:{
+  id:'oalmr',label:'OALMR',title:'CUHK OALMR',kind:'香港中文大學學術交流處（內地及地區）',
+  description:'官方 Instagram 运营',
+  body:'我负责运营办公室的官方 Instagram 账号，并参与学生交流项目的宣传内容与招募海报制作。'
+ },
+ en:{
+  id:'oalmr',label:'OALMR',title:'CUHK OALMR',kind:'CUHK Office of Academic Links (Mainland and Regional)',
+  description:'Official Instagram management',
+  body:'I manage the office’s official Instagram account and help create promotional content and recruitment posters for student interflow programmes.'
+ }
+};
 const chineseDetails = [
  {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', },
  {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'把毕业搬家的行李，从香港送到内地家门口', body:'我与伙伴共同创立 HKonnect，为在港学生提供跨境行李托运。从费用预估、微信预约，到上门取件与内地派送，我们把原本需要分别安排的环节接成了一项服务。',link:hkonnectSite,linkText:'访问 HKonnect 官网'},
@@ -360,10 +373,9 @@ const $ = id => document.getElementById(id);
 let projectDetails;
 let projects;
 function localProjects(){
- projectDetails = language==='en' ? englishDetails : chineseDetails;
+ projectDetails = [...(language==='en' ? englishDetails : chineseDetails),oalmrProfile[language]];
  projects = [
  ...projectDetails.filter(project => project.id !== 'retail'),
- {id:'oalmr', label:'OALMR', title:'CUHK OALMR'},
  {...researchProfile[language],id:'research',label:t('research')}
  ];
 }
@@ -392,6 +404,7 @@ const atlas = {
     "我参与拆解海外门店的开店 WBS，从市场与选址准备、商务条款和经营测算，到立项、设计施工和开业。梳理前后置任务和团队交接，帮助我确定立项工具应覆盖哪些决策、在哪一步交接给后续团队。",
     "我搭建了用于战略规划和铺位评估的 AI 工作流，把材料检查、分析和报告生成拆成独立步骤，让中间结果可以复核，再由人作最终判断。"
   ],
+  oalmr:[oalmrProfile.zh.kind,oalmrProfile.zh.description,'展览廊','交流礼堂',oalmrProfile.zh.body],
   "writing": [
     "从旅行观察的文字，到剪辑台上的画面",
     "文字手记",
@@ -409,7 +422,8 @@ const districtSections={
  'value-tree':['ecology-cards','materials','leaf-interactions'],
  hkonnect:['website','booking','delivery'],
  anker:['system-design','store-opening','ai-workflows'],
- research:['fieldwork','gis','programming']
+ research:['fieldwork','gis','programming'],
+ oalmr:['instagram']
 };
 const detailExtras={
  'value-tree':[['contribution','我做了什么','My contribution'],['photos','装置照片','Installation photos']],
@@ -426,7 +440,6 @@ function detailToolbar(project){
  return `<div class="detail-toolbar"><a href="#">${t('back')}</a>
   ${links.length?`<nav class="detail-jumps" aria-label="${t('detailNav')}">${links.map(([key,label])=>`<a href="#${id}${key?'/'+key:''}">${label}</a>`).join('')}</nav>`:''}</div>`;
 }
-atlas.oalmr = ['交流活动广场','迎宾广场','展览廊','交流礼堂'];
 
 const projectDialog=$('project-dialog');
 const currentAtlas=()=>language==='en'?englishAtlas:atlas;
@@ -484,11 +497,12 @@ function showJourney(index){
   }
  }
  function updateNote(i){
-  if(!hasNotes){note.innerHTML=`<h3>${entries[i+1]}</h3>`;return;}
+  const body=entries[count+1+i];
+  if(!body){note.innerHTML=`<h3>${entries[i+1]}</h3>`;return;}
   const link=id==='writing'?(i===0?project.extra:project.link):`#${id}/${districtSections[id][i]}`;
   const label=id==='writing'?t(i===0?'readNotes':'watch'):`${t('viewTopic')}${entries[i+1]}`;
-  const liveSite=id==='hkonnect'?`<a href="${project.link}">${project.linkText}</a>`:'';
-  note.innerHTML=`<h3>${entries[i+1]}</h3><p>${entries[count+1+i]}</p><div class="fieldnote-actions"><a class="fieldnote-primary" href="${link}">${label}</a>${liveSite}</div>`;
+  const liveSite=id==='hkonnect'?`<a href="${project.link}">${project.linkText}</a>`:id==='oalmr'?oalmrAccountLink():'';
+  note.innerHTML=`<h3>${entries[i+1]}</h3><p>${body}</p><div class="fieldnote-actions"><a class="fieldnote-primary" href="${link}">${label}</a>${liveSite}</div>`;
  }
  nodes.forEach((node,i)=>node.onclick=()=>showStep(i,true));
  showStep(0);
@@ -517,7 +531,7 @@ const englishAtlas={
  hkonnect:['Student luggage shipping from Hong Kong to mainland China','Website & estimate','WeChat booking','Pickup & delivery','I built and deployed the website, where students can read about the service and estimate the cost using their pickup area and their luggage weight or dimensions.','The site directs customers to WeChat to book. I answered questions about price, packing and timing, and collected the information needed to arrange a pickup.','I helped coordinate pickup, cross-border transport and mainland delivery. The site also explains how to track a shipment. Our team served more than 100 customers.'],
  anker:['Overseas store approvals, from process design to implementation','System design','Store opening process','AI workflows','I built role-specific views for regional teams, specialist teams and headquarters, alongside intake templates and an approval workflow connected to internal data.','I helped break down the full opening process, from market and site preparation through commercial review, design, construction and launch. Mapping the handoffs helped define where the approval tool should start and end.','I built AI-assisted workflows for strategic planning and site assessment. I separated material checks, analysis and report generation so the outputs could be reviewed before a person made the decision.'],
  writing:['From travel notes to the editing desk','Writing','Video edits','I publish travel observations and essays on Xiaohongshu.','I share film edits and playlists on Bilibili.'],
- oalmr:['Student exchange and campus programmes','Welcome Plaza','Exhibition Hall','Assembly Hall']
+ oalmr:[oalmrProfile.en.kind,oalmrProfile.en.description,'Exhibition Hall','Assembly Hall',oalmrProfile.en.body]
 };
 const caseSections={
  zh:[
@@ -695,6 +709,17 @@ const hkonnectCopy={
   ]
  }
 };
+function oalmrAccountLink(){
+ return `<a href="${oalmrInstagram}">@oalmr_cuhk</a>`;
+}
+function renderOalmrCase(project){
+ return `<header class="case-hero"><small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1>
+  <h2>${project.description}</h2></header>
+  <div class="case-content"><section class="case-chapter" id="oalmr/instagram" aria-labelledby="oalmr-role">
+   <div><h2 id="oalmr-role" tabindex="-1">${t('myWork')}</h2><p>${project.body}</p></div>
+   <div class="detail-links">${oalmrAccountLink()}</div>
+  </section></div>`;
+}
 function renderHkonnectCase(project){
  const hk=hkonnectCopy[language];
  return `<div class="hk-case">
@@ -947,7 +972,7 @@ function route(navigate=true){
   renderedDetail=p.id;
   renderedLanguage=language;
   detail.dataset.project=p.id;
-  const content=isAnker?renderAnkerCase(p):isTree?renderTreeCase(p):p.id==='hkonnect'?renderHkonnectCase(p):p.id==='research'?renderResearch(p):`<header class="case-hero"><small>${p.kind}</small>
+  const content=isAnker?renderAnkerCase(p):isTree?renderTreeCase(p):p.id==='hkonnect'?renderHkonnectCase(p):p.id==='research'?renderResearch(p):p.id==='oalmr'?renderOalmrCase(p):`<header class="case-hero"><small>${p.kind}</small>
    <h1 tabindex="-1">${p.title}</h1><h2>${p.description}</h2><p>${p.body}</p>
    ${p.role?`<h2>${t('myWork')}</h2><p>${p.role}</p>`:''}
    ${p.link?`<div class="detail-links"><a href="${p.link}">${p.linkText}</a>${p.extra?`<a href="${p.extra}">${t('readNotes')}</a>`:''}</div>`:''}
