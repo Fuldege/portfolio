@@ -330,9 +330,8 @@ body:has(dialog[open]){overflow:hidden}
 .campus-account p{margin:0 0 11px}
 .campus-account a{display:inline-block;background:#294938;color:#fff4dc;border-radius:6px;padding:6px 11px;text-decoration:none;font-weight:750}
 .campus-account a:hover{text-decoration:underline}
-.campus-gallery,.campus-clubs{padding:clamp(25px,5vw,45px) 0 0}
+.campus-clubs{padding:clamp(25px,5vw,45px) 0 0}
 .campus-gallery h2,.campus-clubs h2{font-size:clamp(25px,3.5vw,39px);margin:0 0 12px}
-.campus-gallery>p{margin:0 0 18px}
 .campus-works{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .campus-works figure{margin:0;min-width:0;padding:10px;background:#e6e9db;border:1px solid #cbd2bf;border-radius:9px}
 .campus-works .photo-open{border-radius:5px}
@@ -383,7 +382,7 @@ body:has(dialog[open]){overflow:hidden}
 .detail :is(.case-hero,.tree-hero) small{
  display:inline-flex;align-items:center;gap:10px;color:var(--detail-accent);font-size:14px;line-height:1.5;
 }
-.detail :is(.case-hero,.tree-hero) small::before,.detail :is(.case-chapter,.geo-topic,.tree-story,.campus-gallery,.campus-clubs,.hk-content,.case-demo) h2::before{
+.detail :is(.case-hero,.tree-hero) small::before,.detail :is(.case-chapter,.geo-topic,.tree-story,.campus-clubs,.hk-content,.case-demo) h2::before{
  content:"";flex:none;display:inline-block;width:8px;height:8px;background:var(--detail-accent);
  box-shadow:3px 3px var(--case-shadow);
 }
@@ -404,11 +403,11 @@ body:has(dialog[open]){overflow:hidden}
 }
 .detail :is(.tree-case,.paper){border:0;border-radius:0;background:none;overflow:visible}
 .detail .tree-case{color:var(--case-text)}
-.detail :is(.case-chapter,.hk-content>section,.geo-topic,.geo-publication,.tree-leaf-panel,.tree-story>section,.tree-photos,.tree-crux,.campus-gallery,.campus-clubs,.case-demo){
+.detail :is(.case-chapter,.hk-content>section,.geo-topic,.geo-publication,.tree-leaf-panel,.tree-story>section,.tree-photos,.tree-crux,.campus-clubs,.case-demo){
  margin:0;border:2px solid var(--case-edge);border-radius:0;padding:clamp(17px,3.3vw,34px);
  background:var(--case-surface);color:var(--case-text);box-shadow:4px 4px var(--case-shadow);
 }
-.detail :is(.case-chapter,.geo-topic,.tree-story,.campus-gallery,.campus-clubs,.hk-content,.case-demo) h2{
+.detail :is(.case-chapter,.geo-topic,.tree-story,.campus-clubs,.hk-content,.case-demo) h2{
  display:flex;align-items:baseline;gap:11px;
 }
 .detail :is(.case-content,.hk-content,.tree-content) :is(h2,h3,dt){color:var(--case-heading)}
@@ -447,6 +446,61 @@ body:has(dialog[open]){overflow:hidden}
  .detail .detail-toolbar{margin-bottom:15px}
 }
 @media(max-width:410px){.detail .hk-route{grid-template-columns:1fr}}
+/* The campus noticeboard and the store proposal desk are usable from the first screen. */
+.detail[data-project="oalmr"] .case-hero{grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr)}
+.campus-hero-links{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;margin:19px 0 0}
+.campus-hero-links a{font-weight:700;color:var(--detail-accent);text-underline-offset:4px}
+.detail .campus-board{
+ min-width:0;margin:0;padding:13px 13px 15px;color:#fff0d9;
+ background:repeating-linear-gradient(0deg,#6a4734 0 19px,#5c3d2c 19px 21px);
+ border:4px solid #a3714e;box-shadow:5px 5px #15231c,inset 0 0 0 3px #3e291d;
+}
+.detail .campus-board h2{
+ width:fit-content;padding:3px 9px;margin:0 auto 9px;text-align:center;
+ font-size:15px;line-height:1.45;color:#231912;background:#e9c08c;box-shadow:3px 3px #3e291d;
+}
+.campus-board .campus-works{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;align-items:start}
+.detail .campus-board figure{margin:0;padding:0;border:0;background:transparent;color:#fff0d9}
+.detail .campus-board .photo-open{overflow:visible;background:#eedbba;padding:4px;box-shadow:3px 3px #3e291d}
+.campus-board .photo-open::before{
+ content:"";width:8px;height:8px;position:absolute;top:-3px;left:calc(50% - 4px);
+ background:#f6c66e;box-shadow:2px 2px #553520;z-index:1;pointer-events:none;
+}
+.detail .campus-board .photo-open img{height:auto;aspect-ratio:1/1.13;object-fit:contain;background:#eedbba}
+.campus-board .photo-open::after{right:4px;bottom:4px;width:24px;height:24px}
+.campus-board .photo-open:hover{outline:2px solid #ffd68e;outline-offset:3px}
+.detail .campus-board figcaption{display:block;padding:0;margin-top:6px;font-size:13px;line-height:1.45}
+.detail .campus-board figcaption strong{font-size:14px;color:#fff0d9}
+.detail .campus-board figcaption span{color:#ffe7c5}
+.campus-kit{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:14px 0 0;padding:0}
+.campus-kit li{padding:2px 7px;border:1px solid var(--case-edge);color:var(--detail-accent);font-size:14px}
+.detail[data-project="anker"] .case-hero{grid-template-columns:minmax(0,.83fr) minmax(0,1.17fr);align-items:start}
+.detail[data-project="anker"] .case-hero-copy{align-self:center}
+.detail[data-project="anker"] .case-hero h1{font-size:clamp(35px,5.1vw,68px)}
+.detail .case-hero .case-demo{
+ background:#181e33;box-shadow:5px 5px #0d1223;border-top:3px solid var(--detail-accent);padding:clamp(14px,2.4vw,23px);
+}
+.detail .case-hero .case-demo :is(h2,h3){color:var(--case-heading)}
+.detail .case-hero .case-demo h2{font-size:clamp(20px,2.3vw,25px);margin:0 0 5px}
+.detail .case-hero .case-demo h2::before{display:none}
+.detail .case-hero .case-demo p{font-size:14px;line-height:1.5}
+.case-demo .demo-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:13px 0}
+.case-demo .demo-tabs button[aria-current="step"]{border-bottom:3px solid #f3ce8c}
+.case-demo .demo-tabs button[data-completed]{border-bottom:3px solid #a9d8c4}
+.detail .case-hero .case-demo .demo-state{color:#bde5cf}
+.demo-next{width:100%;text-align:left}
+.case-demo .demo-next[data-next-role]{border-color:#b3a9df;background:#34354c;color:#f1e7ff}
+.case-demo .demo-next[data-next-role]:hover{background:#4a4768}
+.case-demo .demo-tabs button{padding:4px 8px;min-height:36px;font-size:14px}
+.case-demo summary{cursor:pointer;font-size:14px}
+@media(max-width:700px){
+ .detail[data-project="oalmr"] .case-hero,.detail[data-project="anker"] .case-hero{grid-template-columns:1fr}
+ .detail[data-project="oalmr"] .case-hero,.detail[data-project="anker"] .case-hero{padding:17px;gap:15px}
+ .detail[data-project="oalmr"] .case-hero h1,.detail[data-project="anker"] .case-hero h1{margin:6px 0 8px}
+ .detail[data-project="anker"] .case-hero-copy>p{font-size:14px}
+ .campus-board .campus-works{gap:8px}
+ .detail .campus-board figcaption span{display:none}
+}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div class="nav-actions"><button type="button" id="language-switch" class="language-switch"></button><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog" data-copy="contact">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -486,7 +540,7 @@ const oalmrProfile={
   topics:['官方账号运营','宣传物料','社团与活动'],
   previews:['运营 OALMR 官方 Instagram，面向同学发布学生交流活动与招募信息。','看我为冬季学生交流活动、华南农业大学农耕文化节制作的招募海报。','在普通话剧社、内地生迎新营和 M Sing 校园歌手大赛，我做过物料设计、活动统筹和影像记录。'],
   output:'150+ 篇双语内容，涵盖 Instagram 与微信',
-  worksIntro:'这两份招募物料分别服务一组冬季交流项目和单场活动，展示不同层级的信息如何排在一张海报上。以下为作品节选。',
+  board:'校园公告栏', orientation:'迎新物料', kit:['帆布袋','胸针','新生手册'],
   posters:[
    ['冬季学生交流活动','以目的地照片和中英双语标题呈现一组交流项目。'],
    ['华南农业大学农耕文化节','把活动主题、地点和日期放在醒目的位置。']
@@ -506,7 +560,7 @@ const oalmrProfile={
   topics:['Official social media','Promotional materials','Clubs & events'],
   previews:['I manage OALMR’s official Instagram, sharing student interflow programmes and application information.','See recruitment posters I made for the winter interflow programmes and the Farming Culture Festival at South China Agricultural University.','I worked on publicity, event coordination and filming for the Mandarin Drama Society, mainland student orientation and the M Sing campus singing contest.'],
   output:'150+ bilingual posts across Instagram and WeChat',
-  worksIntro:'One poster introduces a series of winter programmes. The other presents a single event at a glance. These are excerpts from the recruitment materials.',
+  board:'Campus noticeboard', orientation:'Orientation materials', kit:['Tote bags','Pins','New-student handbook'],
   posters:[
    ['Student Winter Interflow Programmes','Destination photographs and bilingual headings bring several programmes together in one poster.'],
    ['Farming Culture Festival','A recruitment poster for the event at South China Agricultural University, with the venue and date prominently placed.']
@@ -587,6 +641,7 @@ const detailExtras={
  'value-tree':[['contribution','我做了什么','My contribution'],['photos','装置照片','Installation photos']],
  hkonnect:[['journey','配送流程','Delivery journey']],
  anker:[['demo','交互演示','Interactive demo']],
+ oalmr:[['orientation','迎新物料','Orientation materials']],
  research:[['publication','发表论文','Publication']]
 };
 
@@ -721,11 +776,11 @@ const caseVisuals={
 function detailPixelScene(){
  return '<canvas class="case-scene" width="288" height="162" aria-hidden="true"></canvas>';
 }
-function renderCaseHero(project,extras=''){
+function renderCaseHero(project,extras='',feature=detailPixelScene()){
  return `<header class="case-hero"><div class="case-hero-copy">
   <small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1><h2>${project.description}</h2>
   ${project.id==='oalmr'?'':`<p>${project.body}</p>`}${extras}
- </div>${detailPixelScene()}</header>`;
+ </div>${feature}</header>`;
 }
 function drawDetailScene(project,section){
  const canvas=$('detail').querySelector('.case-scene');
@@ -744,9 +799,9 @@ function renderAnkerCase(project){
  const workflow=`<ol class="case-track is-ai">${visuals.ai.map(stage=>`<li>${stage}</li>`).join('')}</ol>`;
  const chapters=[[sections[1],roles],[sections[0],lifecycle],[sections[2],workflow]];
  return `
-  ${renderCaseHero(project)}
+  ${renderCaseHero(project,'','<section class="case-demo" id="anker/demo" aria-labelledby="demo-title"></section>')}
   <div class="case-content">${chapters.map(([[title,body],visual],i)=>`<section class="case-chapter" id="anker/${districtSections.anker[i]}"><div><h2 tabindex="-1">${title}</h2><p>${body}</p></div>${visual}</section>`).join('')}
-  <section class="case-demo" id="anker/demo"></section></div>`;
+  </div>`;
 }
 const treeCopy={
  zh:{
@@ -894,27 +949,29 @@ const campusPosters=[
  ['farming-culture',1020,880]
 ];
 function renderOalmrCase(project){
- const {office,topics,body,output,worksIntro,posters,experiences}=project;
+ const {office,topics,body,output,board,orientation,kit,posters,experiences}=project;
+ const noticeboard=`<section class="campus-board" id="oalmr/materials" aria-labelledby="campus-works-title">
+  <h2 id="campus-works-title" tabindex="-1">${board}</h2>
+  <div class="campus-works">${campusPosters.map(([file,width,height],i)=>{
+   const [caption,description]=posters[i];
+   return `<figure><button type="button" class="photo-open" data-photo="${i}" aria-label="${caption}" aria-haspopup="dialog">
+    <img src="assets/campus/${file}.webp" width="${width}" height="${height}" alt="${caption}"></button>
+    <figcaption><strong>${caption}</strong><span>${description}</span></figcaption></figure>`;
+  }).join('')}</div>
+ </section>`;
  return `<div class="campus-case">
-  ${renderCaseHero(project)}
+  ${renderCaseHero(project,`<div class="campus-hero-links"><a href="#oalmr/orientation">${orientation}</a>
+   <a href="#oalmr/instagram">${topics[0]}</a></div>`,noticeboard)}
   <div class="case-content">
    <section class="case-chapter" id="oalmr/instagram" aria-labelledby="oalmr-role">
     <div><small>${office}</small><h2 id="oalmr-role" tabindex="-1">${topics[0]}</h2><p>${body}</p></div>
     <div class="campus-account"><p><strong>${output}</strong></p>${oalmrAccountLink()}</div>
    </section>
-   <section class="campus-gallery" id="oalmr/materials" aria-labelledby="campus-works-title">
-    <h2 id="campus-works-title" tabindex="-1">${topics[1]}</h2><p>${worksIntro}</p>
-    <div class="campus-works">${campusPosters.map(([file,width,height],i)=>{
-     const [caption,description]=posters[i];
-     return `<figure><button type="button" class="photo-open" data-photo="${i}" aria-haspopup="dialog">
-      <img src="assets/campus/${file}.webp" width="${width}" height="${height}" alt="${caption}" loading="lazy"></button>
-      <figcaption><strong>${caption}</strong>${description}</figcaption></figure>`;
-    }).join('')}</div>
-   </section>
    <section class="campus-clubs" id="oalmr/clubs" aria-labelledby="campus-clubs-title">
     <h2 id="campus-clubs-title" tabindex="-1">${topics[2]}</h2>
-    <div class="campus-experiences">${experiences.map(([period,name,role,description])=>`<article class="campus-experience">
-     <small>${period}</small><h3>${name}</h3><strong>${role}</strong><p>${description}</p></article>`).join('')}</div>
+    <div class="campus-experiences">${experiences.map(([period,name,role,description],i)=>`<article class="campus-experience"${i===1?' id="oalmr/orientation" aria-labelledby="orientation-title"':''}>
+     <small>${period}</small><h3${i===1?' id="orientation-title" tabindex="-1"':''}>${name}</h3><strong>${role}</strong><p>${description}</p>
+     ${i===1?`<ul class="campus-kit">${kit.map(item=>`<li>${item}</li>`).join('')}</ul>`:''}</article>`).join('')}</div>
    </section>
   </div></div>`;
 }
@@ -1010,8 +1067,18 @@ $('language-switch').onclick=()=>{
 };
 
 const demoCopy={
- zh:{title:'体验一次跨团队交接',intro:'原创模拟 · 校园摄影展。切换角色，跟同一个项目从提报走到审核。',status:'项目状态',roles:['发起人','场地协调','审核人'],states:['草稿','待确认场地','待审核','退回补充','已批准'],project:'校园摄影展 · 图书馆展厅',task:['提交展览计划','确认展厅与布展时段','退回补充无障碍安排','补充无障碍通道说明','批准展览计划'],wait:'当前由其他角色处理。可以切换角色查看待办。',audit:'查看交接记录',empty:'还没有交接记录。',reset:'从头开始'},
- en:{title:'Try a cross-team handoff',intro:'Original simulation · A campus photo exhibition. Switch roles to follow the same project from proposal to approval.',status:'Project status',roles:['Organiser','Venue coordinator','Reviewer'],states:['Draft','Venue confirmation needed','Ready for review','Changes requested','Approved'],project:'Campus photo exhibition · Library gallery',task:['Submit exhibition proposal','Confirm the gallery and setup window','Request an accessibility plan','Add the step-free access plan','Approve exhibition proposal'],wait:'Another role owns the next action. Switch roles to see their task.',audit:'Show handoff history',empty:'No handoffs recorded yet.',reset:'Start over'}
+ zh:{
+  title:'试着提交一份开店提案',intro:'模拟案例 · 从区域提报到总部审核。',status:'提案状态',
+  roles:['区域团队','运营团队','总部审核'],states:['草稿','待运营核对','待总部审核','退回补充','已批准'],
+  project:'示例门店 · 商场体验店',task:['提交开店提案','确认资料齐全','要求补充开店计划','补充开店计划并提交','批准开店提案'],
+  switchTo:role=>`切换到${role}继续`,audit:'查看交接记录',empty:'还没有交接记录。',reset:'再试一次'
+ },
+ en:{
+  title:'Run a store proposal',intro:'Simulated case · From regional submission to HQ approval.',status:'Proposal status',
+  roles:['Regional team','Operations','HQ review'],states:['Draft','Operations check','Ready for HQ review','Changes requested','Approved'],
+  project:'Example project · Mall experience store',task:['Submit store proposal','Confirm the materials are complete','Request an opening plan','Add the opening plan and resubmit','Approve the store proposal'],
+  switchTo:role=>`Continue as ${role}`,audit:'Show handoff history',empty:'No handoffs recorded yet.',reset:'Play again'
+ }
 };
 const demoOwners=[0,1,2,0,2];
 const demoStatuses=[0,1,2,3,2,4];
@@ -1021,15 +1088,20 @@ function renderDemo(){
  const demo=$('anker/demo');
  const d=demoCopy[language];
  const stage=demoStep;
+ const owner=demoOwners[stage];
  const priorFocus=demo.contains(document.activeElement)?document.activeElement.dataset.focus:null;
  const open=demo.querySelector('details')?.open;
- demo.innerHTML=`<h2 tabindex="-1">${d.title}</h2><p>${d.intro}</p><div class="demo-tabs" role="group" aria-label="${language==='en'?'Project roles':'项目角色'}">
-  ${d.roles.map((role,i)=>`<button type="button" data-role="${i}" data-focus="role-${i}" aria-pressed="${i===demoRole}">${role}</button>`).join('')}
+ demo.innerHTML=`<h2 id="demo-title" tabindex="-1">${d.title}</h2><p>${d.intro}</p>
+  <div class="demo-tabs" role="group" aria-label="${language==='en'?'Project roles':'项目角色'}">
+  ${d.roles.map((role,i)=>`<button type="button" data-role="${i}" data-focus="role-${i}" aria-pressed="${i===demoRole}"${i===owner?' aria-current="step"':owner===undefined||i<owner?' data-completed':''}>${role}</button>`).join('')}
   </div><h3>${d.project}</h3><p class="demo-state" aria-live="polite">${d.status} · ${d.states[demoStatuses[stage]]}</p>
-  ${stage<demoOwners.length?(demoOwners[stage]===demoRole?`<button type="button" data-action data-focus="action">${d.task[stage]}</button>`:`<p>${d.wait}</p>`):`<button type="button" data-reset data-focus="reset">${d.reset}</button>`}
+  ${owner===undefined?`<button type="button" class="demo-next" data-reset data-focus="next">${d.reset}</button>`:
+   demoRole===owner?`<button type="button" class="demo-next" data-action data-focus="next">${d.task[stage]}</button>`:
+    `<button type="button" class="demo-next" data-next-role data-focus="next">${d.switchTo(d.roles[owner])}</button>`}
   <details class="demo-audit" ${open?'open':''}><summary>${d.audit}</summary>${stage?`<ol>${d.task.slice(0,stage).map((task,i)=>`<li>${d.roles[demoOwners[i]]} · ${task}</li>`).join('')}</ol>`:`<p>${d.empty}</p>`}</details>`;
  demo.querySelectorAll('[data-role]').forEach(button=>button.onclick=()=>{demoRole=Number(button.dataset.role);renderDemo();});
  demo.querySelector('[data-action]')?.addEventListener('click',()=>{demoStep++;renderDemo();});
+ demo.querySelector('[data-next-role]')?.addEventListener('click',()=>{demoRole=owner;renderDemo();});
  demo.querySelector('[data-reset]')?.addEventListener('click',()=>{demoStep=0;demoRole=0;renderDemo();});
  if(priorFocus)(demo.querySelector(`[data-focus="${priorFocus}"]`)??demo.querySelector(`[data-role="${demoRole}"]`)).focus({preventScroll:true});
 }
@@ -1187,7 +1259,7 @@ function route(navigate=true){
  if(target){
   detail.querySelector('[aria-current="location"]')?.scrollIntoView({block:'nearest',inline:'nearest'});
   target.scrollIntoView({block:'start'});
-  if(navigate)(target.querySelector('h2, dt')??target).focus({preventScroll:true});
+  if(navigate)(target.querySelector('h2, h3, dt')??target).focus({preventScroll:true});
  }else if(navigate){
   window.scrollTo(0,0);
   $('detail').querySelector('h1').focus({preventScroll:true});
