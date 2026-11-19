@@ -205,6 +205,26 @@ body:has(dialog[open]){overflow:hidden}
 .tree-story p{margin:0 0 12px}
 .tree-crux{margin:32px 0 0;padding:20px 0 0;border-top:1px solid #9eaa8e;font-size:1.15em;font-weight:650}
 @media(max-width:700px){.tree-hero,.tree-story{grid-template-columns:1fr}.tree-canopy{min-height:280px}.tree-leaf{min-height:52px}.preview-actions{gap:5px}}
+
+.tree-photos{margin:30px 0 0;padding-top:22px;border-top:1px solid #9eaa8e}
+.tree-photos h2{font:500 clamp(25px,4vw,39px)/1.1 Georgia,serif;margin:0 0 14px}
+.tree-photo-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;align-items:start}
+.tree-photo-grid figure{margin:0;min-width:0}
+.tree-photo-grid figure:first-child{grid-row:span 2}
+.photo-open{width:100%;padding:0;display:block;position:relative;background:#273f34;border:0;overflow:hidden}
+.photo-open::after{content:"+";position:absolute;bottom:8px;right:8px;width:32px;height:32px;display:grid;place-items:center;color:#f5f1df;background:#193028;font-size:22px;line-height:1}
+.detail .photo-open img{width:100%;height:100%;max-height:none;object-fit:cover;display:block}
+.tree-photo-grid figure:first-child .photo-open{aspect-ratio:3 / 4}
+.tree-photo-grid figure:not(:first-child) .photo-open{aspect-ratio:2.25 / 1}
+.tree-photo-grid figure:last-child img{object-position:center 40%}
+.tree-photo-grid figcaption{margin:5px 0 0;color:#3a4d3d}
+#photo-dialog{width:min(900px,calc(100% - 24px));max-height:calc(100dvh - 24px);padding:0;color:var(--cream);background:#1c2521;border:1px solid #677b68;border-radius:9px}
+#photo-dialog::backdrop{background:#0c1513dd}
+#photo-dialog .project-bar{background:#23372c;border-bottom:1px solid #516557}
+#photo-dialog h2{font-size:14px;margin:0 12px 0 0}
+#photo-dialog img{display:block;margin:auto;width:100%;height:auto;max-height:calc(100dvh - 100px);object-fit:contain}
+.fieldnote .secondary-project-link{margin-inline-start:14px}
+@media(max-width:620px){.tree-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tree-photo-grid figure:first-child{grid-row:auto;grid-column:span 2}.tree-photo-grid figure:first-child .photo-open{max-height:430px}.fieldnote .secondary-project-link{display:block;margin-inline-start:0}}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div class="nav-actions"><button type="button" id="language-switch" class="language-switch"></button><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog" data-copy="contact">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -225,13 +245,18 @@ body:has(dialog[open]){overflow:hidden}
  <div class="project-bar"><span class="mono" data-copy="projectMap">✦ 项目地图</span><form method="dialog" class="preview-actions"><button class="project-close" data-copy="back" autofocus>← 返回总地图</button><button class="project-close preview-x" data-label="closePreview">×</button></form></div>
  <div id="project-map"></div>
 </dialog>
+<dialog id="photo-dialog" aria-labelledby="photo-caption">
+ <div class="project-bar"><h2 id="photo-caption"></h2><form method="dialog"><button type="submit" class="project-close preview-x" data-label="closePreview" autofocus>×</button></form></div>
+ <img id="preview-photo" alt="">
+</dialog>
 <dialog id="contact" aria-labelledby="contact-title"><form method="dialog"><button class="contact-close" data-label="closeContact">×</button></form><h2 id="contact-title" data-copy="contact">联系方式</h2><dl><dt data-copy="email">邮箱</dt><dd>aynnnlee@gmail.com</dd><dt data-copy="mainland">内地电话</dt><dd>+86 13636511549</dd><dt data-copy="hongkong">香港电话</dt><dd>+852 63158830</dd>
 <dt data-copy="wechat">微信</dt><dd>Fuldege</dd>
 <dt>Instagram</dt><dd><a href="https://www.instagram.com/fuldegeeee/" rel="me">fuldegeeee <span aria-hidden="true">↗</span></a></dd><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/jing-li-aynnnlee/" rel="me">Jing Li <span aria-hidden="true">↗</span></a></dd></dl></dialog><footer><div class="wrap"><span data-copy="footerName">Anne Li 李静</span> <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
 <script>
+const hkonnectSite='https://fuldege.github.io/hkonnect/';
 const chineseDetails = [
  {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', },
- {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'和伙伴一起做学生行李配送服务。', body:'HKonnect 为学生提供行李配送，服务过 100 多位客户。从第一次咨询到最终交付，每个环节都会影响客户是否愿意把行李交给我们。', role:'我和伙伴共同创立这项服务，搭建并部署网站，也负责处理客户咨询和协调配送。'},
+ {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'和伙伴一起做学生行李配送服务。', body:'HKonnect 为学生提供行李配送，服务过 100 多位客户。从第一次咨询到最终交付，每个环节都会影响客户是否愿意把行李交给我们。', role:'我和伙伴共同创立这项服务，搭建并部署网站，也负责处理客户咨询和协调配送。',link:hkonnectSite,linkText:'访问 HKonnect 官网'},
  {id:'retail', label:'零售选址', title:'零售选址', kind:'零售策略项目', description:'从商场平面图判断一家店的位置。', body:'一个铺位可能从入口就看得见，但走过去需要绕路。评估铺位时，我关注这两件事，也会看扶梯上下行和客流汇合的位置。', role:'我参与整理门店落位评估的填报要求，并参与全球零售项目进度看板的设计。'},
  {id:'anker', label:'Anker Innovations', title:'Anker Innovations', kind:'全球零售实习 · 深圳', description:'把海外门店的立项流程做成一套多团队协作工具', body:'一家海外门店从市场筹备走到开业，需要多个团队共同判断、交接材料和跟进任务。我在安克负责搭建前期立项工具，也参与拆解了贯穿新店筹备与开业的工作分解结构（WBS）。'},
  {id:'writing', label:'写作与影像', title:'写作与影像', kind:'个人创作', description:'议题随笔、旅行观察与影视剪辑。', body:'我在小红书写随笔和旅行观察，在 B 站分享影视剪辑和歌单。', link:'https://space.bilibili.com/19484656',linkText:'查看 B 站主页', extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
@@ -343,7 +368,8 @@ function showJourney(index){
   if(!hasNotes)return;
   const link=id==='writing'?(i===0?project.extra:project.link):'#'+id;
   const label=id==='writing'?t(i===0?'readNotes':'watch'):t(id==='anker'?'caseLink':id==='value-tree'?'treeLink':'overview');
-  note.innerHTML='<h3>'+entries[i+1]+'</h3><p>'+entries[count+1+i]+'</p><a href="'+link+'">'+label+' ↗</a>';
+  const liveSite=id==='hkonnect'?`<a class="secondary-project-link" href="${project.link}">${project.linkText} ↗</a>`:'';
+  note.innerHTML=`<h3>${entries[i+1]}</h3><p>${entries[count+1+i]}</p><a href="${link}">${label} ↗</a>${liveSite}`;
  }
  nodes.forEach((node,i)=>node.onclick=()=>showStep(i,true));
  showStep(0);
@@ -362,7 +388,7 @@ const copy={
 };
 const englishDetails=[
  {id:'value-tree',label:'The Value Tree',title:'The Value Tree',kind:'Public art installation',description:'An invitation to notice the trees around us',body:'We built a tree from discarded cardboard and covered it with bark collected in Hong Kong. Green leaves explained tree ecology, colourful leaves offered small activities, and transparent leaves gave visitors space to leave their own messages.',role:'I contributed research on tree ecology, helped write the science content, and helped plan the structure.'},
- {id:'hkonnect',label:'HKonnect',title:'HKonnect',kind:'Student venture',description:'A luggage delivery service for students',body:'HKonnect served more than 100 customers. Each step, from the first enquiry to delivery, gave us a chance to earn their trust.',role:'I co-founded the service, built and deployed the website, handled customer enquiries, and coordinated deliveries.'},
+ {id:'hkonnect',label:'HKonnect',title:'HKonnect',kind:'Student venture',description:'A luggage delivery service for students',body:'HKonnect served more than 100 customers. Each step, from the first enquiry to delivery, gave us a chance to earn their trust.',role:'I co-founded the service, built and deployed the website, handled customer enquiries, and coordinated deliveries.',link:hkonnectSite,linkText:'Visit the HKonnect website'},
  {id:'retail',label:'Retail site assessment',title:'Retail Site Assessment',kind:'Retail strategy project',description:'Reading a shopping centre floor plan',body:'A storefront can be visible from an entrance and still be difficult to reach. I looked at how escalator direction and intersecting routes affected whether shoppers would pass the site.',role:'I helped define what teams should capture when assessing a candidate unit and contributed to the global retail project dashboard.'},
  {id:'anker',label:'Anker Innovations',title:'Anker Innovations',kind:'Global Retail Internship · Shenzhen',description:'Building a tool for cross-team decisions on new stores',body:'Opening a store overseas involves decisions, documents and handoffs across several teams. At Anker, I built a tool for the pre-approval stage and contributed to the work breakdown structure (WBS) for the full store opening process.'},
  {id:'writing',label:'Writing & Film',title:'Writing & Film',kind:'Personal work',description:'Essays, travel observations and video edits',body:'I write essays and travel notes on Xiaohongshu and share video edits and playlists on Bilibili.',link:'https://space.bilibili.com/19484656',linkText:'Visit my Bilibili channel',extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
@@ -433,6 +459,8 @@ const treeCopy={
    ['从「公地悲剧」到「公地喜剧」','Hardin 在 1968 年用「公地悲剧」讨论共同资源怎样被个人的短期利益消耗。我们借「公地喜剧」追问，如果人愿意关心、分享和反思，身边的自然资源可以怎样被共同照料？'],
    ['我在项目里做了什么','我参与地理与生态知识研究、科学内容设计和装置结构策划，也把研究转写成观众能在展览现场读懂的内容。']
   ],
+  photoTitle:'装置现场与材料',
+  photoCaptions:['展览现场 · 窗前的树与悬挂叶片','白千层树皮的细节','以叶片承载手写故事的设计示例'],
   close:'关闭叶片说明',
   ending:'这棵树属于所有人。环境、社区与未来的共同利益，可以从每个人愿意做的一点小事开始。'
  },
@@ -453,10 +481,17 @@ const treeCopy={
    ['From the tragedy to the comedy of the commons','Hardin’s 1968 essay described how short-term individual interests can deplete a shared resource. Our installation explored the idea of a comedy of the commons, asking how care, sharing and reflection might help communities look after the natural spaces they share.'],
    ['My contribution','I contributed geographical and ecological research, wrote science content for the exhibition, and helped plan the structure of the installation.']
   ],
+  photoTitle:'The installation and its materials',
+  photoCaptions:['The installation by the exhibition window','Detail of paperbark','An example of handwritten stories on leaves'],
   close:'Close leaf description',
   ending:'The tree belongs to everyone. Caring for the places and communities we share can begin with one small action.'
  }
 };
+const treePhotos=[
+ ['installation',666,888],
+ ['paperbark',293,235],
+ ['leaf-stories',275,366]
+];
 let selectedLeaf=0;
 function renderTreeCase(project){
  const tree=treeCopy[language];
@@ -468,6 +503,10 @@ function renderTreeCase(project){
    </div></header>
   <div class="tree-content"><section class="tree-leaf-panel" id="tree-leaf-panel" aria-live="polite"></section>
    <div class="tree-story">${tree.story.map(([title,body])=>`<section><h2>${title}</h2><p>${body}</p></section>`).join('')}</div>
+   <section class="tree-photos" aria-labelledby="tree-photo-title"><h2 id="tree-photo-title">${tree.photoTitle}</h2>
+    <div class="tree-photo-grid">${treePhotos.map(([file,width,height],i)=>`<figure>
+     <button type="button" class="photo-open" data-photo="${i}" aria-haspopup="dialog"><img src="assets/value-tree/${file}.webp" width="${width}" height="${height}" alt="${tree.photoCaptions[i]}" loading="lazy"></button>
+     <figcaption>${tree.photoCaptions[i]}</figcaption></figure>`).join('')}</div></section>
    <p class="tree-crux">${tree.ending}</p>
   </div></div>`;
 }
@@ -475,6 +514,13 @@ function bindTreeCase(){
  const tree=treeCopy[language];
  const leaves=[...$('detail').querySelectorAll('[data-leaf]')];
  const panel=$('tree-leaf-panel');
+ $('detail').querySelectorAll('[data-photo]').forEach(button=>button.onclick=()=>{
+  const photo=button.querySelector('img');
+  $('photo-caption').textContent=photo.alt;
+  $('preview-photo').alt=photo.alt;
+  $('preview-photo').src=photo.src;
+  $('photo-dialog').showModal();
+ });
  let lastTask=-1;
  function select(index){
   selectedLeaf=index;
@@ -670,6 +716,7 @@ document.addEventListener('keydown',e=>{
 });
 function route(navigate=true){
  const p=projectDetails.find(p=>'#'+p.id===location.hash);
+ if($('photo-dialog').open)$('photo-dialog').close();
  $('home').hidden=!!p;$('detail').hidden=!p;
  if(!p){if(navigate&&!location.hash)window.scrollTo(0,0); return;}
  if(projectDialog.open)projectDialog.close();
