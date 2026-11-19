@@ -246,6 +246,14 @@ body:has(dialog[open]){overflow:hidden}
 .hk-work dt{font-weight:750}
 .hk-work dd{margin:0}
 @media(max-width:680px){.hk-route{grid-template-columns:1fr 1fr}.hk-work dl div{grid-template-columns:1fr;gap:4px}}
+
+.geo-case .case-hero{background:#253744;border-color:#587482;border-top-color:#b4d9b1}
+.geo-case .case-hero h2{color:#d7e8c8}
+.geo-case .case-content{padding-top:12px}
+.geo-topic{padding:22px 0;border-bottom:1px solid #c1cbbb}
+.geo-topic:last-child{border-bottom:0;padding-bottom:0}
+.geo-topic h2{margin:0 0 8px;line-height:1.2}
+.geo-topic p{margin:0}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div class="nav-actions"><button type="button" id="language-switch" class="language-switch"></button><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog" data-copy="contact">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -270,7 +278,7 @@ body:has(dialog[open]){overflow:hidden}
  <div class="project-bar"><h2 id="photo-caption"></h2><form method="dialog"><button type="submit" class="project-close preview-x" data-label="closePreview" autofocus>×</button></form></div>
  <img id="preview-photo" alt="">
 </dialog>
-<dialog id="contact" aria-labelledby="contact-title"><form method="dialog"><button class="contact-close" data-label="closeContact">×</button></form><h2 id="contact-title" data-copy="contact">联系方式</h2><dl><dt data-copy="email">邮箱</dt><dd>aynnnlee@gmail.com</dd><dt data-copy="mainland">内地电话</dt><dd>+86 13636511549</dd><dt data-copy="hongkong">香港电话</dt><dd>+852 63158830</dd>
+<dialog id="contact" aria-labelledby="contact-title"><form method="dialog"><button class="contact-close" data-label="closeContact">×</button></form><h2 id="contact-title" data-copy="contact">联系方式</h2><dl><dt data-copy="email">邮箱</dt><dd>aynnnlee@gmail.com</dd><dt data-copy="schoolEmail">学校邮箱</dt><dd>1155210925@link.cuhk.edu.hk</dd><dt data-copy="mainland">内地电话</dt><dd>+86 13636511549</dd><dt data-copy="hongkong">香港电话</dt><dd>+852 63158830</dd>
 <dt data-copy="wechat">微信</dt><dd>Fuldege</dd>
 <dt>Instagram</dt><dd><a href="https://www.instagram.com/fuldegeeee/" rel="me">fuldegeeee <span aria-hidden="true">↗</span></a></dd><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/jing-li-aynnnlee/" rel="me">Jing Li <span aria-hidden="true">↗</span></a></dd></dl></dialog><footer><div class="wrap"><span data-copy="footerName">Anne Li 李静</span> <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
 <script>
@@ -290,7 +298,7 @@ function localProjects(){
  projects = [
  ...projectDetails.filter(project => project.id !== 'retail'),
  {id:'oalmr', label:'OALMR', title:'CUHK OALMR'},
- {id:'research', label:t('research'), title:t('research')}
+ {...researchProfile[language],id:'research',label:t('research')}
  ];
 }
 
@@ -332,7 +340,7 @@ const districtStations = {
  writing:[0,5], oalmr:[6,0,3], research:[3,0,6]
 };
 atlas.oalmr = ['交流活动广场','迎宾广场','展览廊','交流礼堂'];
-atlas.research = ['地理研究营地','地形观测台','地图工作室','研究档案室'];
+
 const projectDialog=$('project-dialog');
 const currentAtlas=()=>language==='en'?englishAtlas:atlas;
 let shownProject=-1;
@@ -340,7 +348,10 @@ function showJourney(index){
  if(shownProject===index)return;
  shownProject=index;
  const project=projects[index];
- const id=project.id, entries=currentAtlas()[id], stationIndices=districtStations[id];
+ const id=project.id, stationIndices=districtStations[id];
+ const entries=id==='research'
+  ?[project.description,...project.sections.map(([title])=>title),...project.sections.map(([,body])=>body)]
+  :currentAtlas()[id];
  const positions=stationIndices.map(i=>districtLoop[i]), count=positions.length;
  const map=$('project-map');
  map.dataset.world=id;
@@ -396,12 +407,12 @@ function showJourney(index){
 const copy={
  zh:{
   introName:'李静 · 香港中文大学地理与资源管理', intro:'我做过装置，和朋友搭过学生行李配送服务，也做过让不同团队一起推进海外开店的工具。沿着岛走走，看看我做过的项目。',
-  contact:'联系方式',closeContact:'关闭联系方式',email:'邮箱',mainland:'内地电话',hongkong:'香港电话',wechat:'微信',footerName:'Anne Li 李静',
-  map:'作品地图',mapTitle:'✦ 作品地图',island:'一座由环岛路串联六个站点的像素岛',stations:'岛上地点',previous:'往左走',next:'往右走',hint:'点击地标或用 ← → 沿环岛路走',enter:'进入项目地图 ↗',projectMap:'✦ 项目地图',submap:'项目地标',back:'← 返回总地图',research:'科研学术',readNotes:'阅读小红书手记',watch:'播放 B 站作品',treeLink:'探索完整作品',closePreview:'关闭预览',overview:'查看项目介绍',caseLink:'阅读完整案例',myWork:'我做了什么'
+  contact:'联系方式',closeContact:'关闭联系方式',email:'个人邮箱',schoolEmail:'学校邮箱',mainland:'内地电话',hongkong:'香港电话',wechat:'微信',footerName:'Anne Li 李静',
+  map:'作品地图',mapTitle:'✦ 作品地图',island:'一座由环岛路串联六个站点的像素岛',stations:'岛上地点',previous:'往左走',next:'往右走',hint:'点击地标或用 ← → 沿环岛路走',enter:'进入项目地图 ↗',projectMap:'✦ 项目地图',submap:'项目地标',back:'← 返回总地图',research:'地理研究',readNotes:'阅读小红书手记',watch:'播放 B 站作品',treeLink:'探索完整作品',closePreview:'关闭预览',overview:'查看项目介绍',caseLink:'阅读完整案例',myWork:'我做了什么'
  },
  en:{
   introName:'Anne (Jing) Li · Geography and Resource Management, CUHK',intro:'I’ve made a public art installation, co-founded a student luggage service, and built tools for teams opening stores overseas. Explore the island to see how each project came together.',
-  contact:'Contact',closeContact:'Close contact details',email:'Email',mainland:'Mainland China',hongkong:'Hong Kong',wechat:'WeChat',footerName:'Anne (Jing) Li',
+  contact:'Contact',closeContact:'Close contact details',email:'Personal email',schoolEmail:'CUHK email',mainland:'Mainland China',hongkong:'Hong Kong',wechat:'WeChat',footerName:'Anne (Jing) Li',
   map:'Project map',mapTitle:'✦ Project map',island:'A pixel-art island with six stops on a circular path',stations:'Island landmarks',previous:'Walk left',next:'Walk right',hint:'Select a landmark or use ← → to walk around the island',enter:'Open project map ↗',projectMap:'✦ Project map',submap:'Project landmarks',back:'← Back to island',research:'Research',readNotes:'Read on Xiaohongshu',watch:'Watch on Bilibili',treeLink:'Explore the full project',closePreview:'Close preview',overview:'Read project overview',caseLink:'Read the full case study',myWork:'My contribution'
  }
 };
@@ -417,8 +428,7 @@ const englishAtlas={
  hkonnect:['Student luggage shipping from Hong Kong to mainland China','Website & estimate','WeChat booking','Pickup & delivery','I built and deployed the website, where students can read about the service and estimate the cost using their pickup area and their luggage weight or dimensions.','The site directs customers to WeChat to book. I answered questions about price, packing and timing, and collected the information needed to arrange a pickup.','I helped coordinate pickup, cross-border transport and mainland delivery. The site also explains how to track a shipment. Our team served more than 100 customers.'],
  anker:['Overseas store approvals, from process design to implementation','System design','Store opening process','AI workflows','I built role-specific views for regional teams, specialist teams and headquarters, alongside intake templates and an approval workflow connected to internal data.','I helped break down the full opening process, from market and site preparation through commercial review, design, construction and launch. Mapping the handoffs helped define where the approval tool should start and end.','I built AI-assisted workflows for strategic planning and site assessment. I separated material checks, analysis and report generation so the outputs could be reviewed before a person made the decision.'],
  writing:['From travel notes to the editing desk','Writing','Video edits','I publish travel observations and essays on Xiaohongshu.','I share film edits and playlists on Bilibili.'],
- oalmr:['Student exchange and campus programmes','Welcome Plaza','Exhibition Hall','Assembly Hall'],
- research:['A camp for geography projects','Observation Deck','Mapping Studio','Research Archive']
+ oalmr:['Student exchange and campus programmes','Welcome Plaza','Exhibition Hall','Assembly Hall']
 };
 const caseSections={
  zh:[
@@ -610,6 +620,37 @@ function renderHkonnectCase(project){
    <dl>${hk.work.map(([title,body])=>`<div><dt>${title}</dt><dd>${body}</dd></div>`).join('')}</dl>
   </section></div></div>`;
 }
+const researchProfile={
+ zh:{
+  title:'地理研究与空间分析',
+  kind:'香港中文大学 · 地理与资源管理',
+  description:'从田野调查到地图与空间数据',
+  body:'我的研究兴趣包括地理信息系统（GIS）、空间数据可视化和地理空间编程。我想弄清楚如何把现场观察和空间数据放在一起，用地图把发现讲清楚。',
+  sections:[
+   ['地理田野调查','2025 年，我参与了环境与社区旅游主题的地理调查。我们结合现场采样、访谈和 GIS 分析，把定性观察与定量资料整理成研究报告和可视化。'],
+   ['GIS 与地图可视化','我使用 ArcGIS 和 QGIS 处理和呈现空间数据，也参与过归一化植被指数（NDVI）分析。'],
+   ['地理空间编程','我用 Python 整理空间数据和做分析，希望把数据处理、分析和制图接成可以复用的流程。']
+  ]
+ },
+ en:{
+  title:'Geography & Spatial Analysis',
+  kind:'The Chinese University of Hong Kong · Geography and Resource Management',
+  description:'From fieldwork to maps and spatial data',
+  body:'My research interests include geographic information systems (GIS), spatial data visualisation, and geospatial programming. I’m interested in how field observations and spatial data can inform each other, and how maps can communicate what we find.',
+  sections:[
+   ['Geography fieldwork','In 2025, I contributed to field studies on the environment and community tourism. Our team combined field sampling, interviews and GIS analysis, then brought the qualitative and quantitative evidence together in reports and visualisations.'],
+   ['GIS & map visualisation','I use ArcGIS and QGIS to work with spatial data and make maps. I’ve also contributed to analysis using the Normalized Difference Vegetation Index (NDVI).'],
+   ['Geospatial programming','I use Python to organise and analyse spatial data. I’m interested in building reusable workflows that connect data preparation, analysis and mapping.']
+  ]
+ }
+};
+function renderResearch(project){
+ return `<a class="case-back" href="#">${t('back')}</a><div class="geo-case">
+  <header class="case-hero"><small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1>
+   <h2>${project.description}</h2><p>${project.body}</p></header>
+  <div class="case-content">${project.sections.map(([title,body])=>`<section class="geo-topic"><h2>${title}</h2><p>${body}</p></section>`).join('')}</div>
+ </div>`;
+}
 const queryLanguage=new URLSearchParams(location.search).get('lang');
 function savedLanguage(){
  try{return localStorage.getItem('anne-world-language');}catch{return null;}
@@ -780,14 +821,14 @@ document.addEventListener('keydown',e=>{
  if(e.key==='Enter'&&[document.body,$('prev'),$('next')].includes(document.activeElement)){e.preventDefault(); openJourney();}
 });
 function route(navigate=true){
- const p=projectDetails.find(p=>'#'+p.id===location.hash);
+ const p=projects.find(p=>'#'+p.id===location.hash&&p.id==='research')??projectDetails.find(p=>'#'+p.id===location.hash);
  if($('photo-dialog').open)$('photo-dialog').close();
  $('home').hidden=!!p;$('detail').hidden=!p;
  if(!p){if(navigate&&!location.hash)window.scrollTo(0,0); return;}
  if(projectDialog.open)projectDialog.close();
  const isAnker=p.id==='anker';
  const isTree=p.id==='value-tree';
- $('detail').innerHTML=isAnker?renderAnkerCase(p):isTree?renderTreeCase(p):p.id==='hkonnect'?renderHkonnectCase(p):`<a href="#">${t('back')}</a><h1 tabindex="-1">${p.title}</h1><small>${p.kind}</small>
+ $('detail').innerHTML=isAnker?renderAnkerCase(p):isTree?renderTreeCase(p):p.id==='hkonnect'?renderHkonnectCase(p):p.id==='research'?renderResearch(p):`<a href="#">${t('back')}</a><h1 tabindex="-1">${p.title}</h1><small>${p.kind}</small>
   <section class="paper"><h2>${p.description}</h2><p>${p.body}</p>
   ${p.role?`<h3>${t('myWork')}</h3><p>${p.role}</p>`:''}
   ${p.link?`<a href="${p.link}">${p.linkText} ↗</a>`:''}${p.extra?` · <a href="${p.extra}">Xiaohongshu ↗</a>`:''}
