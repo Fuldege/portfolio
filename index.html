@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#15132c"><title>Anne’s World · 李静</title>
 <style>
-:root{--ink:#15132c;--panel:#211c3b;--cream:#fff0d9;--peach:#ffad71;--mint:#a9e2ca;--muted:#c7bdd9;--border:#504669}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--cream);font:16px/1.75 system-ui,sans-serif}a{color:inherit}button{font:inherit;cursor:pointer}a:focus-visible,button:focus-visible{outline:3px solid var(--mint);outline-offset:4px}.wrap{width:min(1160px,calc(100% - 56px));margin:auto}header{border-bottom:1px solid var(--border)}nav{height:68px;display:flex;justify-content:space-between;align-items:center;gap:16px}nav a{text-decoration:none}nav div{display:flex;gap:25px}.brand,small,.mono{font-family:ui-monospace,monospace}.brand{font-weight:900;letter-spacing:.075em}.star{color:var(--peach)}.intro{padding:45px 0 30px;display:flex;align-items:end;justify-content:space-between;gap:32px}.intro h1,.detail h1{font-size:clamp(48px,8.7vw,118px);line-height:.87;letter-spacing:-.045em;margin:0}.intro h1 span{color:var(--peach)}.intro p{color:var(--muted);max-width:330px;margin:0;line-height:1.9}.intro p strong{color:var(--cream)}.game{background:var(--panel);border:1px solid var(--border);box-shadow:0 5px 0 #090818}.game-head,.game-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;gap:12px}.game-head{font-size:13px;color:var(--mint)}.scene{position:relative;isolation:isolate}canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.points{position:absolute;inset:0}.stop{position:absolute;top:53%;transform:translate(-50%,-50%);font-size:13px;font-weight:750;color:var(--cream);background:#211a39;border:2px solid #8973a4;box-shadow:3px 3px #110e24;padding:5px 9px;white-space:nowrap}.stop[aria-pressed=true]{background:var(--peach);color:var(--ink);border-color:var(--cream)}.arrows{display:flex;gap:6px}.arrows button,.enter{min-height:42px;padding:5px 13px;border:1px solid var(--border);color:var(--cream);background:var(--ink);text-decoration:none;display:inline-flex;align-items:center}.enter{background:var(--peach);color:var(--ink);font-weight:800;border:0}.hint{font-size:13px;color:var(--muted)}.works{padding:40px 0 64px}.works h2{font-size:34px;letter-spacing:-.025em;margin:0 0 12px}.work{display:grid;grid-template-columns:75px 1fr auto;align-items:center;gap:12px;border-top:1px solid var(--border);padding:14px 0;text-decoration:none}.work:hover{color:var(--peach)}.work small{color:var(--mint)}footer{border-top:1px solid var(--border);padding:22px 0;color:var(--muted)}.detail{margin:36px auto 60px;max-width:990px}.detail h1{font-size:clamp(46px,8vw,92px);margin:22px 0;line-height:.96}.detail .paper{background:var(--cream);color:#251b29;padding:clamp(20px,5vw,55px);margin-top:24px}.detail p{max-width:65ch}.detail figure{margin:0 0 24px}.detail img{display:block;width:100%;max-height:540px;object-fit:cover}.detail figcaption{font-size:13px;margin-top:8px}.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}.gallery img{aspect-ratio:1;object-fit:cover}[hidden]{display:none!important}
+:root{--ink:#15132c;--panel:#211c3b;--cream:#fff0d9;--peach:#ffad71;--mint:#a9e2ca;--muted:#c7bdd9;--border:#504669}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--cream);font:16px/1.75 system-ui,sans-serif}a{color:inherit}button{font:inherit;cursor:pointer}a:focus-visible,button:focus-visible{outline:3px solid var(--mint);outline-offset:4px}.wrap{width:min(1160px,calc(100% - 56px));margin:auto}header{border-bottom:1px solid var(--border)}nav{height:68px;display:flex;justify-content:space-between;align-items:center;gap:16px}nav a{text-decoration:none}nav div{display:flex;gap:25px}.brand,small,.mono{font-family:ui-monospace,monospace}.brand{font-weight:900;letter-spacing:.075em}.star{color:var(--peach)}.intro{padding:45px 0 30px;display:flex;align-items:end;justify-content:space-between;gap:32px}.intro h1,.detail h1{font-size:clamp(48px,8.7vw,118px);line-height:.87;letter-spacing:-.045em;margin:0}.intro h1 span{color:var(--peach)}.intro p{color:var(--muted);max-width:330px;margin:0;line-height:1.9}.intro p strong{color:var(--cream)}.game{background:var(--panel);border:1px solid var(--border);box-shadow:0 5px 0 #090818}.game-head,.game-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;gap:12px}.game-head{font-size:13px;color:var(--mint)}.scene{position:relative;isolation:isolate}canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.points{position:absolute;inset:0}.stop{position:absolute;top:53%;transform:translate(-50%,-50%);font-size:13px;font-weight:750;color:var(--cream);background:#211a39;border:2px solid #8973a4;box-shadow:3px 3px #110e24;padding:5px 9px;white-space:nowrap}.stop[aria-pressed=true]{background:var(--peach);color:var(--ink);border-color:var(--cream)}.arrows{display:flex;gap:6px}.arrows button,.enter{min-height:42px;padding:5px 13px;border:1px solid var(--border);color:var(--cream);background:var(--ink);text-decoration:none;display:inline-flex;align-items:center}.enter{background:var(--peach);color:var(--ink);font-weight:800;border:0}.hint{font-size:13px;color:var(--muted)}.works{padding:40px 0 64px}.works h2{font-size:34px;letter-spacing:-.025em;margin:0 0 12px}.work{display:grid;grid-template-columns:75px 1fr auto;align-items:center;gap:12px;border-top:1px solid var(--border);padding:14px 0;text-decoration:none}.work:hover{color:var(--peach)}.work small{color:var(--mint)}footer{border-top:1px solid var(--border);padding:22px 0;color:var(--muted)}.detail{margin:36px auto 60px;max-width:990px}.detail h1{font-size:clamp(46px,8vw,92px);margin:22px 0;line-height:.96}.detail .paper{background:var(--cream);color:#251b29;padding:clamp(20px,5vw,55px);margin-top:24px}.detail p{max-width:65ch}.detail figure{margin:0 0 24px}.detail img{display:block;width:100%;max-height:540px;object-fit:cover}.detail figcaption{font-size:13px;margin-top:8px}[hidden]{display:none!important}
 @media(max-width:640px){.wrap{width:calc(100% - 28px)}nav{height:54px;font-size:13px}nav div{gap:14px}.intro{padding:32px 0 22px;display:block}.intro p{margin-top:17px;font-size:14px}.scene{overflow:hidden}.scene canvas{width:100%;height:auto;min-height:138px}.stop{font-size:10px;padding:4px 3px;top:53%;letter-spacing:0}.intro h1{font-size:clamp(40px,10.5vw,60px)}.hint{display:none}.game-foot,.game-head{padding:9px}.works{padding:28px 0 40px}.work{grid-template-columns:53px 1fr auto;font-size:14px}.detail img{max-height:350px}}
 
 .project-map{--route:#a9e2ca;margin-top:24px;background:#211c3b;border:1px solid var(--border);padding:clamp(16px,3vw,32px)}
@@ -175,6 +175,36 @@ body:has(dialog[open]){overflow:hidden}
 .demo-state{font-weight:750;color:#bde5cf}
 .demo-audit{border-top:1px solid #585a76;margin-top:16px;padding-top:12px}
 .demo-audit ol{margin:8px 0 0;padding-inline-start:22px}
+
+.preview-actions{display:flex;align-items:center;gap:8px}
+.preview-x{display:grid;place-items:center;width:40px;min-height:40px;padding:0;font-size:25px;line-height:1}
+.tree-case{color:#202c24;background:#f5f1df;border:1px solid #88927c;border-top:4px solid #a5cf9b}
+.tree-hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,1fr);background:#193028;color:#f3eed7;min-height:390px}
+.tree-hero-copy{padding:clamp(25px,5vw,54px);align-self:center}
+.tree-hero small{color:#c3d8b4}
+.detail .tree-hero h1{font:500 clamp(42px,7vw,86px)/.96 Georgia,serif;letter-spacing:-.045em;margin:15px 0 18px}
+.tree-hero p{color:#eaebd5;margin:0;line-height:1.65}
+.tree-canopy{position:relative;min-height:340px;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 60% 35%,#59714b 0,#2d4738 55%,#21382f 100%)}
+.tree-canopy::before{content:"";position:absolute;inset:8%;border:1px solid #dae3b94a;border-radius:50% 50% 10px 10px}
+.tree-form{position:absolute;inset:7% 13% 0;background:repeating-linear-gradient(77deg,#67543f 0 9px,#897253 9px 19px,#79664b 19px 25px);clip-path:polygon(43% 88%,47% 56%,19% 33%,10% 10%,14% 8%,24% 29%,48% 46%,52% 21%,63% 5%,67% 7%,58% 23%,55% 46%,77% 33%,87% 15%,91% 17%,83% 38%,57% 56%,59% 87%,78% 94%,88% 98%,58% 96%,47% 100%,41% 95%,15% 99%,28% 92%)}
+.tree-leaf{position:absolute;z-index:1;display:grid;place-items:center;transform:translate(-50%,-50%) rotate(-11deg);border:1px solid #e0dead;border-radius:63% 14% 63% 14%;min-width:100px;max-width:40%;min-height:62px;padding:8px 12px;color:#152b23;background:#b9d79d;box-shadow:4px 6px 0 #17292370;line-height:1.2;font-weight:750}
+.tree-leaf span{transform:rotate(11deg)}
+.tree-leaf:nth-of-type(1){left:23%;top:42%}
+.tree-leaf:nth-of-type(2){left:57%;top:20%;background:#efc38a}
+.tree-leaf:nth-of-type(3){left:75%;top:54%;color:#f9f2dd;background:#55735d80;border:2px solid #dce7cb}
+.tree-leaf[aria-expanded=true]{outline:2px solid #fff4c3;outline-offset:5px}
+.tree-content{padding:clamp(20px,5vw,52px)}
+.tree-leaf-panel{background:#e2e8d4;border-left:4px solid #62844e;margin:0 0 32px;padding:clamp(17px,4vw,28px)}
+.tree-leaf-panel h2,.tree-leaf-panel p{margin:0 0 7px}
+.tree-leaf-panel button{background:#254438;color:#fff5dc;border:0;padding:5px 14px;min-height:40px}
+.tree-leaf-panel .tree-leaf-close{float:right;padding:0}
+.tree-task{margin-top:10px!important;font-weight:650}
+.tree-story{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,42px)}
+.tree-story section{border-top:1px solid #9eaa8e;padding-top:16px}
+.tree-story h2{font:500 clamp(24px,4vw,35px)/1.1 Georgia,serif;margin:0 0 12px}
+.tree-story p{margin:0 0 12px}
+.tree-crux{margin:32px 0 0;padding:20px 0 0;border-top:1px solid #9eaa8e;font-size:1.15em;font-weight:650}
+@media(max-width:700px){.tree-hero,.tree-story{grid-template-columns:1fr}.tree-canopy{min-height:280px}.tree-leaf{min-height:52px}.preview-actions{gap:5px}}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div class="nav-actions"><button type="button" id="language-switch" class="language-switch"></button><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog" data-copy="contact">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -192,7 +222,7 @@ body:has(dialog[open]){overflow:hidden}
 <article id="detail" class="detail" hidden></article>
 </main>
 <dialog id="project-dialog" aria-labelledby="project-title">
- <div class="project-bar"><span class="mono" data-copy="projectMap">✦ 项目地图</span><form method="dialog"><button class="project-close" data-copy="back" autofocus>← 返回总地图</button></form></div>
+ <div class="project-bar"><span class="mono" data-copy="projectMap">✦ 项目地图</span><form method="dialog" class="preview-actions"><button class="project-close" data-copy="back" autofocus>← 返回总地图</button><button class="project-close preview-x" data-label="closePreview">×</button></form></div>
  <div id="project-map"></div>
 </dialog>
 <dialog id="contact" aria-labelledby="contact-title"><form method="dialog"><button class="contact-close" data-label="closeContact">×</button></form><h2 id="contact-title" data-copy="contact">联系方式</h2><dl><dt data-copy="email">邮箱</dt><dd>aynnnlee@gmail.com</dd><dt data-copy="mainland">内地电话</dt><dd>+86 13636511549</dd><dt data-copy="hongkong">香港电话</dt><dd>+852 63158830</dd>
@@ -200,7 +230,7 @@ body:has(dialog[open]){overflow:hidden}
 <dt>Instagram</dt><dd><a href="https://www.instagram.com/fuldegeeee/" rel="me">fuldegeeee <span aria-hidden="true">↗</span></a></dd><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/jing-li-aynnnlee/" rel="me">Jing Li <span aria-hidden="true">↗</span></a></dd></dl></dialog><footer><div class="wrap"><span data-copy="footerName">Anne Li 李静</span> <span class="star">✦</span> <a href="https://github.com/fuldege">GitHub</a></div></footer>
 <script>
 const chineseDetails = [
- {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', link:'tree1.png', linkText:'查看装置全图', image:'tree1.png'},
+ {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', },
  {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'和伙伴一起做学生行李配送服务。', body:'HKonnect 为学生提供行李配送，服务过 100 多位客户。从第一次咨询到最终交付，每个环节都会影响客户是否愿意把行李交给我们。', role:'我和伙伴共同创立这项服务，搭建并部署网站，也负责处理客户咨询和协调配送。'},
  {id:'retail', label:'零售选址', title:'零售选址', kind:'零售策略项目', description:'从商场平面图判断一家店的位置。', body:'一个铺位可能从入口就看得见，但走过去需要绕路。评估铺位时，我关注这两件事，也会看扶梯上下行和客流汇合的位置。', role:'我参与整理门店落位评估的填报要求，并参与全球零售项目进度看板的设计。'},
  {id:'anker', label:'Anker Innovations', title:'Anker Innovations', kind:'全球零售实习 · 深圳', description:'把海外门店的立项流程做成一套多团队协作工具', body:'一家海外门店从市场筹备走到开业，需要多个团队共同判断、交接材料和跟进任务。我在安克负责搭建前期立项工具，也参与拆解了贯穿新店筹备与开业的工作分解结构（WBS）。'},
@@ -312,7 +342,7 @@ function showJourney(index){
   note.removeAttribute('aria-busy');
   if(!hasNotes)return;
   const link=id==='writing'?(i===0?project.extra:project.link):'#'+id;
-  const label=id==='writing'?t(i===0?'readNotes':'watch'):t(id==='anker'?'caseLink':id==='value-tree'?'photos':'overview');
+  const label=id==='writing'?t(i===0?'readNotes':'watch'):t(id==='anker'?'caseLink':id==='value-tree'?'treeLink':'overview');
   note.innerHTML='<h3>'+entries[i+1]+'</h3><p>'+entries[count+1+i]+'</p><a href="'+link+'">'+label+' ↗</a>';
  }
  nodes.forEach((node,i)=>node.onclick=()=>showStep(i,true));
@@ -322,16 +352,16 @@ const copy={
  zh:{
   introName:'李静 · 香港中文大学地理与资源管理', intro:'我做过装置，和朋友搭过学生行李配送服务，也做过让不同团队一起推进海外开店的工具。沿着岛走走，看看我做过的项目。',
   contact:'联系方式',closeContact:'关闭联系方式',email:'邮箱',mainland:'内地电话',hongkong:'香港电话',wechat:'微信',footerName:'Anne Li 李静',
-  map:'作品地图',mapTitle:'✦ 作品地图',island:'一座由环岛路串联六个站点的像素岛',stations:'岛上地点',previous:'往左走',next:'往右走',hint:'点击地标或用 ← → 沿环岛路走',enter:'进入项目地图 ↗',projectMap:'✦ 项目地图',submap:'项目地标',back:'← 返回总地图',research:'科研学术',readNotes:'阅读小红书手记',watch:'播放 B 站作品',photos:'看装置现场照片',overview:'查看项目介绍',caseLink:'阅读完整案例',myWork:'我做了什么',treePhoto:'价值之树 · 装置现场'
+  map:'作品地图',mapTitle:'✦ 作品地图',island:'一座由环岛路串联六个站点的像素岛',stations:'岛上地点',previous:'往左走',next:'往右走',hint:'点击地标或用 ← → 沿环岛路走',enter:'进入项目地图 ↗',projectMap:'✦ 项目地图',submap:'项目地标',back:'← 返回总地图',research:'科研学术',readNotes:'阅读小红书手记',watch:'播放 B 站作品',treeLink:'探索完整作品',closePreview:'关闭预览',overview:'查看项目介绍',caseLink:'阅读完整案例',myWork:'我做了什么'
  },
  en:{
   introName:'Anne (Jing) Li · Geography and Resource Management, CUHK',intro:'I’ve made a public art installation, co-founded a student luggage service, and built tools for teams opening stores overseas. Explore the island to see how each project came together.',
   contact:'Contact',closeContact:'Close contact details',email:'Email',mainland:'Mainland China',hongkong:'Hong Kong',wechat:'WeChat',footerName:'Anne (Jing) Li',
-  map:'Project map',mapTitle:'✦ Project map',island:'A pixel-art island with six stops on a circular path',stations:'Island landmarks',previous:'Walk left',next:'Walk right',hint:'Select a landmark or use ← → to walk around the island',enter:'Open project map ↗',projectMap:'✦ Project map',submap:'Project landmarks',back:'← Back to island',research:'Research',readNotes:'Read on Xiaohongshu',watch:'Watch on Bilibili',photos:'See the installation photos',overview:'Read project overview',caseLink:'Read the full case study',myWork:'My contribution',treePhoto:'The Value Tree installation'
+  map:'Project map',mapTitle:'✦ Project map',island:'A pixel-art island with six stops on a circular path',stations:'Island landmarks',previous:'Walk left',next:'Walk right',hint:'Select a landmark or use ← → to walk around the island',enter:'Open project map ↗',projectMap:'✦ Project map',submap:'Project landmarks',back:'← Back to island',research:'Research',readNotes:'Read on Xiaohongshu',watch:'Watch on Bilibili',treeLink:'Explore the full project',closePreview:'Close preview',overview:'Read project overview',caseLink:'Read the full case study',myWork:'My contribution'
  }
 };
 const englishDetails=[
- {id:'value-tree',label:'The Value Tree',title:'The Value Tree',kind:'Public art installation',description:'An invitation to notice the trees around us',body:'We built a tree from discarded cardboard and covered it with bark collected in Hong Kong. Green leaves explained tree ecology, colourful leaves offered small activities, and transparent leaves gave visitors space to leave their own messages.',role:'I contributed research on tree ecology, helped write the science content, and helped plan the structure.',link:'tree1.png',linkText:'View installation photo',image:'tree1.png'},
+ {id:'value-tree',label:'The Value Tree',title:'The Value Tree',kind:'Public art installation',description:'An invitation to notice the trees around us',body:'We built a tree from discarded cardboard and covered it with bark collected in Hong Kong. Green leaves explained tree ecology, colourful leaves offered small activities, and transparent leaves gave visitors space to leave their own messages.',role:'I contributed research on tree ecology, helped write the science content, and helped plan the structure.'},
  {id:'hkonnect',label:'HKonnect',title:'HKonnect',kind:'Student venture',description:'A luggage delivery service for students',body:'HKonnect served more than 100 customers. Each step, from the first enquiry to delivery, gave us a chance to earn their trust.',role:'I co-founded the service, built and deployed the website, handled customer enquiries, and coordinated deliveries.'},
  {id:'retail',label:'Retail site assessment',title:'Retail Site Assessment',kind:'Retail strategy project',description:'Reading a shopping centre floor plan',body:'A storefront can be visible from an entrance and still be difficult to reach. I looked at how escalator direction and intersecting routes affected whether shoppers would pass the site.',role:'I helped define what teams should capture when assessing a candidate unit and contributed to the global retail project dashboard.'},
  {id:'anker',label:'Anker Innovations',title:'Anker Innovations',kind:'Global Retail Internship · Shenzhen',description:'Building a tool for cross-team decisions on new stores',body:'Opening a store overseas involves decisions, documents and handoffs across several teams. At Anker, I built a tool for the pre-approval stage and contributed to the work breakdown structure (WBS) for the full store opening process.'},
@@ -385,6 +415,90 @@ function renderAnkerCase(project){
   <div class="case-content">${chapters.map(([[title,body],visual])=>`<section class="case-chapter"><div><h2>${title}</h2><p>${body}</p></div>${visual}</section>`).join('')}
   <section class="case-demo" id="case-demo"></section></div>`;
 }
+const treeCopy={
+ zh:{
+  question:'知道气候危机的存在之后，为什么行动还是那么难？',
+  start:'我们用一棵树邀请观众停下来，从认识树、和树互动，到想一件自己愿意做的小事。点树上的三种叶片，看看装置怎么运作。',
+  choices:['绿叶 · 认识','彩叶 · 行动','透明叶 · 留言'],
+  leaves:[
+   ['从知识开始','绿色叶片是一套树木生态知识卡，让观众在树旁认识它在环境中扮演的角色。'],
+   ['把一件小事带到公园','彩色叶片是与树互动的任务卡。原装置还设计了可打印的卡片和线上随机任务转盘。这里可以抽一条网页示例。'],
+   ['为这棵树留一句话','透明叶片留给观众写下愿望、感谢或承诺。选一个你从树身上学到的价值，比如关怀或倾听，把它写成一句故事，再把叶片挂回树上。']
+  ],
+  tasks:['站在同一棵树下两分钟，记下它为身边的人带来了什么。','从不同方向观察一棵树，看看哪一侧能给路人提供阴凉。','找一棵路过很多次的树，写下一个今天才注意到的细节。'],
+  draw:'抽一条示例任务',
+  story:[
+   ['从一块写着「愧疚」的石头开始','知道气候危机和愿意采取行动之间，隔着一道情感上的距离。我们选择树作为媒介，因为它就在日常生活中，也能成为人和自然建立联系的起点。'],
+   ['让纸板回到树的形态','我们用废弃纸箱搭起树干和根系，贴上香港本地采集的白千层树皮，把叶片悬挂在枝条周围。我们把装置摆在窗前，让观众透过悬挂的叶片看到窗外的自然。纸板来自树，在这里也重新有了树的形态。'],
+   ['从「公地悲剧」到「公地喜剧」','Hardin 在 1968 年用「公地悲剧」讨论共同资源怎样被个人的短期利益消耗。我们借「公地喜剧」追问，如果人愿意关心、分享和反思，身边的自然资源可以怎样被共同照料？'],
+   ['我在项目里做了什么','我参与地理与生态知识研究、科学内容设计和装置结构策划，也把研究转写成观众能在展览现场读懂的内容。']
+  ],
+  close:'关闭叶片说明',
+  ending:'这棵树属于所有人。环境、社区与未来的共同利益，可以从每个人愿意做的一点小事开始。'
+ },
+ en:{
+  question:'Why is it still hard to act once we know about the climate crisis?',
+  start:'We used a tree to get visitors to pause, learn about it, and find one small thing they would be willing to do. Choose one of the three leaf types to explore the installation.',
+  choices:['Green · Learn','Colour · Act','Clear · Reflect'],
+  leaves:[
+   ['Begin with a closer look','The green leaves were short ecology cards. Visitors could read them beside the installation and learn what trees do for the places they grow in.'],
+   ['Take a small action into the park','The colourful leaves carried activities to try with a tree. Printable cards and an online task spinner extended the experience beyond the exhibition. Try a sample activity below.'],
+   ['Leave the tree a message','The clear leaves gave visitors space to write a wish, a thank-you, or a promise. Visitors could choose a value they had learned from a tree, such as care or listening, write a one-sentence story, and hang their leaf on the installation.']
+  ],
+  tasks:['Spend two minutes beneath a tree. Note one thing it provides for the people around it.','Look at a tree from different angles. Which side provides shade for people walking by?','Find a tree you pass often. Write down one detail you only noticed today.'],
+  draw:'Draw a sample activity',
+  story:[
+   ['It began with a stone marked “guilt”','There is an emotional distance between knowing about the climate crisis and choosing to act. We worked with trees because they are part of everyday life and give people a place to begin paying attention.'],
+   ['Giving cardboard the shape of a tree again','We built the trunk and roots from discarded cardboard, covered them with paperbark collected in Hong Kong, and hung leaves around the branches. We set it by a window so visitors could see the landscape through the hanging leaves. The cardboard came from trees and took on the shape of one again.'],
+   ['From the tragedy to the comedy of the commons','Hardin’s 1968 essay described how short-term individual interests can deplete a shared resource. Our installation explored the idea of a comedy of the commons, asking how care, sharing and reflection might help communities look after the natural spaces they share.'],
+   ['My contribution','I contributed geographical and ecological research, wrote science content for the exhibition, and helped plan the structure of the installation.']
+  ],
+  close:'Close leaf description',
+  ending:'The tree belongs to everyone. Caring for the places and communities we share can begin with one small action.'
+ }
+};
+let selectedLeaf=0;
+function renderTreeCase(project){
+ const tree=treeCopy[language];
+ return `<a class="case-back" href="#">${t('back')}</a><div class="tree-case">
+  <header class="tree-hero"><div class="tree-hero-copy"><small>${project.kind}</small>
+   <h1 tabindex="-1">${project.title}</h1><p><strong>${tree.question}</strong></p><p>${tree.start}</p></div>
+   <div class="tree-canopy"><div class="tree-form" aria-hidden="true"></div>
+    ${tree.choices.map((label,i)=>`<button type="button" class="tree-leaf" data-leaf="${i}" aria-expanded="false" aria-controls="tree-leaf-panel"><span>${label}</span></button>`).join('')}
+   </div></header>
+  <div class="tree-content"><section class="tree-leaf-panel" id="tree-leaf-panel" aria-live="polite"></section>
+   <div class="tree-story">${tree.story.map(([title,body])=>`<section><h2>${title}</h2><p>${body}</p></section>`).join('')}</div>
+   <p class="tree-crux">${tree.ending}</p>
+  </div></div>`;
+}
+function bindTreeCase(){
+ const tree=treeCopy[language];
+ const leaves=[...$('detail').querySelectorAll('[data-leaf]')];
+ const panel=$('tree-leaf-panel');
+ let lastTask=-1;
+ function select(index){
+  selectedLeaf=index;
+  leaves.forEach((leaf,i)=>leaf.setAttribute('aria-expanded',i===index));
+  panel.hidden=index<0;
+  if(index<0)return;
+  const [title,body]=tree.leaves[index];
+  panel.innerHTML=`<button type="button" class="preview-x tree-leaf-close" aria-label="${tree.close}">×</button><h2>${title}</h2><p>${body}</p>
+   ${index===1?`<button type="button" id="tree-draw">${tree.draw}</button><p class="tree-task" id="tree-task"></p>`:''}`;
+  panel.querySelector('.tree-leaf-close').onclick=()=>{select(-1);leaves[index].focus();};
+  const draw=$('tree-draw');
+  if(draw)draw.onclick=()=>{
+   lastTask=lastTask<0?Math.floor(Math.random()*tree.tasks.length):
+    (lastTask+1+Math.floor(Math.random()*(tree.tasks.length-1)))%tree.tasks.length;
+   $('tree-task').textContent=tree.tasks[lastTask];
+  };
+ }
+ leaves.forEach((leaf,i)=>leaf.onclick=()=>{
+  select(selectedLeaf===i?-1:i);
+  if(!panel.hidden)panel.scrollIntoView({block:'nearest'});
+ });
+ select(selectedLeaf);
+}
+
 const queryLanguage=new URLSearchParams(location.search).get('lang');
 function savedLanguage(){
  try{return localStorage.getItem('anne-world-language');}catch{return null;}
@@ -559,14 +673,14 @@ function route(navigate=true){
  $('home').hidden=!!p;$('detail').hidden=!p;
  if(!p){if(navigate&&!location.hash)window.scrollTo(0,0); return;}
  if(projectDialog.open)projectDialog.close();
- const pictures=p.image?`<figure><img src="${p.image}" alt="${t('treePhoto')}"><figcaption>${t('treePhoto')}</figcaption></figure>`:'';
- const gallery=p.image?`<div class="gallery">${[2,3,4].map(n=>`<a href="tree${n}.png"><img src="tree${n}.png" alt="${t('treePhoto')} ${n}"></a>`).join('')}</div>`:'';
  const isAnker=p.id==='anker';
- $('detail').innerHTML=isAnker?renderAnkerCase(p):`<a href="#">${t('back')}</a><h1 tabindex="-1">${p.title}</h1><small>${p.kind}</small>
-  <section class="paper">${pictures}<h2>${p.description}</h2><p>${p.body}</p>
+ const isTree=p.id==='value-tree';
+ $('detail').innerHTML=isAnker?renderAnkerCase(p):isTree?renderTreeCase(p):`<a href="#">${t('back')}</a><h1 tabindex="-1">${p.title}</h1><small>${p.kind}</small>
+  <section class="paper"><h2>${p.description}</h2><p>${p.body}</p>
   ${p.role?`<h3>${t('myWork')}</h3><p>${p.role}</p>`:''}
   ${p.link?`<a href="${p.link}">${p.linkText} ↗</a>`:''}${p.extra?` · <a href="${p.extra}">Xiaohongshu ↗</a>`:''}
-  ${gallery}</section>`;
+  </section>`;
+ if(isTree)bindTreeCase();
  if(isAnker)renderDemo();
  if(navigate){
   walk(projects.findIndex(project=>project.id===(p.id==='retail'?'anker':p.id)),false);
