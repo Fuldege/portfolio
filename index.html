@@ -225,6 +225,27 @@ body:has(dialog[open]){overflow:hidden}
 #photo-dialog img{display:block;margin:auto;width:100%;height:auto;max-height:calc(100dvh - 100px);object-fit:contain}
 .fieldnote .secondary-project-link{margin-inline-start:14px}
 @media(max-width:620px){.tree-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tree-photo-grid figure:first-child{grid-row:auto;grid-column:span 2}.tree-photo-grid figure:first-child .photo-open{max-height:430px}.fieldnote .secondary-project-link{display:block;margin-inline-start:0}}
+
+.detail:has(.hk-case){max-width:1060px}
+.hk-case .case-hero{background:#182c3f;border-color:#55758a;border-top-color:#a4d7cd}
+.hk-case .case-hero h2{color:#cce6d7;max-width:27ch}
+.hk-hero-foot{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:24px}
+.hk-count{display:flex;align-items:baseline;gap:8px;color:#e4eee7}
+.hk-count strong{font-size:28px;line-height:1;color:#f9e7bb}
+.hk-site{display:inline-block;background:#c8e3d6;color:#132b31;font-weight:750;padding:6px 13px;text-decoration:none}
+.hk-site:hover{text-decoration:underline}
+.hk-content{padding:clamp(23px,5vw,54px);background:#f2eee4;color:#192e3a}
+.hk-content h2{font-size:clamp(23px,3.5vw,34px);line-height:1.16;margin:0 0 16px}
+.hk-route{padding:0;margin:0;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.hk-route li{border-top:3px solid #558479;padding-top:10px}
+.hk-route strong{display:block;margin-bottom:5px;color:#163d43}
+.hk-route p,.hk-work p{margin:0;line-height:1.6}
+.hk-work{margin-top:32px;padding-top:22px;border-top:1px solid #b8c3bb}
+.hk-work dl{margin:0}
+.hk-work dl div{display:grid;grid-template-columns:minmax(135px,.7fr) minmax(0,2fr);gap:14px;padding:10px 0;border-bottom:1px solid #d1d9ce}
+.hk-work dt{font-weight:750}
+.hk-work dd{margin:0}
+@media(max-width:680px){.hk-route{grid-template-columns:1fr 1fr}.hk-work dl div{grid-template-columns:1fr;gap:4px}}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div class="nav-actions"><button type="button" id="language-switch" class="language-switch"></button><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog" data-copy="contact">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -256,7 +277,7 @@ body:has(dialog[open]){overflow:hidden}
 const hkonnectSite='https://fuldege.github.io/hkonnect/';
 const chineseDetails = [
  {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', },
- {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'和伙伴一起做学生行李配送服务。', body:'HKonnect 为学生提供行李配送，服务过 100 多位客户。从第一次咨询到最终交付，每个环节都会影响客户是否愿意把行李交给我们。', role:'我和伙伴共同创立这项服务，搭建并部署网站，也负责处理客户咨询和协调配送。',link:hkonnectSite,linkText:'访问 HKonnect 官网'},
+ {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'把毕业搬家的行李，从香港送到内地家门口', body:'我与伙伴共同创立 HKonnect，为在港学生提供跨境行李托运。从费用预估、微信预约，到上门取件与内地派送，我们把原本需要分别安排的环节接成了一项服务。',link:hkonnectSite,linkText:'访问 HKonnect 官网'},
  {id:'retail', label:'零售选址', title:'零售选址', kind:'零售策略项目', description:'从商场平面图判断一家店的位置。', body:'一个铺位可能从入口就看得见，但走过去需要绕路。评估铺位时，我关注这两件事，也会看扶梯上下行和客流汇合的位置。', role:'我参与整理门店落位评估的填报要求，并参与全球零售项目进度看板的设计。'},
  {id:'anker', label:'Anker Innovations', title:'Anker Innovations', kind:'全球零售实习 · 深圳', description:'把海外门店的立项流程做成一套多团队协作工具', body:'一家海外门店从市场筹备走到开业，需要多个团队共同判断、交接材料和跟进任务。我在安克负责搭建前期立项工具，也参与拆解了贯穿新店筹备与开业的工作分解结构（WBS）。'},
  {id:'writing', label:'写作与影像', title:'写作与影像', kind:'个人创作', description:'议题随笔、旅行观察与影视剪辑。', body:'我在小红书写随笔和旅行观察，在 B 站分享影视剪辑和歌单。', link:'https://space.bilibili.com/19484656',linkText:'查看 B 站主页', extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
@@ -284,13 +305,11 @@ const atlas = {
     "观众可以读绿色叶片上的知识，抽一张彩色任务卡去和树互动，或在透明叶片上写下感谢与心愿。可打印的卡片和线上随机任务转盘，让这次体验可以带到公园继续。"
   ],
   "hkonnect": [
-    "跟着一件学生行李，从网站走到交付",
-    "网站入口",
-    "客户咨询",
-    "配送交付",
-    "我和伙伴共同创立 HKonnect，为学生提供行李配送。我负责搭建并部署网站，让一项原本需要当面解释的服务，有了学生可以自己打开的线上入口。",
-    "网站上线之后，我也直接回答学生的咨询。从网站上读懂服务，到愿意把行李交给我们，中间还需要有人回应具体的问题。这是我同时做网站和客服时，最关心的一段体验。",
-    "我还负责协调配送，把对客户的答复接到实际交付上。HKonnect 累计服务过 100 多位客户，这是整个团队的服务规模；我参与的是网站、咨询和配送之间的衔接。"
+    "香港到内地的学生行李托运",
+    "网站与估价","微信预约","取件与交付",
+    "我搭建并部署了官网，把取件地区、重量或尺寸、地区定价和常见问题放在同一个入口，方便学生先了解流程和估算费用。",
+    "网站引导客户通过微信预约。我负责回答费用、包装和时间等问题，并确认取件地区、行李重量和日期，把咨询转成可以安排的订单。",
+    "我参与协调上门取件、跨境运输和内地派送的衔接。官网也说明了如何查看物流进度。HKonnect 团队累计服务超过 100 位客户。"
   ],
   "anker": [
     "海外门店立项系统 · 从流程拆解到工具搭建",
@@ -388,14 +407,14 @@ const copy={
 };
 const englishDetails=[
  {id:'value-tree',label:'The Value Tree',title:'The Value Tree',kind:'Public art installation',description:'An invitation to notice the trees around us',body:'We built a tree from discarded cardboard and covered it with bark collected in Hong Kong. Green leaves explained tree ecology, colourful leaves offered small activities, and transparent leaves gave visitors space to leave their own messages.',role:'I contributed research on tree ecology, helped write the science content, and helped plan the structure.'},
- {id:'hkonnect',label:'HKonnect',title:'HKonnect',kind:'Student venture',description:'A luggage delivery service for students',body:'HKonnect served more than 100 customers. Each step, from the first enquiry to delivery, gave us a chance to earn their trust.',role:'I co-founded the service, built and deployed the website, handled customer enquiries, and coordinated deliveries.',link:hkonnectSite,linkText:'Visit the HKonnect website'},
+ {id:'hkonnect',label:'HKonnect',title:'HKonnect',kind:'Student venture',description:'Getting students’ luggage from Hong Kong to their door in mainland China',body:'I co-founded HKonnect to help students move their belongings at the end of term. The service brings cost estimates, WeChat booking, doorstep collection and final delivery together.',link:hkonnectSite,linkText:'Visit the HKonnect website'},
  {id:'retail',label:'Retail site assessment',title:'Retail Site Assessment',kind:'Retail strategy project',description:'Reading a shopping centre floor plan',body:'A storefront can be visible from an entrance and still be difficult to reach. I looked at how escalator direction and intersecting routes affected whether shoppers would pass the site.',role:'I helped define what teams should capture when assessing a candidate unit and contributed to the global retail project dashboard.'},
  {id:'anker',label:'Anker Innovations',title:'Anker Innovations',kind:'Global Retail Internship · Shenzhen',description:'Building a tool for cross-team decisions on new stores',body:'Opening a store overseas involves decisions, documents and handoffs across several teams. At Anker, I built a tool for the pre-approval stage and contributed to the work breakdown structure (WBS) for the full store opening process.'},
  {id:'writing',label:'Writing & Film',title:'Writing & Film',kind:'Personal work',description:'Essays, travel observations and video edits',body:'I write essays and travel notes on Xiaohongshu and share video edits and playlists on Bilibili.',link:'https://space.bilibili.com/19484656',linkText:'Visit my Bilibili channel',extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
 ];
 const englishAtlas={
  'value-tree':['An invitation to spend time with a tree','Ecology cards','Cardboard & bark','Three kinds of leaves','A stone marked “guilt” started our discussion about why people rarely pause to notice trees. I helped turn ecology research into short cards visitors could read beside the installation.','I helped plan the structure. Our team built the trunk from reused cardboard and covered it with locally collected paperbark.','Visitors could read about trees, pick an activity, or leave a message. Printable cards and an online activity picker extended the experience into the park.'],
- hkonnect:['Follow a bag from enquiry to delivery','Website','Customer enquiries','Delivery','I co-founded HKonnect and built and deployed the website so students could find out about our luggage service on their own.','I answered customer questions directly and saw how much the details mattered when someone was deciding whether to trust us with their luggage.','I coordinated deliveries and followed through on what we told customers. Our team served more than 100 customers.'],
+ hkonnect:['Student luggage shipping from Hong Kong to mainland China','Website & estimate','WeChat booking','Pickup & delivery','I built and deployed the website, where students can read about the service and estimate the cost using their pickup area and their luggage weight or dimensions.','The site directs customers to WeChat to book. I answered questions about price, packing and timing, and collected the information needed to arrange a pickup.','I helped coordinate pickup, cross-border transport and mainland delivery. The site also explains how to track a shipment. Our team served more than 100 customers.'],
  anker:['Overseas store approvals, from process design to implementation','System design','Store opening process','AI workflows','I built role-specific views for regional teams, specialist teams and headquarters, alongside intake templates and an approval workflow connected to internal data.','I helped break down the full opening process, from market and site preparation through commercial review, design, construction and launch. Mapping the handoffs helped define where the approval tool should start and end.','I built AI-assisted workflows for strategic planning and site assessment. I separated material checks, analysis and report generation so the outputs could be reviewed before a person made the decision.'],
  writing:['From travel notes to the editing desk','Writing','Video edits','I publish travel observations and essays on Xiaohongshu.','I share film edits and playlists on Bilibili.'],
  oalmr:['Student exchange and campus programmes','Welcome Plaza','Exhibition Hall','Assembly Hall'],
@@ -545,6 +564,52 @@ function bindTreeCase(){
  select(selectedLeaf);
 }
 
+const hkonnectCopy={
+ zh:{
+  customers:'团队累计服务客户',
+  journey:'一件行李怎么到家',
+  stages:[
+   ['估价与预约','在网页估算费用，再通过微信确认取件日期和地址。'],
+   ['上门取件','与客户在取件点交接，安排车辆前往口岸。'],
+   ['跨境运输','跟进行李过关和运抵集运点的交接。'],
+   ['内地派送','行李转交京东物流派送到家，客户可以查看物流进度。']
+  ],
+  work:[
+   ['搭建并发布官网','我负责把服务流程、按地区划分的价目表、FAQ 和预约方式放到同一个网站上。费用预估支持按取件区、寄送地区、重量或尺寸填写。'],
+   ['跟进客户咨询','我通过微信回答费用、包装和时间等问题，并确认地区、行李重量和日期，让团队可以安排取件。'],
+   ['协调配送交接','我参与协调取件和配送，把网站上说清楚的服务步骤接到线下执行。']
+  ]
+ },
+ en:{
+  customers:'customers served by the team',
+  journey:'The luggage journey',
+  stages:[
+   ['Estimate and book','Estimate the cost online, then confirm the pickup date and address on WeChat.'],
+   ['Collect in Hong Kong','Meet the customer at the pickup point and arrange transport to the border.'],
+   ['Take it across the border','Coordinate the handoff as the luggage moves through the border and on to the consolidation point.'],
+   ['Deliver to the door','JD Logistics handles final delivery in mainland China. Customers can track their shipment.']
+  ],
+  work:[
+   ['Website design and deployment','I put the service steps, regional rates, FAQs and booking information in one place. The calculator lets customers estimate the price using their pickup area, destination, and weight or dimensions.'],
+   ['Customer enquiries','I answered questions on WeChat about price, packing and timing, and confirmed the location, luggage weight and date so the team could schedule a pickup.'],
+   ['Delivery coordination','I helped coordinate pickup and delivery, following through on the service steps we explained online.']
+  ]
+ }
+};
+function renderHkonnectCase(project){
+ const hk=hkonnectCopy[language];
+ return `<a class="case-back" href="#">${t('back')}</a><div class="hk-case">
+  <header class="case-hero"><small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1>
+   <h2>${project.description}</h2><p>${project.body}</p>
+   <div class="hk-hero-foot"><span class="hk-count"><strong>100+</strong> ${hk.customers}</span>
+    <a class="hk-site" href="${project.link}">${project.linkText} ↗</a></div>
+  </header>
+  <div class="hk-content"><section><h2>${hk.journey}</h2>
+   <ol class="hk-route">${hk.stages.map(([title,body])=>`<li><strong>${title}</strong><p>${body}</p></li>`).join('')}</ol>
+  </section><section class="hk-work"><h2>${t('myWork')}</h2>
+   <dl>${hk.work.map(([title,body])=>`<div><dt>${title}</dt><dd>${body}</dd></div>`).join('')}</dl>
+  </section></div></div>`;
+}
 const queryLanguage=new URLSearchParams(location.search).get('lang');
 function savedLanguage(){
  try{return localStorage.getItem('anne-world-language');}catch{return null;}
@@ -722,7 +787,7 @@ function route(navigate=true){
  if(projectDialog.open)projectDialog.close();
  const isAnker=p.id==='anker';
  const isTree=p.id==='value-tree';
- $('detail').innerHTML=isAnker?renderAnkerCase(p):isTree?renderTreeCase(p):`<a href="#">${t('back')}</a><h1 tabindex="-1">${p.title}</h1><small>${p.kind}</small>
+ $('detail').innerHTML=isAnker?renderAnkerCase(p):isTree?renderTreeCase(p):p.id==='hkonnect'?renderHkonnectCase(p):`<a href="#">${t('back')}</a><h1 tabindex="-1">${p.title}</h1><small>${p.kind}</small>
   <section class="paper"><h2>${p.description}</h2><p>${p.body}</p>
   ${p.role?`<h3>${t('myWork')}</h3><p>${p.role}</p>`:''}
   ${p.link?`<a href="${p.link}">${p.linkText} ↗</a>`:''}${p.extra?` · <a href="${p.extra}">Xiaohongshu ↗</a>`:''}
