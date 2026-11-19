@@ -487,10 +487,14 @@ body:has(dialog[open]){overflow:hidden}
 .case-demo .demo-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:13px 0}
 .case-demo .demo-tabs button[aria-current="step"]{border-bottom:3px solid #f3ce8c}
 .case-demo .demo-tabs button[data-completed]{border-bottom:3px solid #a9d8c4}
+.case-demo .demo-actions{display:grid;gap:6px}
+.case-demo .demo-actions button:not(:first-child){background:#292e45;color:var(--cream)}
+.case-demo .demo-brief{border-left:3px solid #737c9c;padding-left:9px}
+.case-demo .demo-audit ol{max-height:175px;overflow:auto;overflow-wrap:anywhere}
 .detail .case-hero .case-demo .demo-state{color:#bde5cf}
 .demo-next{width:100%;text-align:left}
-.case-demo .demo-next[data-next-role]{border-color:#b3a9df;background:#34354c;color:#f1e7ff}
-.case-demo .demo-next[data-next-role]:hover{background:#4a4768}
+.case-demo .demo-next[data-demo="role"]{border-color:#b3a9df;background:#34354c;color:#f1e7ff}
+.case-demo .demo-next[data-demo="role"]:hover{background:#4a4768}
 .case-demo .demo-tabs button{padding:4px 8px;min-height:36px;font-size:14px}
 .case-demo summary{cursor:pointer;font-size:14px}
 @media(max-width:700px){
@@ -578,7 +582,7 @@ const chineseDetails = [
  {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', },
  {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'把毕业搬家的行李，从香港送到内地家门口', body:'我与伙伴共同创立 HKonnect，为在港学生提供跨境行李托运。从费用预估、微信预约，到上门取件与内地派送，我们把原本需要分别安排的环节接成了一项服务。',link:hkonnectSite,linkText:'访问 HKonnect 官网'},
  {id:'retail', label:'零售选址', title:'零售选址', kind:'零售策略项目', description:'从商场平面图判断一家店的位置。', body:'一个铺位可能从入口就看得见，但走过去需要绕路。评估铺位时，我关注这两件事，也会看扶梯上下行和客流汇合的位置。', role:'我参与整理门店落位评估的填报要求，并参与全球零售项目进度看板的设计。'},
- {id:'anker', label:'Anker Innovations', title:'Anker Innovations', kind:'全球零售实习 · 深圳', description:'把海外门店的立项流程做成一套多团队协作工具', body:'一家海外门店从市场筹备走到开业，需要多个团队共同判断、交接材料和跟进任务。我在安克负责搭建前期立项工具，也参与拆解了贯穿新店筹备与开业的工作分解结构（WBS）。'},
+ {id:'anker', label:'Anker Innovations', title:'Anker Innovations', kind:'全球零售实习 · 深圳', description:'把海外门店的立项流程做成一套多团队协作工具', body:'一家海外门店从市场筹备走到开业，需要多个团队共同判断、交接材料和跟进任务。我在安克负责搭建从区域提报到立项交接的审批工具，也参与拆解了贯穿新店筹备与开业的工作分解结构（WBS）。'},
  {id:'writing', label:'写作与影像', title:'写作与影像', kind:'个人创作', description:'议题随笔、旅行观察与影视剪辑。', body:'我在小红书写随笔和旅行观察，在 B 站分享影视剪辑和歌单。', link:'https://space.bilibili.com/19484656',linkText:'查看 B 站主页', extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
 ];
 const $ = id => document.getElementById(id);
@@ -612,7 +616,7 @@ const atlas = {
   "anker": [
     "海外门店立项系统 · 从流程拆解到工具搭建",
     "系统架构", "开店全流程", "AI 工作流",
-    "我负责前期立项工具的搭建，把区域提报、资料补充和总部审阅串在同一个项目里。为区域、职能团队和总部设计各自的视图，也搭建了填报模板和审批流，并接入内部数据。",
+    "我搭建了立项审批工具，把区域提报、专业联审、总部决策和交接串在同一门店记录里。为区域、职能团队和总部设计各自的视图，也搭建了填报模板和审批流，并接入内部数据。",
     "我参与拆解海外门店的开店 WBS，从市场与选址准备、商务条款和经营测算，到立项、设计施工和开业。梳理前后置任务和团队交接，帮助我确定立项工具应覆盖哪些决策、在哪一步交接给后续团队。",
     "我搭建了用于战略规划和铺位评估的 AI 工作流，把材料检查、分析和报告生成拆成独立步骤，让中间结果可以复核，再由人作最终判断。"
   ],
@@ -736,39 +740,39 @@ const englishDetails=[
  {id:'value-tree',label:'The Value Tree',title:'The Value Tree',kind:'Public art installation',description:'An invitation to notice the trees around us',body:'We built a tree from discarded cardboard and covered it with bark collected in Hong Kong. Green leaves explained tree ecology, colourful leaves offered small activities, and transparent leaves gave visitors space to leave their own messages.',role:'I contributed research on tree ecology, helped write the science content, and helped plan the structure.'},
  {id:'hkonnect',label:'HKonnect',title:'HKonnect',kind:'Student venture',description:'Getting students’ luggage from Hong Kong to their door in mainland China',body:'I co-founded HKonnect to help students move their belongings at the end of term. The service brings cost estimates, WeChat booking, doorstep collection and final delivery together.',link:hkonnectSite,linkText:'Visit the HKonnect website'},
  {id:'retail',label:'Retail site assessment',title:'Retail Site Assessment',kind:'Retail strategy project',description:'Reading a shopping centre floor plan',body:'A storefront can be visible from an entrance and still be difficult to reach. I looked at how escalator direction and intersecting routes affected whether shoppers would pass the site.',role:'I helped define what teams should capture when assessing a candidate unit and contributed to the global retail project dashboard.'},
- {id:'anker',label:'Anker Innovations',title:'Anker Innovations',kind:'Global Retail Internship · Shenzhen',description:'Building a tool for cross-team decisions on new stores',body:'Opening a store overseas involves decisions, documents and handoffs across several teams. At Anker, I built a tool for the pre-approval stage and contributed to the work breakdown structure (WBS) for the full store opening process.'},
+ {id:'anker',label:'Anker Innovations',title:'Anker Innovations',kind:'Global Retail Internship · Shenzhen',description:'Building a tool for cross-team decisions on new stores',body:'Opening a store overseas involves decisions, documents and handoffs across several teams. At Anker, I built an approval tool covering regional submission through project handover and contributed to the work breakdown structure (WBS) for the full store opening process.'},
  {id:'writing',label:'Writing & Film',title:'Writing & Film',kind:'Personal work',description:'Essays, travel observations and video edits',body:'I write essays and travel notes on Xiaohongshu and share video edits and playlists on Bilibili.',link:'https://space.bilibili.com/19484656',linkText:'Visit my Bilibili channel',extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
 ];
 const englishAtlas={
  'value-tree':['An invitation to spend time with a tree','Ecology cards','Cardboard & bark','Three kinds of leaves','A stone marked “guilt” started our discussion about why people rarely pause to notice trees. I helped turn ecology research into short cards visitors could read beside the installation.','I helped plan the structure. Our team built the trunk from reused cardboard and covered it with locally collected paperbark.','Visitors could read about trees, pick an activity, or leave a message. Printable cards and an online activity picker extended the experience into the park.'],
  hkonnect:['Student luggage shipping from Hong Kong to mainland China','Website & estimate','WeChat booking','Pickup & delivery','I built and deployed the website, where students can read about the service and estimate the cost using their pickup area and their luggage weight or dimensions.','The site directs customers to WeChat to book. I answered questions about price, packing and timing, and collected the information needed to arrange a pickup.','I helped coordinate pickup, cross-border transport and mainland delivery. The site also explains how to track a shipment. Our team served more than 100 customers.'],
- anker:['Overseas store approvals, from process design to implementation','System design','Store opening process','AI workflows','I built role-specific views for regional teams, specialist teams and headquarters, alongside intake templates and an approval workflow connected to internal data.','I helped break down the full opening process, from market and site preparation through commercial review, design, construction and launch. Mapping the handoffs helped define where the approval tool should start and end.','I built AI-assisted workflows for strategic planning and site assessment. I separated material checks, analysis and report generation so the outputs could be reviewed before a person made the decision.'],
+ anker:['Overseas store approvals, from process design to implementation','System design','Store opening process','AI workflows','I built role-specific views for regional teams, specialist teams and headquarters, alongside intake templates and an approval workflow that linked each store’s submission, decision and handover.','I helped break down the full opening process, from market and site preparation through commercial review, design, construction and launch. Mapping the handoffs helped define where the approval tool should start and end.','I built AI-assisted workflows for strategic planning and site assessment. I separated material checks, analysis and report generation so the outputs could be reviewed before a person made the decision.'],
  writing:['From travel notes to the editing desk','Writing','Video edits','I publish travel observations and essays on Xiaohongshu.','I share film edits and playlists on Bilibili.'],
  oalmr:campusAtlas(oalmrProfile.en)
 };
 const caseSections={
  zh:[
   ['梳理开店全流程','我参与拆解海外门店从市场筹备、选址、商务和 P&L 测算，到立项、设计施工及开业营销的任务。把这些任务组织进 WBS 后，可以看出各团队何时接手、哪些材料要先到位，也帮助我界定立项工具覆盖到哪里。'],
-  ['搭建多角色立项系统','我负责搭建前期立项工具，包括区域、职能团队和总部的前端视图、填报模板、数据接入和审批流。设计的核心是让同一门店项目贯穿不同角色的工作：区域有地方提交和补充材料，职能团队能看到自己需要处理的信息，总部拿到可以审阅的立项资料。'],
-  ['把 AI 放到可复核的环节','我搭建了用于战略规划和铺位评估的 AI 工作流，分别处理材料检查、分析及报告生成。拆开这些步骤，便于确认哪些材料齐了、哪些结果还要复核，以及在哪里交由人判断。']
+  ['搭建多角色立项系统','我搭建了覆盖提报、审批和交接的立项工具，包括角色视图、填报模板、数据接入和审批流。流程由配置定义，每家店用一条记录串起材料和只追加的审批日志。区域提交和补件，财务与工程分别提供建议，总部作出立项决定。'],
+  ['把 AI 放到可复核的环节','我搭建了城市战略扫描和铺位评估的 AI 工作流。首次进入一个城市时准备城市扫描，同城项目可复用已有资料。铺位报告经人工核对事实后提交，供零售团队判断点位。']
  ],
  en:[
   ['Mapping the full store opening process','I helped break down tasks from market preparation, site assessment, commercial review and P&L modelling through project approval, design, construction and launch marketing. The WBS made team handoffs visible and helped me define the scope of the approval tool.'],
-  ['Building a system for multiple teams','I built the pre-approval tool, including role-specific interfaces for regional teams, specialist functions and headquarters, along with intake templates, data integration and the approval workflow. Teams worked from the same store project, with different actions and information available at each handoff.'],
-  ['Designing AI workflows with review points','I built AI-assisted workflows for strategic planning and site assessment. I separated material checks, analysis and report generation so people could review intermediate outputs and make the final decision.']
+  ['Building a system for multiple teams','I built the approval tool from intake through handover, including role-specific interfaces, templates, data integration and routing. Configurable stages, one record per store and an append-only audit log connected each handoff. Finance and engineering advised on risk, and headquarters made the approval decision.'],
+  ['Designing AI workflows with review points','I built AI-assisted workflows for city strategy and site assessment. Teams prepare a scan for a new city and can reuse it for later proposals in the same city. A person checks the facts in each site report before submission.']
  ]
 };
 const caseVisuals={
  zh:{
-  roles:[['区域团队','提交并补充材料'],['职能团队','查看并处理负责的信息'],['总部','审阅立项资料']],
+  roles:[['区域与零售','提报、复核与补件'],['财务与工程','按职责提供风险建议'],['总部','作出决策并保留审阅记录']],
   lifecycle:['市场筹备','前期立项','设计与施工','开业与营销'],
-  scope:'高亮部分为立项工具的主要覆盖范围。其余阶段见开店 WBS。',
+  scope:'工具覆盖从提报到立项和交接。开店 WBS 还包括设计、施工和开业。',
   ai:['材料检查','分析','报告生成','人工复核']
  },
  en:{
-  roles:[['Regional teams','Submit and update materials'],['Specialist teams','Review information for their function'],['Headquarters','Review the project proposal']],
+  roles:[['Regional and retail teams','Submit, review and update materials'],['Finance and engineering','Advise on risks in their respective areas'],['Headquarters','Decide and retain a record of reviews']],
   lifecycle:['Market preparation','Project approval','Design and construction','Launch and marketing'],
-  scope:'The highlighted stage shows the tool’s main scope. The WBS spans the full store opening.',
+  scope:'The approval tool ends at handover. The WBS also covers design, construction and launch.',
   ai:['Check materials','Analyse inputs','Draft the report','Human review']
  }
 };
@@ -1066,44 +1070,89 @@ $('language-switch').onclick=()=>{
  route(false);
 };
 
+const demoStages=[
+ [0,'submit'],[1,'initial'],[2,'site'],[0,'pnl'],[1,'retail'],[3,'finance'],
+ [4,'engineering'],[5,'commercial'],[0,'report'],[1,'meeting'],[5,'decision'],[0,'handover']
+];
 const demoCopy={
  zh:{
-  title:'试着提交一份开店提案',intro:'模拟案例 · 从区域提报到总部审核。',status:'提案状态',
-  roles:['区域团队','运营团队','总部审核'],states:['草稿','待运营核对','待总部审核','退回补充','已批准'],
-  project:'示例门店 · 商场体验店',task:['提交开店提案','确认资料齐全','要求补充开店计划','补充开店计划并提交','批准开店提案'],
-  switchTo:role=>`切换到${role}继续`,audit:'查看交接记录',empty:'还没有交接记录。',reset:'再试一次'
+  title:'走一遍门店立项',intro:'虚构门店 · 简化演示，从区域提报到立项和交接。',status:'当前环节',
+  roles:['区域团队','零售代表','落位审阅','财务','工程','总部'],
+  project:'示例门店 · 商场体验店',switchTo:role=>`切换到${role}继续`,audit:'查看操作流水',empty:'暂无记录。',reset:'重新演示',
+  stopped:'未批准 · 流程结束',done:'交接已确认',returnForInfo:'需补充立项报告',decline:'NO-GO · 不批准',
+  steps:{
+   submit:['区域提报','提交核对过事实的落位报告，说明铺位位置、可见性和可达性。','提交落位报告'],
+   initial:['零售初审','先审点位本身，本阶段无需物业报价、商务条件或 P&L。','初审通过'],
+   site:['落位审批','决定点位是否可以进入商务测算。','通过落位'],
+   pnl:['补商务测算','点位通过后，补充租赁条件和单店损益预测（P&L）。','提交商务条件与 P&L'],
+   retail:['零售再审','复核补齐的商务条件和单店投资材料，再交专业联审。','送交专业联审'],
+   finance:['财务建议','根据商务条件和 P&L，记录对投资风险的建议。','记录财务风险建议'],
+   engineering:['工程建议','从工程角度记录铺位条件和实施风险。','记录工程风险建议'],
+   commercial:['商务联审决策','总部结合专业意见，决定是否进入正式立项准备。','通过联审'],
+   report:['立项报告','把点位、商务测算和待跟进事项汇成一份立项报告。','提交立项报告'],
+   meeting:['上会准备','零售代表确认材料可上会。本演示将会前确认与上会简化为一步。','确认提交会议审议'],
+   decision:['最终立项决策','总部可以批准、不批准，或退回补充立项报告。','GO · 批准立项'],
+   handover:['立项交接','立项已批准。确认项目材料和后续事项已移交。','确认交接']
+  }
  },
  en:{
-  title:'Run a store proposal',intro:'Simulated case · From regional submission to HQ approval.',status:'Proposal status',
-  roles:['Regional team','Operations','HQ review'],states:['Draft','Operations check','Ready for HQ review','Changes requested','Approved'],
-  project:'Example project · Mall experience store',task:['Submit store proposal','Confirm the materials are complete','Request an opening plan','Add the opening plan and resubmit','Approve the store proposal'],
-  switchTo:role=>`Continue as ${role}`,audit:'Show handoff history',empty:'No handoffs recorded yet.',reset:'Play again'
+  title:'Walk through a store approval',intro:'Fictional store · A simplified walkthrough from submission to handover.',status:'Current stage',
+  roles:['Regional team','Retail lead','Site reviewer','Finance','Engineering','Headquarters'],
+  project:'Example project · Mall experience store',switchTo:role=>`Continue as ${role}`,audit:'Show audit trail',empty:'No actions recorded yet.',reset:'Start over',
+  stopped:'Not approved · Workflow closed',done:'Handover confirmed',returnForInfo:'Request more information',decline:'NO-GO · Decline',
+  steps:{
+   submit:['Regional submission','Submit a fact-checked site report covering location, visibility and access.','Submit the site report'],
+   initial:['Initial retail review','Assess the site itself. Leasing terms, landlord quotes and P&L are outside this stage.','Pass initial review'],
+   site:['Site approval','Decide whether this location can proceed to commercial assessment.','Approve the location'],
+   pnl:['Commercial inputs','Once the site clears review, add leasing terms and a store-level profit and loss forecast (P&L).','Submit leasing terms and P&L'],
+   retail:['Second retail review','Check the new commercial and investment materials before specialist review.','Send to specialist review'],
+   finance:['Finance advice','Review the financial inputs and record investment risks.','Record finance advice'],
+   engineering:['Engineering advice','Record site constraints and engineering risks.','Record engineering advice'],
+   commercial:['Commercial review decision','Headquarters uses the specialist advice to decide whether to proceed with project approval preparation.','Clear commercial review'],
+   report:['Project approval report','Bring the site, commercial inputs and open items into one report.','Submit the approval report'],
+   meeting:['Meeting preparation','The retail lead confirms the package is ready. This demo combines pre-meeting confirmation and meeting submission.','Submit for meeting review'],
+   decision:['Final approval decision','Headquarters can approve, decline or send the report back for more information.','GO · Approve the project'],
+   handover:['Project handover','The project is approved. Confirm receipt of the project materials and outstanding actions.','Confirm handover']
+  }
  }
 };
-const demoOwners=[0,1,2,0,2];
-const demoStatuses=[0,1,2,3,2,4];
 let demoRole=0;
 let demoStep=0;
+let demoDeclined=false;
+const demoHistory=[];
 function renderDemo(){
  const demo=$('anker/demo');
  const d=demoCopy[language];
- const stage=demoStep;
- const owner=demoOwners[stage];
+ const [owner,key]=demoStages[demoStep]??[];
+ const [stage,brief,action]=d.steps[key]??[demoDeclined?d.stopped:d.done];
  const priorFocus=demo.contains(document.activeElement)?document.activeElement.dataset.focus:null;
  const open=demo.querySelector('details')?.open;
+ function actionButton(type,label,primary=false){
+  return `<button type="button" class="demo-next" data-demo="${type}"${primary?' data-action':''} data-focus="${primary?'next':type}">${label}</button>`;
+ }
+ const actions=owner===undefined?actionButton('reset',d.reset):
+  demoRole!==owner?actionButton('role',d.switchTo(d.roles[owner])):
+  actionButton('advance',action,true)+(key==='decision'?actionButton('supplement',d.returnForInfo)+actionButton('decline',d.decline):'');
  demo.innerHTML=`<h2 id="demo-title" tabindex="-1">${d.title}</h2><p>${d.intro}</p>
   <div class="demo-tabs" role="group" aria-label="${language==='en'?'Project roles':'项目角色'}">
-  ${d.roles.map((role,i)=>`<button type="button" data-role="${i}" data-focus="role-${i}" aria-pressed="${i===demoRole}"${i===owner?' aria-current="step"':owner===undefined||i<owner?' data-completed':''}>${role}</button>`).join('')}
-  </div><h3>${d.project}</h3><p class="demo-state" aria-live="polite">${d.status} · ${d.states[demoStatuses[stage]]}</p>
-  ${owner===undefined?`<button type="button" class="demo-next" data-reset data-focus="next">${d.reset}</button>`:
-   demoRole===owner?`<button type="button" class="demo-next" data-action data-focus="next">${d.task[stage]}</button>`:
-    `<button type="button" class="demo-next" data-next-role data-focus="next">${d.switchTo(d.roles[owner])}</button>`}
-  <details class="demo-audit" ${open?'open':''}><summary>${d.audit}</summary>${stage?`<ol>${d.task.slice(0,stage).map((task,i)=>`<li>${d.roles[demoOwners[i]]} · ${task}</li>`).join('')}</ol>`:`<p>${d.empty}</p>`}</details>`;
+  ${d.roles.map((role,i)=>`<button type="button" data-role="${i}" data-focus="role-${i}" aria-pressed="${i===demoRole}"${i===owner?' aria-current="step"':''}>${role}</button>`).join('')}
+  </div><h3>${d.project}</h3><p class="demo-state" aria-live="polite">${d.status} · ${stage}</p>
+  ${brief?`<p class="demo-brief">${brief}</p>`:''}<div class="demo-actions">${actions}</div>
+  <details class="demo-audit" ${open?'open':''}><summary>${d.audit}</summary>${demoHistory.length?`<ol>${demoHistory.map(({role,key,action})=>`<li>${d.roles[role]} · ${action==='advance'?d.steps[key][2]:action==='supplement'?d.returnForInfo:d.decline}</li>`).join('')}</ol>`:`<p>${d.empty}</p>`}</details>`;
  demo.querySelectorAll('[data-role]').forEach(button=>button.onclick=()=>{demoRole=Number(button.dataset.role);renderDemo();});
- demo.querySelector('[data-action]')?.addEventListener('click',()=>{demoStep++;renderDemo();});
- demo.querySelector('[data-next-role]')?.addEventListener('click',()=>{demoRole=owner;renderDemo();});
- demo.querySelector('[data-reset]')?.addEventListener('click',()=>{demoStep=0;demoRole=0;renderDemo();});
- if(priorFocus)(demo.querySelector(`[data-focus="${priorFocus}"]`)??demo.querySelector(`[data-role="${demoRole}"]`)).focus({preventScroll:true});
+ demo.querySelectorAll('[data-demo]').forEach(button=>button.onclick=()=>{
+  const action=button.dataset.demo;
+  if(action==='role'){demoRole=owner;}
+  else if(action==='reset'){demoStep=0;demoRole=0;demoDeclined=false;demoHistory.length=0;}
+  else{
+   demoHistory.push({role:owner,key,action});
+   if(action==='supplement')demoStep=demoStages.findIndex(([,step])=>step==='report');
+   else if(action==='decline'){demoDeclined=true;demoStep=demoStages.length;}
+   else demoStep++;
+  }
+  renderDemo();
+ });
+ if(priorFocus)(demo.querySelector(`[data-focus="${priorFocus}"]`)??demo.querySelector('[data-demo]'))?.focus({preventScroll:true});
 }
 
 localProjects();
