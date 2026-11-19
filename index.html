@@ -100,7 +100,7 @@ nav .contact-open:hover{background:#323453;color:#fff1dd}
 body:has(dialog[open]){overflow:hidden}
 .game{margin-bottom:36px}
 #project-dialog{
- width:min(740px,calc(100% - 28px));max-height:calc(100dvh - 36px);margin:auto;
+ width:min(1080px,calc(100% - 36px));max-height:calc(100dvh - 36px);margin:auto;
  padding:0;color:var(--cream);background:#24263b;border:1px solid #585b83;
  border-radius:14px;box-shadow:0 16px 70px #0c0b1cba;overscroll-behavior:contain;
 }
@@ -115,23 +115,42 @@ body:has(dialog[open]){overflow:hidden}
  background:#343655;color:#fff0d9;font-size:14px;
 }
 .project-close:hover{background:#4d5081}
-#project-map .world-title{background:none;padding:14px 20px}
-#project-map .world-title h2{font-size:clamp(23px,4vw,34px);line-height:1.18;margin:0;letter-spacing:0}
-#project-map .world-title p{margin:4px 0 0;color:#d6cce2;font-size:14px}
-#project-map .world-landscape{overflow:hidden;margin-bottom:0}
-#project-map .fieldnote{margin:14px 16px 18px;padding:12px 14px;border-width:1px 1px 1px 3px;box-shadow:none}
-#project-map .fieldnote h3{font-size:19px}
-#project-map .fieldnote p{margin:4px 0 8px;font-size:14px}
-#project-map .terrain:has(.fieldnote[hidden]){padding-bottom:0}
+#project-map .terrain{
+ display:grid;grid-template-columns:minmax(0,1.57fr) minmax(0,1fr);gap:22px;align-items:start;
+ padding:22px;background:#1d1e31;
+}
+#project-map .world-landscape{overflow:hidden;margin:0;border-radius:9px;box-shadow:0 0 0 1px #515377}
+.district-copy{min-width:0;display:grid;gap:18px}
+#project-map .world-title{background:none;padding:0 0 14px}
+#project-map .world-title h2{font-size:clamp(23px,3.2vw,34px);line-height:1.12;margin:0;letter-spacing:-.015em;overflow-wrap:anywhere}
+#project-map .world-title p{margin:7px 0 0;color:#d6cce2;font-size:14px;line-height:1.5}
+#project-map .fieldnote{
+ margin:0;padding:16px;border:1px solid #515377;border-top:3px solid var(--accent);border-radius:9px;
+ box-shadow:none;background:#292940;
+}
+#project-map .fieldnote h3{font-size:clamp(19px,2.2vw,23px);line-height:1.2}
+#project-map .fieldnote p{margin:9px 0 14px;font-size:16px;line-height:1.65}
+.fieldnote-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px}
+#project-map .fieldnote a{margin:0;font-size:14px;line-height:1.45;text-underline-offset:4px}
+#project-map .fieldnote .fieldnote-primary{
+ padding:7px 11px;min-height:36px;display:inline-flex;align-items:center;background:var(--accent);
+ color:#1c1b30;border-radius:6px;text-decoration:none;
+}
+#project-map .fieldnote .fieldnote-primary:hover{text-decoration:underline}
 #project-map .world-landscape button[aria-pressed=true],.island-pin[aria-pressed=true]{
  background:#31334f;color:#fff0d9;border-color:#c2b7e1;
 }
-@media(max-width:640px){
- #project-dialog{max-height:calc(100dvh - 20px);width:calc(100% - 20px)}
+@media(max-width:720px){
+ #project-dialog{max-height:calc(100dvh - 16px);width:calc(100% - 16px)}
  .project-bar{padding:6px 10px}
- #project-map .world-title{padding:10px 12px}
- #project-map .fieldnote{margin:10px}
+ #project-map .terrain{grid-template-columns:1fr;gap:12px;padding:12px}
+ #project-map .world-landscape{width:min(100%,430px);justify-self:center}
+ #project-map .world-title{grid-area:1/1;padding:0 0 8px}
+ .district-copy{display:contents}
+ #project-map .fieldnote{padding:12px}
+ #project-map .fieldnote p{margin:6px 0 9px}
 }
+@media(max-height:540px) and (min-width:721px){#project-map .terrain{padding:14px;gap:16px}}
 
 .nav-actions{display:flex;align-items:center;gap:8px}
 .language-switch{padding:5px 9px;background:#30324b;color:var(--cream);border:1px solid #545777;border-radius:7px;white-space:nowrap}
@@ -140,7 +159,6 @@ body:has(dialog[open]){overflow:hidden}
 #project-map .world-landscape button{max-width:32%;white-space:normal;line-height:1.2;font-size:clamp(10px,1.6vw,14px)}
 
 .detail:has(.case-hero){max-width:1060px}
-.case-back{display:inline-block;color:#d2cdf4;text-underline-offset:5px;margin-bottom:14px}
 .case-hero{background:#26263f;border:1px solid #56577b;border-top:3px solid #aaa9fa;padding:clamp(24px,5vw,60px);padding-bottom:clamp(24px,4vw,45px)}
 .case-hero small{color:#cbcdf9;font-size:clamp(12px,1.6vw,15px)}
 .detail .case-hero h1{font-size:clamp(38px,7.2vw,89px);line-height:1.02;margin:13px 0 14px;letter-spacing:-.055em}
@@ -223,8 +241,7 @@ body:has(dialog[open]){overflow:hidden}
 #photo-dialog .project-bar{background:#23372c;border-bottom:1px solid #516557}
 #photo-dialog h2{font-size:14px;margin:0 12px 0 0}
 #photo-dialog img{display:block;margin:auto;width:100%;height:auto;max-height:calc(100dvh - 100px);object-fit:contain}
-.fieldnote .secondary-project-link{margin-inline-start:14px}
-@media(max-width:620px){.tree-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tree-photo-grid figure:first-child{grid-row:auto;grid-column:span 2}.tree-photo-grid figure:first-child .photo-open{max-height:430px}.fieldnote .secondary-project-link{display:block;margin-inline-start:0}}
+@media(max-width:620px){.tree-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tree-photo-grid figure:first-child{grid-row:auto;grid-column:span 2}.tree-photo-grid figure:first-child .photo-open{max-height:430px}}
 
 .detail:has(.hk-case){max-width:1060px}
 .hk-case .case-hero{background:#182c3f;border-color:#55758a;border-top-color:#a4d7cd}
@@ -261,8 +278,48 @@ body:has(dialog[open]){overflow:hidden}
 .geo-publication .publication-authors{color:#40594a;font-size:14px}
 .geo-publication a{display:inline-block;font-weight:700;text-underline-offset:4px}
 
-.district-overview{display:inline-block;font-size:13px;color:#e6dcfa;text-underline-offset:4px}
-.detail [id*="/"],#tree-leaf-panel{scroll-margin-top:22px}
+.district-overview{display:inline-flex;margin-top:7px;min-height:28px;align-items:center;font-size:14px;color:#e6dcfa;text-underline-offset:4px}
+.detail{--detail-accent:#c2c0fc;max-width:1060px;margin-top:23px}
+.detail[data-project="hkonnect"]{--detail-accent:#b2ddd0}
+.detail[data-project="research"],.detail[data-project="value-tree"]{--detail-accent:#bbd9ab}
+.detail-toolbar{
+ position:sticky;top:0;z-index:4;display:flex;align-items:center;gap:16px;
+ min-height:58px;padding:7px 12px;background:#222336;border:1px solid #4a4a65;border-radius:10px;
+ box-shadow:0 4px 18px #15152440;margin-bottom:14px;
+}
+.detail-toolbar>a{flex:none;color:#f7edff}
+.detail-toolbar a{display:inline-flex;align-items:center;min-height:36px;padding:5px 10px;font-size:14px;line-height:1.3;text-decoration:none;border-radius:6px}
+.detail-toolbar a:hover{background:#363754;color:#fff}
+.detail-toolbar a[aria-current="location"]{color:#202035;background:var(--detail-accent);font-weight:750}
+.detail-toolbar a:focus-visible{outline-offset:-2px}
+.detail-jumps{display:flex;justify-content:flex-start;overflow-x:auto;scrollbar-width:thin;gap:4px;min-width:0;height:auto;padding:0 0 0 11px;border-left:1px solid #555671}
+.detail-jumps a{flex:none;color:#dbd9ee}
+.detail [id*="/"],#tree-leaf-panel{scroll-margin-top:76px}
+.detail .case-hero,.detail .tree-case,.detail .case-content,.detail .hk-content,.detail .paper{border-radius:13px}
+.detail .tree-case{overflow:hidden}
+.detail .case-hero{border-top-color:var(--detail-accent)}
+.detail .case-hero h1{font-size:clamp(36px,6.5vw,76px);margin:9px 0 13px}
+.detail .case-hero h2{font-size:clamp(19px,2.6vw,29px);margin-bottom:12px}
+.detail .case-hero p{line-height:1.7}
+.detail .case-content,.detail .hk-content,.detail .paper{margin-top:14px}
+.case-chapter p{font-size:16px}
+.case-roles,.geo-publication,.tree-leaf-panel{border-radius:0 9px 9px 0}
+.case-track li{border-radius:6px}
+.hk-route li{background:#e3eae1;padding:14px;border-radius:0 0 7px 7px}
+.hk-work dl div{padding:16px 0}
+.geo-topic{padding:24px 0}
+.case-demo{margin-top:18px}
+.detail-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:19px}
+.detail-links a{background:#e6dcfa;color:#29233c;border-radius:6px;padding:6px 12px;font-weight:700;text-decoration:none}
+.detail-links a:hover{text-decoration:underline}
+.detail :is(h1,h2,dt,.tree-canopy):focus-visible{outline:2px solid #8876c0;outline-offset:5px}
+@media(max-width:760px){
+ .detail-toolbar{display:grid;gap:3px;padding:5px 8px}
+ .detail-toolbar>a{justify-self:start}
+ .detail-jumps{overflow-x:auto;flex-wrap:nowrap;padding:0;border-left:0;border-top:1px solid #555671;scrollbar-width:thin}
+ .detail-jumps a{flex:none}
+ .detail [id*="/"],#tree-leaf-panel{scroll-margin-top:106px}
+}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div class="nav-actions"><button type="button" id="language-switch" class="language-switch"></button><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog" data-copy="contact">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -354,6 +411,21 @@ const districtSections={
  anker:['system-design','store-opening','ai-workflows'],
  research:['fieldwork','gis','programming']
 };
+const detailExtras={
+ 'value-tree':[['contribution','我做了什么','My contribution'],['photos','装置照片','Installation photos']],
+ hkonnect:[['journey','配送流程','Delivery journey']],
+ anker:[['demo','交互演示','Interactive demo']],
+ research:[['publication','发表论文','Publication']]
+};
+
+function detailToolbar(project){
+ const id=project.id;
+ const topics=(districtSections[id]??[]).map((key,i)=>[key,id==='research'?project.sections[i][0]:currentAtlas()[id][i+1]]);
+ const extras=(detailExtras[id]??[]).map(([key,zh,en])=>[key,language==='en'?en:zh]);
+ const links=topics.length?[[null,t('overview')],...topics,...extras]:[];
+ return `<div class="detail-toolbar"><a href="#">${t('back')}</a>
+  ${links.length?`<nav class="detail-jumps" aria-label="${t('detailNav')}">${links.map(([key,label])=>`<a href="#${id}${key?'/'+key:''}">${label}</a>`).join('')}</nav>`:''}</div>`;
+}
 atlas.oalmr = ['交流活动广场','迎宾广场','展览廊','交流礼堂'];
 
 const projectDialog=$('project-dialog');
@@ -372,15 +444,17 @@ function showJourney(index){
  map.dataset.world=id;
  const hasNotes=entries.length>count+1;
  map.innerHTML=`<div class="terrain">
-  <div class="world-title"><h2 id="project-title">${project.title}</h2><p>${entries[0]}</p>
-   ${hasNotes?`<a class="district-overview" href="#${id}">${t('overview')}</a>`:''}
-  </div>
   <div class="world-landscape" aria-label="${t('submap')}">
    <canvas class="pixel-map" width="288" height="162" aria-hidden="true"></canvas>
    <span class="world-walker" aria-hidden="true"><canvas class="avatar-sprite" width="12" height="16"></canvas></span>
    ${positions.map(([x,y],i)=>`<button style="left:${x}%;top:${y}%" aria-pressed="false">${entries[i+1]}</button>`).join('')}
   </div>
-  <section class="fieldnote" aria-live="polite" ${hasNotes?'':'hidden'}></section>
+  <div class="district-copy">
+   <div class="world-title"><h2 id="project-title">${project.title}</h2><p>${entries[0]}</p>
+    ${hasNotes?`<a class="district-overview" href="#${id}">${t('overview')}</a>`:''}
+   </div>
+   <section class="fieldnote" aria-live="polite"></section>
+  </div>
  </div>`;
  const canvas=map.querySelector('.pixel-map');
  const drawDistrict=active=>paintWorld(canvas,[{id,points:positions}],[50,52],districtLoop,active);
@@ -391,6 +465,7 @@ function showJourney(index){
  let lastStep=0, districtMove;
  function showStep(i,animate=false){
   nodes.forEach((node,j)=>node.setAttribute('aria-pressed',j===i));
+  updateNote(i);
   districtMove?.cancel();
   const path=pathAroundLoop(districtLoop,stationIndices[lastStep],stationIndices[i]);
   const [x,y]=positions[i];
@@ -399,11 +474,9 @@ function showJourney(index){
   const arrive=()=>{
    lastStep=i;
    drawDistrict(positions[i]);
-   updateNote(i);
   };
   if(animate&&path.length>1&&!reducedMotion.matches){
    drawDistrict();
-   note.setAttribute('aria-busy','true');
    districtMove=walker.animate(pathFrames(path),{duration:Math.min(1300,loopDistance(path)*14),easing:'linear'});
    districtMove.onfinish=arrive;
   }else{
@@ -411,12 +484,11 @@ function showJourney(index){
   }
  }
  function updateNote(i){
-  note.removeAttribute('aria-busy');
-  if(!hasNotes)return;
+  if(!hasNotes){note.innerHTML=`<h3>${entries[i+1]}</h3>`;return;}
   const link=id==='writing'?(i===0?project.extra:project.link):`#${id}/${districtSections[id][i]}`;
   const label=id==='writing'?t(i===0?'readNotes':'watch'):`${t('viewTopic')}${entries[i+1]}`;
-  const liveSite=id==='hkonnect'?`<a class="secondary-project-link" href="${project.link}">${project.linkText} ↗</a>`:'';
-  note.innerHTML=`<h3>${entries[i+1]}</h3><p>${entries[count+1+i]}</p><a href="${link}">${label} ↗</a>${liveSite}`;
+  const liveSite=id==='hkonnect'?`<a href="${project.link}">${project.linkText}</a>`:'';
+  note.innerHTML=`<h3>${entries[i+1]}</h3><p>${entries[count+1+i]}</p><div class="fieldnote-actions"><a class="fieldnote-primary" href="${link}">${label}</a>${liveSite}</div>`;
  }
  nodes.forEach((node,i)=>node.onclick=()=>showStep(i,true));
  showStep(0);
@@ -425,12 +497,12 @@ const copy={
  zh:{
   introName:'李静 · 香港中文大学地理与资源管理', intro:'我做过装置，和朋友搭过学生行李配送服务，也做过让不同团队一起推进海外开店的工具。沿着岛走走，看看我做过的项目。',
   contact:'联系方式',closeContact:'关闭联系方式',email:'个人邮箱',schoolEmail:'学校邮箱',mainland:'内地电话',hongkong:'香港电话',wechat:'微信',footerName:'Anne Li 李静',
-  map:'作品地图',mapTitle:'✦ 作品地图',island:'一座由环岛路串联六个站点的像素岛',stations:'岛上地点',previous:'往左走',next:'往右走',hint:'点击地标或用 ← → 沿环岛路走',enter:'进入项目地图 ↗',projectMap:'✦ 项目地图',submap:'项目地标',back:'← 返回总地图',research:'地理研究',readNotes:'阅读小红书手记',watch:'播放 B 站作品',viewTopic:'查看',closePreview:'关闭预览',overview:'项目概览',myWork:'我做了什么'
+  map:'作品地图',mapTitle:'✦ 作品地图',island:'一座由环岛路串联六个站点的像素岛',stations:'岛上地点',previous:'往左走',next:'往右走',hint:'点击地标或用 ← → 沿环岛路走',enter:'进入项目地图 ↗',projectMap:'✦ 项目地图',submap:'项目地标',back:'← 返回总地图',research:'地理研究',readNotes:'阅读小红书手记',watch:'播放 B 站作品',viewTopic:'查看',closePreview:'关闭预览',overview:'项目概览',detailNav:'详情章节',myWork:'我做了什么'
  },
  en:{
   introName:'Anne (Jing) Li · Geography and Resource Management, CUHK',intro:'I’ve made a public art installation, co-founded a student luggage service, and built tools for teams opening stores overseas. Explore the island to see how each project came together.',
   contact:'Contact',closeContact:'Close contact details',email:'Personal email',schoolEmail:'CUHK email',mainland:'Mainland China',hongkong:'Hong Kong',wechat:'WeChat',footerName:'Anne (Jing) Li',
-  map:'Project map',mapTitle:'✦ Project map',island:'A pixel-art island with six stops on a circular path',stations:'Island landmarks',previous:'Walk left',next:'Walk right',hint:'Select a landmark or use ← → to walk around the island',enter:'Open project map ↗',projectMap:'✦ Project map',submap:'Project landmarks',back:'← Back to island',research:'Research',readNotes:'Read on Xiaohongshu',watch:'Watch on Bilibili',viewTopic:'Explore ',closePreview:'Close preview',overview:'Project overview',myWork:'My contribution'
+  map:'Project map',mapTitle:'✦ Project map',island:'A pixel-art island with six stops on a circular path',stations:'Island landmarks',previous:'Walk left',next:'Walk right',hint:'Select a landmark or use ← → to walk around the island',enter:'Open project map ↗',projectMap:'✦ Project map',submap:'Project landmarks',back:'← Back to island',research:'Research',readNotes:'Read on Xiaohongshu',watch:'Watch on Bilibili',viewTopic:'Explore ',closePreview:'Close preview',overview:'Project overview',detailNav:'Project sections',myWork:'My contribution'
  }
 };
 const englishDetails=[
@@ -481,11 +553,11 @@ function renderAnkerCase(project){
  const lifecycle=`<figure class="case-visual"><ol class="case-track">${visuals.lifecycle.map((stage,i)=>`<li${i===1?' class="is-scope"':''}>${stage}</li>`).join('')}</ol><figcaption>${visuals.scope}</figcaption></figure>`;
  const workflow=`<ol class="case-track is-ai">${visuals.ai.map(stage=>`<li>${stage}</li>`).join('')}</ol>`;
  const chapters=[[sections[1],roles],[sections[0],lifecycle],[sections[2],workflow]];
- return `<a class="case-back" href="#">${t('back')}</a>
+ return `
   <header class="case-hero"><small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1>
   <h2>${project.description}</h2><p>${project.body}</p></header>
   <div class="case-content">${chapters.map(([[title,body],visual],i)=>`<section class="case-chapter" id="anker/${districtSections.anker[i]}"><div><h2 tabindex="-1">${title}</h2><p>${body}</p></div>${visual}</section>`).join('')}
-  <section class="case-demo" id="case-demo"></section></div>`;
+  <section class="case-demo" id="anker/demo"></section></div>`;
 }
 const treeCopy={
  zh:{
@@ -541,15 +613,15 @@ const treePhotos=[
 let selectedLeaf=0;
 function renderTreeCase(project){
  const tree=treeCopy[language];
- return `<a class="case-back" href="#">${t('back')}</a><div class="tree-case">
+ return `<div class="tree-case">
   <header class="tree-hero"><div class="tree-hero-copy"><small>${project.kind}</small>
    <h1 tabindex="-1">${project.title}</h1><p><strong>${tree.question}</strong></p><p>${tree.start}</p></div>
    <div class="tree-canopy" id="value-tree/leaf-interactions" tabindex="-1"><div class="tree-form" aria-hidden="true"></div>
     ${tree.choices.map((label,i)=>`<button type="button" class="tree-leaf" data-leaf="${i}" aria-expanded="false" aria-controls="tree-leaf-panel"><span>${label}</span></button>`).join('')}
    </div></header>
   <div class="tree-content"><section class="tree-leaf-panel" id="tree-leaf-panel" aria-live="polite"></section>
-   <div class="tree-story">${tree.story.map(([title,body],i)=>`<section${i===1?' id="value-tree/materials"':''}><h2 tabindex="-1">${title}</h2><p>${body}</p></section>`).join('')}</div>
-   <section class="tree-photos" aria-labelledby="tree-photo-title"><h2 id="tree-photo-title">${tree.photoTitle}</h2>
+   <div class="tree-story">${tree.story.map(([title,body],i)=>`<section${i===1?' id="value-tree/materials"':i===3?' id="value-tree/contribution"':''}><h2 tabindex="-1">${title}</h2><p>${body}</p></section>`).join('')}</div>
+   <section class="tree-photos" id="value-tree/photos" aria-labelledby="tree-photo-title"><h2 id="tree-photo-title" tabindex="-1">${tree.photoTitle}</h2>
     <div class="tree-photo-grid">${treePhotos.map(([file,width,height],i)=>`<figure>
      <button type="button" class="photo-open" data-photo="${i}" aria-haspopup="dialog"><img src="assets/value-tree/${file}.webp" width="${width}" height="${height}" alt="${tree.photoCaptions[i]}" loading="lazy"></button>
      <figcaption>${tree.photoCaptions[i]}</figcaption></figure>`).join('')}</div></section>
@@ -625,13 +697,13 @@ const hkonnectCopy={
 };
 function renderHkonnectCase(project){
  const hk=hkonnectCopy[language];
- return `<a class="case-back" href="#">${t('back')}</a><div class="hk-case">
+ return `<div class="hk-case">
   <header class="case-hero"><small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1>
    <h2>${project.description}</h2><p>${project.body}</p>
    <div class="hk-hero-foot"><span class="hk-count"><strong>100+</strong> ${hk.customers}</span>
     <a class="hk-site" href="${project.link}">${project.linkText} ↗</a></div>
   </header>
-  <div class="hk-content"><section><h2>${hk.journey}</h2>
+  <div class="hk-content"><section id="hkonnect/journey"><h2 tabindex="-1">${hk.journey}</h2>
    <ol class="hk-route">${hk.stages.map(([title,body])=>`<li><strong>${title}</strong><p>${body}</p></li>`).join('')}</ol>
   </section><section class="hk-work"><h2>${t('myWork')}</h2>
    <dl>${hk.work.map(([title,body],i)=>`<div id="hkonnect/${districtSections.hkonnect[i]}"><dt tabindex="-1">${title}</dt><dd>${body}</dd></div>`).join('')}</dl>
@@ -673,12 +745,12 @@ const researchProfile={
 function renderResearch(project){
  const paper=researchPublication;
  const [heading,role,summary,link]=project.publication;
- return `<a class="case-back" href="#">${t('back')}</a><div class="geo-case">
+ return `<div class="geo-case">
   <header class="case-hero"><small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1>
    <h2>${project.description}</h2><p>${project.body}</p></header>
   <div class="case-content">
-   <section class="geo-publication" aria-labelledby="publication-heading">
-    <h2 id="publication-heading">${heading} · ${role}</h2>
+   <section class="geo-publication" id="research/publication" aria-labelledby="publication-heading">
+    <h2 id="publication-heading" tabindex="-1">${heading} · ${role}</h2>
     <h3 lang="en">${paper.title}</h3>
     <p><cite>${paper.journal}</cite> · ${paper.citation}</p>
     <p class="publication-authors" lang="en">${paper.authors}</p>
@@ -727,12 +799,12 @@ const demoStatuses=[0,1,2,3,2,4];
 let demoRole=0;
 let demoStep=0;
 function renderDemo(){
- const demo=$('case-demo');
+ const demo=$('anker/demo');
  const d=demoCopy[language];
  const stage=demoStep;
  const priorFocus=demo.contains(document.activeElement)?document.activeElement.dataset.focus:null;
  const open=demo.querySelector('details')?.open;
- demo.innerHTML=`<h2>${d.title}</h2><p>${d.intro}</p><div class="demo-tabs" role="group" aria-label="${language==='en'?'Project roles':'项目角色'}">
+ demo.innerHTML=`<h2 tabindex="-1">${d.title}</h2><p>${d.intro}</p><div class="demo-tabs" role="group" aria-label="${language==='en'?'Project roles':'项目角色'}">
   ${d.roles.map((role,i)=>`<button type="button" data-role="${i}" data-focus="role-${i}" aria-pressed="${i===demoRole}">${role}</button>`).join('')}
   </div><h3>${d.project}</h3><p class="demo-state" aria-live="polite">${d.status} · ${d.states[demoStatuses[stage]]}</p>
   ${stage<demoOwners.length?(demoOwners[stage]===demoRole?`<button type="button" data-action data-focus="action">${d.task[stage]}</button>`:`<p>${d.wait}</p>`):`<button type="button" data-reset data-focus="reset">${d.reset}</button>`}
@@ -856,31 +928,45 @@ document.addEventListener('keydown',e=>{
  if(['ArrowLeft','a','ArrowRight','d'].includes(e.key)){e.preventDefault();if(!e.repeat)stepAroundIsland(['ArrowLeft','a'].includes(e.key)?-1:1);}
  if(e.key==='Enter'&&[document.body,$('prev'),$('next')].includes(document.activeElement)){e.preventDefault(); openJourney();}
 });
+let renderedDetail;
+let renderedLanguage;
 function route(navigate=true){
  const [projectId,section]=location.hash.slice(1).split('/');
  const p=projectId==='research'?projects.find(project=>project.id===projectId):projectDetails.find(project=>project.id===projectId);
- const sectionKey=districtSections[p?.id]?.includes(section)?section:null;
+ const sectionKey=p&&((districtSections[p.id]??[]).includes(section)||detailExtras[p.id]?.some(([key])=>key===section))?section:null;
  if($('photo-dialog').open)$('photo-dialog').close();
  $('home').hidden=!!p;$('detail').hidden=!p;
  if(!p){if(navigate&&!location.hash)window.scrollTo(0,0); return;}
  if(projectDialog.open)projectDialog.close();
  const isAnker=p.id==='anker';
  const isTree=p.id==='value-tree';
- $('detail').innerHTML=isAnker?renderAnkerCase(p):isTree?renderTreeCase(p):p.id==='hkonnect'?renderHkonnectCase(p):p.id==='research'?renderResearch(p):`<a href="#">${t('back')}</a><h1 tabindex="-1">${p.title}</h1><small>${p.kind}</small>
-  <section class="paper"><h2>${p.description}</h2><p>${p.body}</p>
-  ${p.role?`<h3>${t('myWork')}</h3><p>${p.role}</p>`:''}
-  ${p.link?`<a href="${p.link}">${p.linkText} ↗</a>`:''}${p.extra?` · <a href="${p.extra}">Xiaohongshu ↗</a>`:''}
-  </section>`;
- if(isTree){
-  if(sectionKey==='ecology-cards')selectedLeaf=0;
-  bindTreeCase();
+ const detail=$('detail');
+ const render=renderedDetail!==p.id||renderedLanguage!==language;
+ if(isTree&&sectionKey==='ecology-cards')selectedLeaf=0;
+ if(render){
+  renderedDetail=p.id;
+  renderedLanguage=language;
+  detail.dataset.project=p.id;
+  const content=isAnker?renderAnkerCase(p):isTree?renderTreeCase(p):p.id==='hkonnect'?renderHkonnectCase(p):p.id==='research'?renderResearch(p):`<header class="case-hero"><small>${p.kind}</small>
+   <h1 tabindex="-1">${p.title}</h1><h2>${p.description}</h2><p>${p.body}</p>
+   ${p.role?`<h2>${t('myWork')}</h2><p>${p.role}</p>`:''}
+   ${p.link?`<div class="detail-links"><a href="${p.link}">${p.linkText}</a>${p.extra?`<a href="${p.extra}">${t('readNotes')}</a>`:''}</div>`:''}
+   </header>`;
+  detail.innerHTML=detailToolbar(p)+content;
+  if(isAnker)renderDemo();
  }
- if(isAnker)renderDemo();
+ if(isTree&&(render||sectionKey==='ecology-cards'))bindTreeCase();
+ const destination='#'+p.id+(sectionKey?'/'+sectionKey:'');
+ detail.querySelectorAll('.detail-jumps a').forEach(link=>{
+  if(link.getAttribute('href')===destination)link.setAttribute('aria-current','location');
+  else link.removeAttribute('aria-current');
+ });
  if(navigate){
   walk(projects.findIndex(project=>project.id===(p.id==='retail'?'anker':p.id)),false);
  }
  const target=sectionKey&&$(sectionKey==='ecology-cards'?'tree-leaf-panel':`${projectId}/${sectionKey}`);
  if(target){
+  detail.querySelector('[aria-current="location"]')?.scrollIntoView({block:'nearest',inline:'nearest'});
   target.scrollIntoView({block:'start'});
   if(navigate)(target.querySelector('h2, dt')??target).focus({preventScroll:true});
  }else if(navigate){
