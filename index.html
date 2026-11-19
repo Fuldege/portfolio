@@ -254,6 +254,12 @@ body:has(dialog[open]){overflow:hidden}
 .geo-topic:last-child{border-bottom:0;padding-bottom:0}
 .geo-topic h2{margin:0 0 8px;line-height:1.2}
 .geo-topic p{margin:0}
+.geo-publication{background:#e0e7db;margin:12px 0 0;padding:clamp(18px,4vw,30px);border-left:4px solid #64846a}
+.geo-publication h2{color:#3c5b48;font-size:15px;margin:0 0 6px}
+.geo-publication h3{font-size:clamp(19px,3vw,28px);line-height:1.28;margin:0 0 10px;max-width:56ch}
+.geo-publication p{margin:4px 0 10px}
+.geo-publication .publication-authors{color:#40594a;font-size:14px}
+.geo-publication a{display:inline-block;font-weight:700;text-underline-offset:4px}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div class="nav-actions"><button type="button" id="language-switch" class="language-switch"></button><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog" data-copy="contact">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -620,11 +626,19 @@ function renderHkonnectCase(project){
    <dl>${hk.work.map(([title,body])=>`<div><dt>${title}</dt><dd>${body}</dd></div>`).join('')}</dl>
   </section></div></div>`;
 }
+const researchPublication={
+ title:'Satellite-informed forward estimation of anthropogenic CO₂ emissions during inventory reporting lags',
+ journal:'Science of Remote Sensing',
+ citation:'14 (2026), 100544',
+ authors:'Zherong Wu, Youran Fu, Xiaoming Sun, <strong>Jing Li</strong>, Yi Zheng, Fangxu Deng, Mei-Po Kwan',
+ doi:'https://doi.org/10.1016/j.srs.2026.100544'
+};
 const researchProfile={
  zh:{
   title:'地理研究与空间分析',
   kind:'香港中文大学 · 地理与资源管理',
   description:'从田野调查到地图与空间数据',
+  publication:['发表论文','共同作者','研究利用卫星观测信息，在排放清单尚未发布的时期估算人为二氧化碳排放。','查看论文 ↗'],
   body:'我的研究兴趣包括地理信息系统（GIS）、空间数据可视化和地理空间编程。我想弄清楚如何把现场观察和空间数据放在一起，用地图把发现讲清楚。',
   sections:[
    ['地理田野调查','2025 年，我参与了环境与社区旅游主题的地理调查。我们结合现场采样、访谈和 GIS 分析，把定性观察与定量资料整理成研究报告和可视化。'],
@@ -636,6 +650,7 @@ const researchProfile={
   title:'Geography & Spatial Analysis',
   kind:'The Chinese University of Hong Kong · Geography and Resource Management',
   description:'From fieldwork to maps and spatial data',
+  publication:['Publication','Co-author','The study uses satellite observations to inform estimates of human-caused CO₂ emissions while emissions inventories are still being compiled and released.','Read the paper ↗'],
   body:'My research interests include geographic information systems (GIS), spatial data visualisation, and geospatial programming. I’m interested in how field observations and spatial data can inform each other, and how maps can communicate what we find.',
   sections:[
    ['Geography fieldwork','In 2025, I contributed to field studies on the environment and community tourism. Our team combined field sampling, interviews and GIS analysis, then brought the qualitative and quantitative evidence together in reports and visualisations.'],
@@ -645,10 +660,20 @@ const researchProfile={
  }
 };
 function renderResearch(project){
+ const paper=researchPublication;
+ const [heading,role,summary,link]=project.publication;
  return `<a class="case-back" href="#">${t('back')}</a><div class="geo-case">
   <header class="case-hero"><small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1>
    <h2>${project.description}</h2><p>${project.body}</p></header>
-  <div class="case-content">${project.sections.map(([title,body])=>`<section class="geo-topic"><h2>${title}</h2><p>${body}</p></section>`).join('')}</div>
+  <div class="case-content">
+   <section class="geo-publication" aria-labelledby="publication-heading">
+    <h2 id="publication-heading">${heading} · ${role}</h2>
+    <h3 lang="en">${paper.title}</h3>
+    <p><cite>${paper.journal}</cite> · ${paper.citation}</p>
+    <p class="publication-authors" lang="en">${paper.authors}</p>
+    <p>${summary}</p><a href="${paper.doi}">${link}</a>
+   </section>
+   ${project.sections.map(([title,body])=>`<section class="geo-topic"><h2>${title}</h2><p>${body}</p></section>`).join('')}</div>
  </div>`;
 }
 const queryLanguage=new URLSearchParams(location.search).get('lang');
