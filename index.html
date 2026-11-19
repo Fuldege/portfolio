@@ -260,6 +260,9 @@ body:has(dialog[open]){overflow:hidden}
 .geo-publication p{margin:4px 0 10px}
 .geo-publication .publication-authors{color:#40594a;font-size:14px}
 .geo-publication a{display:inline-block;font-weight:700;text-underline-offset:4px}
+
+.district-overview{display:inline-block;font-size:13px;color:#e6dcfa;text-underline-offset:4px}
+.detail [id*="/"],#tree-leaf-panel{scroll-margin-top:22px}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div class="nav-actions"><button type="button" id="language-switch" class="language-switch"></button><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog" data-copy="contact">联系方式</button></div></nav></header>
 <main class="wrap">
@@ -345,6 +348,12 @@ const districtStations = {
  'value-tree':[0,3,6], hkonnect:[0,6,4], anker:[7,5,2],
  writing:[0,5], oalmr:[6,0,3], research:[3,0,6]
 };
+const districtSections={
+ 'value-tree':['ecology-cards','materials','leaf-interactions'],
+ hkonnect:['website','booking','delivery'],
+ anker:['system-design','store-opening','ai-workflows'],
+ research:['fieldwork','gis','programming']
+};
 atlas.oalmr = ['交流活动广场','迎宾广场','展览廊','交流礼堂'];
 
 const projectDialog=$('project-dialog');
@@ -363,7 +372,9 @@ function showJourney(index){
  map.dataset.world=id;
  const hasNotes=entries.length>count+1;
  map.innerHTML=`<div class="terrain">
-  <div class="world-title"><h2 id="project-title">${project.title}</h2><p>${entries[0]}</p></div>
+  <div class="world-title"><h2 id="project-title">${project.title}</h2><p>${entries[0]}</p>
+   ${hasNotes?`<a class="district-overview" href="#${id}">${t('overview')}</a>`:''}
+  </div>
   <div class="world-landscape" aria-label="${t('submap')}">
    <canvas class="pixel-map" width="288" height="162" aria-hidden="true"></canvas>
    <span class="world-walker" aria-hidden="true"><canvas class="avatar-sprite" width="12" height="16"></canvas></span>
@@ -402,8 +413,8 @@ function showJourney(index){
  function updateNote(i){
   note.removeAttribute('aria-busy');
   if(!hasNotes)return;
-  const link=id==='writing'?(i===0?project.extra:project.link):'#'+id;
-  const label=id==='writing'?t(i===0?'readNotes':'watch'):t(id==='anker'?'caseLink':id==='value-tree'?'treeLink':'overview');
+  const link=id==='writing'?(i===0?project.extra:project.link):`#${id}/${districtSections[id][i]}`;
+  const label=id==='writing'?t(i===0?'readNotes':'watch'):`${t('viewTopic')}${entries[i+1]}`;
   const liveSite=id==='hkonnect'?`<a class="secondary-project-link" href="${project.link}">${project.linkText} ↗</a>`:'';
   note.innerHTML=`<h3>${entries[i+1]}</h3><p>${entries[count+1+i]}</p><a href="${link}">${label} ↗</a>${liveSite}`;
  }
@@ -414,12 +425,12 @@ const copy={
  zh:{
   introName:'李静 · 香港中文大学地理与资源管理', intro:'我做过装置，和朋友搭过学生行李配送服务，也做过让不同团队一起推进海外开店的工具。沿着岛走走，看看我做过的项目。',
   contact:'联系方式',closeContact:'关闭联系方式',email:'个人邮箱',schoolEmail:'学校邮箱',mainland:'内地电话',hongkong:'香港电话',wechat:'微信',footerName:'Anne Li 李静',
-  map:'作品地图',mapTitle:'✦ 作品地图',island:'一座由环岛路串联六个站点的像素岛',stations:'岛上地点',previous:'往左走',next:'往右走',hint:'点击地标或用 ← → 沿环岛路走',enter:'进入项目地图 ↗',projectMap:'✦ 项目地图',submap:'项目地标',back:'← 返回总地图',research:'地理研究',readNotes:'阅读小红书手记',watch:'播放 B 站作品',treeLink:'探索完整作品',closePreview:'关闭预览',overview:'查看项目介绍',caseLink:'阅读完整案例',myWork:'我做了什么'
+  map:'作品地图',mapTitle:'✦ 作品地图',island:'一座由环岛路串联六个站点的像素岛',stations:'岛上地点',previous:'往左走',next:'往右走',hint:'点击地标或用 ← → 沿环岛路走',enter:'进入项目地图 ↗',projectMap:'✦ 项目地图',submap:'项目地标',back:'← 返回总地图',research:'地理研究',readNotes:'阅读小红书手记',watch:'播放 B 站作品',viewTopic:'查看',closePreview:'关闭预览',overview:'项目概览',myWork:'我做了什么'
  },
  en:{
   introName:'Anne (Jing) Li · Geography and Resource Management, CUHK',intro:'I’ve made a public art installation, co-founded a student luggage service, and built tools for teams opening stores overseas. Explore the island to see how each project came together.',
   contact:'Contact',closeContact:'Close contact details',email:'Personal email',schoolEmail:'CUHK email',mainland:'Mainland China',hongkong:'Hong Kong',wechat:'WeChat',footerName:'Anne (Jing) Li',
-  map:'Project map',mapTitle:'✦ Project map',island:'A pixel-art island with six stops on a circular path',stations:'Island landmarks',previous:'Walk left',next:'Walk right',hint:'Select a landmark or use ← → to walk around the island',enter:'Open project map ↗',projectMap:'✦ Project map',submap:'Project landmarks',back:'← Back to island',research:'Research',readNotes:'Read on Xiaohongshu',watch:'Watch on Bilibili',treeLink:'Explore the full project',closePreview:'Close preview',overview:'Read project overview',caseLink:'Read the full case study',myWork:'My contribution'
+  map:'Project map',mapTitle:'✦ Project map',island:'A pixel-art island with six stops on a circular path',stations:'Island landmarks',previous:'Walk left',next:'Walk right',hint:'Select a landmark or use ← → to walk around the island',enter:'Open project map ↗',projectMap:'✦ Project map',submap:'Project landmarks',back:'← Back to island',research:'Research',readNotes:'Read on Xiaohongshu',watch:'Watch on Bilibili',viewTopic:'Explore ',closePreview:'Close preview',overview:'Project overview',myWork:'My contribution'
  }
 };
 const englishDetails=[
@@ -473,7 +484,7 @@ function renderAnkerCase(project){
  return `<a class="case-back" href="#">${t('back')}</a>
   <header class="case-hero"><small>${project.kind}</small><h1 tabindex="-1">${project.title}</h1>
   <h2>${project.description}</h2><p>${project.body}</p></header>
-  <div class="case-content">${chapters.map(([[title,body],visual])=>`<section class="case-chapter"><div><h2>${title}</h2><p>${body}</p></div>${visual}</section>`).join('')}
+  <div class="case-content">${chapters.map(([[title,body],visual],i)=>`<section class="case-chapter" id="anker/${districtSections.anker[i]}"><div><h2 tabindex="-1">${title}</h2><p>${body}</p></div>${visual}</section>`).join('')}
   <section class="case-demo" id="case-demo"></section></div>`;
 }
 const treeCopy={
@@ -533,11 +544,11 @@ function renderTreeCase(project){
  return `<a class="case-back" href="#">${t('back')}</a><div class="tree-case">
   <header class="tree-hero"><div class="tree-hero-copy"><small>${project.kind}</small>
    <h1 tabindex="-1">${project.title}</h1><p><strong>${tree.question}</strong></p><p>${tree.start}</p></div>
-   <div class="tree-canopy"><div class="tree-form" aria-hidden="true"></div>
+   <div class="tree-canopy" id="value-tree/leaf-interactions" tabindex="-1"><div class="tree-form" aria-hidden="true"></div>
     ${tree.choices.map((label,i)=>`<button type="button" class="tree-leaf" data-leaf="${i}" aria-expanded="false" aria-controls="tree-leaf-panel"><span>${label}</span></button>`).join('')}
    </div></header>
   <div class="tree-content"><section class="tree-leaf-panel" id="tree-leaf-panel" aria-live="polite"></section>
-   <div class="tree-story">${tree.story.map(([title,body])=>`<section><h2>${title}</h2><p>${body}</p></section>`).join('')}</div>
+   <div class="tree-story">${tree.story.map(([title,body],i)=>`<section${i===1?' id="value-tree/materials"':''}><h2 tabindex="-1">${title}</h2><p>${body}</p></section>`).join('')}</div>
    <section class="tree-photos" aria-labelledby="tree-photo-title"><h2 id="tree-photo-title">${tree.photoTitle}</h2>
     <div class="tree-photo-grid">${treePhotos.map(([file,width,height],i)=>`<figure>
      <button type="button" class="photo-open" data-photo="${i}" aria-haspopup="dialog"><img src="assets/value-tree/${file}.webp" width="${width}" height="${height}" alt="${tree.photoCaptions[i]}" loading="lazy"></button>
@@ -563,7 +574,7 @@ function bindTreeCase(){
   panel.hidden=index<0;
   if(index<0)return;
   const [title,body]=tree.leaves[index];
-  panel.innerHTML=`<button type="button" class="preview-x tree-leaf-close" aria-label="${tree.close}">×</button><h2>${title}</h2><p>${body}</p>
+  panel.innerHTML=`<button type="button" class="preview-x tree-leaf-close" aria-label="${tree.close}">×</button><h2 tabindex="-1">${title}</h2><p>${body}</p>
    ${index===1?`<button type="button" id="tree-draw">${tree.draw}</button><p class="tree-task" id="tree-task"></p>`:''}`;
   panel.querySelector('.tree-leaf-close').onclick=()=>{select(-1);leaves[index].focus();};
   const draw=$('tree-draw');
@@ -623,7 +634,7 @@ function renderHkonnectCase(project){
   <div class="hk-content"><section><h2>${hk.journey}</h2>
    <ol class="hk-route">${hk.stages.map(([title,body])=>`<li><strong>${title}</strong><p>${body}</p></li>`).join('')}</ol>
   </section><section class="hk-work"><h2>${t('myWork')}</h2>
-   <dl>${hk.work.map(([title,body])=>`<div><dt>${title}</dt><dd>${body}</dd></div>`).join('')}</dl>
+   <dl>${hk.work.map(([title,body],i)=>`<div id="hkonnect/${districtSections.hkonnect[i]}"><dt tabindex="-1">${title}</dt><dd>${body}</dd></div>`).join('')}</dl>
   </section></div></div>`;
 }
 const researchPublication={
@@ -673,7 +684,7 @@ function renderResearch(project){
     <p class="publication-authors" lang="en">${paper.authors}</p>
     <p>${summary}</p><a href="${paper.doi}">${link}</a>
    </section>
-   ${project.sections.map(([title,body])=>`<section class="geo-topic"><h2>${title}</h2><p>${body}</p></section>`).join('')}</div>
+   ${project.sections.map(([title,body],i)=>`<section class="geo-topic" id="research/${districtSections.research[i]}"><h2 tabindex="-1">${title}</h2><p>${body}</p></section>`).join('')}</div>
  </div>`;
 }
 const queryLanguage=new URLSearchParams(location.search).get('lang');
@@ -846,7 +857,9 @@ document.addEventListener('keydown',e=>{
  if(e.key==='Enter'&&[document.body,$('prev'),$('next')].includes(document.activeElement)){e.preventDefault(); openJourney();}
 });
 function route(navigate=true){
- const p=projects.find(p=>'#'+p.id===location.hash&&p.id==='research')??projectDetails.find(p=>'#'+p.id===location.hash);
+ const [projectId,section]=location.hash.slice(1).split('/');
+ const p=projectId==='research'?projects.find(project=>project.id===projectId):projectDetails.find(project=>project.id===projectId);
+ const sectionKey=districtSections[p?.id]?.includes(section)?section:null;
  if($('photo-dialog').open)$('photo-dialog').close();
  $('home').hidden=!!p;$('detail').hidden=!p;
  if(!p){if(navigate&&!location.hash)window.scrollTo(0,0); return;}
@@ -858,10 +871,19 @@ function route(navigate=true){
   ${p.role?`<h3>${t('myWork')}</h3><p>${p.role}</p>`:''}
   ${p.link?`<a href="${p.link}">${p.linkText} ↗</a>`:''}${p.extra?` · <a href="${p.extra}">Xiaohongshu ↗</a>`:''}
   </section>`;
- if(isTree)bindTreeCase();
+ if(isTree){
+  if(sectionKey==='ecology-cards')selectedLeaf=0;
+  bindTreeCase();
+ }
  if(isAnker)renderDemo();
  if(navigate){
   walk(projects.findIndex(project=>project.id===(p.id==='retail'?'anker':p.id)),false);
+ }
+ const target=sectionKey&&$(sectionKey==='ecology-cards'?'tree-leaf-panel':`${projectId}/${sectionKey}`);
+ if(target){
+  target.scrollIntoView({block:'start'});
+  if(navigate)(target.querySelector('h2, dt')??target).focus({preventScroll:true});
+ }else if(navigate){
   window.scrollTo(0,0);
   $('detail').querySelector('h1').focus({preventScroll:true});
  }
