@@ -489,6 +489,10 @@ body:has(dialog[open]){overflow:hidden}
 .case-demo .demo-tabs button[data-completed]{border-bottom:3px solid #a9d8c4}
 .case-demo .demo-actions{display:grid;gap:6px}
 .case-demo .demo-actions button:not(:first-child){background:#292e45;color:var(--cream)}
+.case-demo .demo-materials{margin:0 0 10px;padding:4px 9px 8px;border:1px solid #737c9c;font-size:14px}
+.case-demo .demo-materials label{display:block;cursor:pointer}
+.case-demo .demo-actions button:disabled{opacity:.55;cursor:default}
+.case-demo .demo-advice{padding-left:20px;margin:0 0 12px;font-size:14px}
 .case-demo .demo-brief{border-left:3px solid #737c9c;padding-left:9px}
 .case-demo .demo-audit ol{max-height:175px;overflow:auto;overflow-wrap:anywhere}
 .detail .case-hero .case-demo .demo-state{color:#bde5cf}
@@ -753,12 +757,12 @@ const englishAtlas={
 const caseSections={
  zh:[
   ['梳理开店全流程','我参与拆解海外门店从市场筹备、选址、商务和 P&L 测算，到立项、设计施工及开业营销的任务。把这些任务组织进 WBS 后，可以看出各团队何时接手、哪些材料要先到位，也帮助我界定立项工具覆盖到哪里。'],
-  ['搭建多角色立项系统','我搭建了覆盖提报、审批和交接的立项工具，包括角色视图、填报模板、数据接入和审批流。流程由配置定义，每家店用一条记录串起材料和只追加的审批日志。区域提交和补件，财务与工程分别提供建议，总部作出立项决定。'],
+  ['搭建多角色立项系统','我搭建了覆盖提报、审批和交接的立项工具，包括角色视图、填报模板、数据接入和审批流。流程由配置定义，每家店用一条记录串起材料和只追加的审批日志。区域提交和补件，财务与工程分别提供建议，总部在两方意见齐备后作出商务决策，并在上会后独立作出立项决定。'],
   ['把 AI 放到可复核的环节','我搭建了城市战略扫描和铺位评估的 AI 工作流。首次进入一个城市时准备城市扫描，同城项目可复用已有资料。铺位报告经人工核对事实后提交，供零售团队判断点位。']
  ],
  en:[
   ['Mapping the full store opening process','I helped break down tasks from market preparation, site assessment, commercial review and P&L modelling through project approval, design, construction and launch marketing. The WBS made team handoffs visible and helped me define the scope of the approval tool.'],
-  ['Building a system for multiple teams','I built the approval tool from intake through handover, including role-specific interfaces, templates, data integration and routing. Configurable stages, one record per store and an append-only audit log connected each handoff. Finance and engineering advised on risk, and headquarters made the approval decision.'],
+  ['Building a system for multiple teams','I built the approval tool from intake through handover, including role-specific interfaces, templates, data integration and routing. Configurable stages, one record per store and an append-only audit log connected each handoff. Finance and engineering advised on risk. Headquarters decided whether the case could proceed from commercial review and later made the final approval decision.'],
   ['Designing AI workflows with review points','I built AI-assisted workflows for city strategy and site assessment. Teams prepare a scan for a new city and can reuse it for later proposals in the same city. A person checks the facts in each site report before submission.']
  ]
 };
@@ -1072,14 +1076,19 @@ $('language-switch').onclick=()=>{
 
 const demoStages=[
  [0,'submit'],[1,'initial'],[2,'site'],[0,'pnl'],[1,'retail'],[3,'finance'],
- [4,'engineering'],[5,'commercial'],[0,'report'],[1,'meeting'],[5,'decision'],[0,'handover']
+ [4,'engineering'],[2,'commercial'],[0,'report'],[5,'regionalCheck'],[2,'meeting'],[2,'decision'],[2,'handover'],[6,'receive']
 ];
 const demoCopy={
  zh:{
   title:'走一遍门店立项',intro:'虚构门店 · 简化演示，从区域提报到立项和交接。',status:'当前环节',
-  roles:['区域团队','零售代表','落位审阅','财务','工程','总部'],
+  roles:['区域团队','零售代表','总部','财务','工程','区域确认','交接接收方'],
   project:'示例门店 · 商场体验店',switchTo:role=>`切换到${role}继续`,audit:'查看操作流水',empty:'暂无记录。',reset:'重新演示',
-  stopped:'未批准 · 流程结束',done:'交接已确认',returnForInfo:'需补充立项报告',decline:'NO-GO · 不批准',
+  done:'双方交接已确认',returnForInfo:'需补充立项报告',decline:'NO-GO · 不批准',commercialReturn:'NO-GO · 退回商务测算',
+  materialsTitle:'勾选两份材料后提交',reports:['完整版 · 供审批使用','脱敏版 · 供立项通知使用'],
+  risk:['低风险','中风险','高风险'],adviceLabel:level=>`记录${level}建议`,advice:'已收到的专业建议',
+  adviceNotes:{finance:['示例：基准预测覆盖固定成本。','示例：销售下降时利润空间偏薄。','示例：保守情景下无法覆盖固定成本。'],engineering:['示例：初步踏勘未见重大限制。','示例：仍需现场确认供电容量。','示例：交付前需解决工程条件限制。']},
+  reasons:{commercial:'示例原因：请补一版保守情景的损益测算。',supplement:'示例原因：请补充开店计划及待解决事项。',decision:'示例原因：投资条件不满足，当前方案不予批准。'},
+  changes:'退回原因',round:'轮次',
   steps:{
    submit:['区域提报','提交核对过事实的落位报告，说明铺位位置、可见性和可达性。','提交落位报告'],
    initial:['零售初审','先审点位本身，本阶段无需物业报价、商务条件或 P&L。','初审通过'],
@@ -1088,18 +1097,25 @@ const demoCopy={
    retail:['零售再审','复核补齐的商务条件和单店投资材料，再交专业联审。','送交专业联审'],
    finance:['财务建议','根据商务条件和 P&L，记录对投资风险的建议。','记录财务风险建议'],
    engineering:['工程建议','从工程角度记录铺位条件和实施风险。','记录工程风险建议'],
-   commercial:['商务联审决策','总部结合专业意见，决定是否进入正式立项准备。','通过联审'],
-   report:['立项报告','把点位、商务测算和待跟进事项汇成一份立项报告。','提交立项报告'],
-   meeting:['上会准备','零售代表确认材料可上会。本演示将会前确认与上会简化为一步。','确认提交会议审议'],
+   commercial:['商务联审决策','两份专业建议都已收到。总部结合问题说明，决定通过或退回。','GO · 通过联审'],
+   report:['立项报告','完整版用于审批，脱敏版用于立项通知。两份齐备才能进入下一步。','提交两份立项报告'],
+   regionalCheck:['区域会前确认','区域确认两份报告齐备，再由总部决定是否上会。','确认会前材料'],
+   meeting:['总部上会审批','总部批准提交会议审议，正式立项决定在下一步作出。','批准提交会议审议'],
    decision:['最终立项决策','总部可以批准、不批准，或退回补充立项报告。','GO · 批准立项'],
-   handover:['立项交接','立项已批准。确认项目材料和后续事项已移交。','确认交接']
+   handover:['总部交接确认','立项已批准。总部确认移交材料和后续事项。','总部确认移交'],
+   receive:['接收方交接确认','接收方确认收到材料，双方确认后立项流程结束。','接收方确认接收']
   }
  },
  en:{
   title:'Walk through a store approval',intro:'Fictional store · A simplified walkthrough from submission to handover.',status:'Current stage',
-  roles:['Regional team','Retail lead','Site reviewer','Finance','Engineering','Headquarters'],
+  roles:['Regional team','Retail lead','Headquarters','Finance','Engineering','Regional reviewer','Receiving team'],
   project:'Example project · Mall experience store',switchTo:role=>`Continue as ${role}`,audit:'Show audit trail',empty:'No actions recorded yet.',reset:'Start over',
-  stopped:'Not approved · Workflow closed',done:'Handover confirmed',returnForInfo:'Request more information',decline:'NO-GO · Decline',
+  done:'Handover confirmed by both sides',returnForInfo:'Request more information',decline:'NO-GO · Decline',commercialReturn:'NO-GO · Return commercial inputs',
+  materialsTitle:'Mark both reports ready to submit',reports:['Full report · For approval','Redacted report · For the approval announcement'],
+  risk:['Low risk','Medium risk','High risk'],adviceLabel:level=>`Record advice: ${level}`,advice:'Specialist advice received',
+  adviceNotes:{finance:['Example: the base forecast covers fixed costs.','Example: margins narrow if sales fall.','Example: the conservative forecast does not cover fixed costs.'],engineering:['Example: the initial survey found no major constraints.','Example: power capacity needs an on-site check.','Example: site constraints need resolving before delivery.']},
+  reasons:{commercial:'Example reason: provide a conservative P&L scenario.',supplement:'Example reason: add the opening plan and unresolved items.',decision:'Example reason: the investment case does not meet approval requirements.'},
+  changes:'Reason for return',round:'Round',
   steps:{
    submit:['Regional submission','Submit a fact-checked site report covering location, visibility and access.','Submit the site report'],
    initial:['Initial retail review','Assess the site itself. Leasing terms, landlord quotes and P&L are outside this stage.','Pass initial review'],
@@ -1108,51 +1124,95 @@ const demoCopy={
    retail:['Second retail review','Check the new commercial and investment materials before specialist review.','Send to specialist review'],
    finance:['Finance advice','Review the financial inputs and record investment risks.','Record finance advice'],
    engineering:['Engineering advice','Record site constraints and engineering risks.','Record engineering advice'],
-   commercial:['Commercial review decision','Headquarters uses the specialist advice to decide whether to proceed with project approval preparation.','Clear commercial review'],
-   report:['Project approval report','Bring the site, commercial inputs and open items into one report.','Submit the approval report'],
-   meeting:['Meeting preparation','The retail lead confirms the package is ready. This demo combines pre-meeting confirmation and meeting submission.','Submit for meeting review'],
+   commercial:['Commercial review decision','Both specialists have recorded their advice. Headquarters uses it to approve or return the proposal.','GO · Clear commercial review'],
+   report:['Project approval reports','The full report goes to reviewers. The redacted version goes into the approval announcement. Both are required.','Submit both reports'],
+   regionalCheck:['Regional pre-meeting check','The regional reviewer confirms the package is complete before headquarters reviews it.','Confirm meeting materials'],
+   meeting:['Meeting submission approval','Headquarters clears the package for meeting review. The final project decision is a separate step.','Approve meeting submission'],
    decision:['Final approval decision','Headquarters can approve, decline or send the report back for more information.','GO · Approve the project'],
-   handover:['Project handover','The project is approved. Confirm receipt of the project materials and outstanding actions.','Confirm handover']
+   handover:['Headquarters handover','The project is approved. Headquarters confirms that it has handed over the materials and open issues.','Confirm dispatch'],
+   receive:['Receiving team handover','The receiving team confirms receipt. Handover closes once both sides have confirmed.','Confirm receipt']
   }
  }
 };
 let demoRole=0;
 let demoStep=0;
-let demoDeclined=false;
+let demoRound=1;
+let demoReason;
 const demoHistory=[];
+const demoVotes=new Map();
+const demoReports=new Set();
 function renderDemo(){
  const demo=$('anker/demo');
  const d=demoCopy[language];
  const [owner,key]=demoStages[demoStep]??[];
- const [stage,brief,action]=d.steps[key]??[demoDeclined?d.stopped:d.done];
+ const [stage,brief,action]=d.steps[key]??[d.done];
  const priorFocus=demo.contains(document.activeElement)?document.activeElement.dataset.focus:null;
  const open=demo.querySelector('details')?.open;
- function actionButton(type,label,primary=false){
-  return `<button type="button" class="demo-next" data-demo="${type}"${primary?' data-action':''} data-focus="${primary?'next':type}">${label}</button>`;
+ const reviewing=demoRole===owner;
+ const advisory=d.adviceNotes[key];
+ const reason=demoReason&&d.reasons[demoReason];
+ function actionButton(type,label,primary=false,disabled=false){
+  return `<button type="button" class="demo-next" data-demo="${type}"${primary?' data-action':''} data-focus="${primary?'next':type}"${disabled?' disabled':''}>${label}</button>`;
  }
- const actions=owner===undefined?actionButton('reset',d.reset):
-  demoRole!==owner?actionButton('role',d.switchTo(d.roles[owner])):
-  actionButton('advance',action,true)+(key==='decision'?actionButton('supplement',d.returnForInfo)+actionButton('decline',d.decline):'');
+ const reports=reviewing&&key==='report'?`<fieldset class="demo-materials"><legend>${d.materialsTitle}</legend>
+  ${d.reports.map((label,i)=>`<label><input type="checkbox" data-report="${i}"${demoReports.has(i)?' checked':''}> ${label}</label>`).join('')}</fieldset>`:'';
+ const notes=key==='commercial'?`<ul class="demo-advice" aria-label="${d.advice}">
+  ${['finance','engineering'].map((role,i)=>`<li><strong>${d.roles[i+3]} · ${d.risk[demoVotes.get(role)]}</strong> ${d.adviceNotes[role][demoVotes.get(role)]}</li>`).join('')}</ul>`:'';
+ let actions;
+ if(owner===undefined)actions=actionButton('reset',d.reset);
+ else if(!reviewing)actions=actionButton('role',d.switchTo(d.roles[owner]));
+ else if(advisory)actions=d.risk.map((level,i)=>actionButton('risk-'+i,d.adviceLabel(level),i===0)).join('');
+ else{
+  actions=actionButton('advance',action,true,key==='report'&&demoReports.size!==2);
+  if(key==='commercial')actions+=actionButton('commercial',d.commercialReturn);
+  if(key==='decision')actions+=actionButton('supplement',d.returnForInfo)+actionButton('decision',d.decline);
+ }
+ const history=demoHistory.map(({role,key,type,vote,round})=>{
+  const label=type==='advance'?d.steps[key][2]:type==='risk'?d.adviceLabel(d.risk[vote]):
+   type==='commercial'?d.commercialReturn:type==='supplement'?d.returnForInfo:d.decline;
+  return `<li>${d.round} ${round} · ${d.roles[role]} · ${label}${d.reasons[type]?`<br>${d.reasons[type]}`:''}</li>`;
+ }).join('');
  demo.innerHTML=`<h2 id="demo-title" tabindex="-1">${d.title}</h2><p>${d.intro}</p>
   <div class="demo-tabs" role="group" aria-label="${language==='en'?'Project roles':'项目角色'}">
   ${d.roles.map((role,i)=>`<button type="button" data-role="${i}" data-focus="role-${i}" aria-pressed="${i===demoRole}"${i===owner?' aria-current="step"':''}>${role}</button>`).join('')}
   </div><h3>${d.project}</h3><p class="demo-state" aria-live="polite">${d.status} · ${stage}</p>
-  ${brief?`<p class="demo-brief">${brief}</p>`:''}<div class="demo-actions">${actions}</div>
-  <details class="demo-audit" ${open?'open':''}><summary>${d.audit}</summary>${demoHistory.length?`<ol>${demoHistory.map(({role,key,action})=>`<li>${d.roles[role]} · ${action==='advance'?d.steps[key][2]:action==='supplement'?d.returnForInfo:d.decline}</li>`).join('')}</ol>`:`<p>${d.empty}</p>`}</details>`;
+  ${reason?`<p class="demo-brief"><strong>${d.changes}</strong> · ${reason}</p>`:''}
+  ${brief?`<p class="demo-brief">${brief}</p>`:''}${notes}${reports}<div class="demo-actions">${actions}</div>
+  <details class="demo-audit" ${open?'open':''}><summary>${d.audit}</summary>${history?`<ol>${history}</ol>`:`<p>${d.empty}</p>`}</details>`;
  demo.querySelectorAll('[data-role]').forEach(button=>button.onclick=()=>{demoRole=Number(button.dataset.role);renderDemo();});
+ demo.querySelectorAll('[data-report]').forEach(input=>input.onchange=()=>{
+  const report=Number(input.dataset.report);
+  if(input.checked)demoReports.add(report);
+  else demoReports.delete(report);
+  demo.querySelector('[data-action]').disabled=demoReports.size!==2;
+ });
  demo.querySelectorAll('[data-demo]').forEach(button=>button.onclick=()=>{
-  const action=button.dataset.demo;
-  if(action==='role'){demoRole=owner;}
-  else if(action==='reset'){demoStep=0;demoRole=0;demoDeclined=false;demoHistory.length=0;}
-  else{
-   demoHistory.push({role:owner,key,action});
-   if(action==='supplement')demoStep=demoStages.findIndex(([,step])=>step==='report');
-   else if(action==='decline'){demoDeclined=true;demoStep=demoStages.length;}
-   else demoStep++;
+  const type=button.dataset.demo;
+  if(type==='role')demoRole=owner;
+  else if(type==='reset'){
+   demoStep=0;demoRole=0;demoRound=1;demoReason=undefined;
+   demoHistory.length=0;demoVotes.clear();demoReports.clear();
+  }else if(type.startsWith('risk-')){
+   const vote=Number(type.slice(-1));
+   demoVotes.set(key,vote);
+   demoHistory.push({role:owner,key,type:'risk',vote,round:demoRound});
+   demoStep++;
+  }else{
+   demoHistory.push({role:owner,key,type,round:demoRound});
+   demoReason=undefined;
+   if(type==='advance')demoStep++;
+   else{
+    demoReason=type;
+    demoRound++;
+    if(type==='commercial')demoVotes.clear();
+    else demoReports.clear();
+    const target=type==='commercial'?'pnl':'report';
+    demoStep=demoStages.findIndex(([,step])=>step===target);
+   }
   }
   renderDemo();
  });
- if(priorFocus)(demo.querySelector(`[data-focus="${priorFocus}"]`)??demo.querySelector('[data-demo]'))?.focus({preventScroll:true});
+ if(priorFocus)(demo.querySelector(`[data-focus="${priorFocus}"]:not(:disabled)`)??demo.querySelector('[data-report], [data-demo]:not(:disabled)'))?.focus({preventScroll:true});
 }
 
 localProjects();
