@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#15132c"><title>Anne’s World · 李静</title>
 <style>
-:root{--ink:#15132c;--panel:#211c3b;--cream:#fff0d9;--peach:#ffad71;--mint:#a9e2ca;--muted:#c7bdd9;--border:#504669}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--cream);font:16px/1.75 system-ui,sans-serif}a{color:inherit}button{font:inherit;cursor:pointer}a:focus-visible,button:focus-visible{outline:3px solid var(--mint);outline-offset:4px}.wrap{width:min(1160px,calc(100% - 56px));margin:auto}header{border-bottom:1px solid var(--border)}nav{height:68px;display:flex;justify-content:space-between;align-items:center;gap:16px}nav a{text-decoration:none}nav div{display:flex;gap:25px}.brand,small,.mono{font-family:ui-monospace,monospace}.brand{font-weight:900;letter-spacing:.075em}.star{color:var(--peach)}.intro{padding:45px 0 30px;display:flex;align-items:end;justify-content:space-between;gap:32px}.intro h1,.detail h1{font-size:clamp(48px,8.7vw,118px);line-height:.87;letter-spacing:-.045em;margin:0}.intro h1 span{color:var(--peach)}.intro p{color:var(--muted);max-width:330px;margin:0;line-height:1.9}.intro p strong{color:var(--cream)}.game{background:var(--panel);border:1px solid var(--border);box-shadow:0 5px 0 #090818}.game-head,.game-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;gap:12px}.game-head{font-size:13px;color:var(--mint)}.scene{position:relative;isolation:isolate}canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.points{position:absolute;inset:0}.stop{position:absolute;top:53%;transform:translate(-50%,-50%);font-size:13px;font-weight:750;color:var(--cream);background:#211a39;border:2px solid #8973a4;box-shadow:3px 3px #110e24;padding:5px 9px;white-space:nowrap}.stop[aria-pressed=true]{background:var(--peach);color:var(--ink);border-color:var(--cream)}.arrows{display:flex;gap:6px}.arrows button,.enter{min-height:42px;padding:5px 13px;border:1px solid var(--border);color:var(--cream);background:var(--ink);text-decoration:none;display:inline-flex;align-items:center}.enter{background:var(--peach);color:var(--ink);font-weight:800;border:0}.hint{font-size:13px;color:var(--muted)}.works{padding:40px 0 64px}.works h2{font-size:34px;letter-spacing:-.025em;margin:0 0 12px}.work{display:grid;grid-template-columns:75px 1fr auto;align-items:center;gap:12px;border-top:1px solid var(--border);padding:14px 0;text-decoration:none}.work:hover{color:var(--peach)}.work small{color:var(--mint)}footer{border-top:1px solid var(--border);padding:22px 0;color:var(--muted)}.detail{margin:36px auto 60px;max-width:990px}.detail h1{font-size:clamp(46px,8vw,92px);margin:22px 0;line-height:.96}.detail .paper{background:var(--cream);color:#251b29;padding:clamp(20px,5vw,55px);margin-top:24px}.detail p{max-width:65ch}.detail figure{margin:0 0 24px}.detail img{display:block;width:100%;max-height:540px;object-fit:cover}.detail figcaption{font-size:13px;margin-top:8px}[hidden]{display:none!important}
+:root{--ink:#15132c;--panel:#211c3b;--cream:#fff0d9;--peach:#ffad71;--mint:#a9e2ca;--muted:#c7bdd9;--border:#504669}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--cream);font:16px/1.75 system-ui,sans-serif}a{color:inherit}button{font:inherit;cursor:pointer}a:focus-visible,button:focus-visible{outline:3px solid var(--mint);outline-offset:4px}.wrap{width:min(1160px,calc(100% - 56px));margin:auto}header{border-bottom:1px solid var(--border)}nav{height:68px;display:flex;justify-content:space-between;align-items:center;gap:16px}nav a{text-decoration:none}nav div{display:flex;gap:25px}.brand,small,.mono{font-family:ui-monospace,monospace}.brand{font-weight:900;letter-spacing:.075em}.star{color:var(--peach)}.intro{padding:45px 0 30px;display:flex;align-items:end;justify-content:space-between;gap:32px}.intro h1,.detail h1{font-size:clamp(48px,8.7vw,118px);line-height:.87;letter-spacing:-.045em;margin:0}.intro h1 span:not(.intro-prefix){color:var(--peach)}.intro p{color:var(--muted);max-width:330px;margin:0;line-height:1.9}.intro p strong{color:var(--cream)}.game{background:var(--panel);border:1px solid var(--border);box-shadow:0 5px 0 #090818}.game-head,.game-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;gap:12px}.game-head{font-size:13px;color:var(--mint)}.scene{position:relative;isolation:isolate}canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.points{position:absolute;inset:0}.stop{position:absolute;top:53%;transform:translate(-50%,-50%);font-size:13px;font-weight:750;color:var(--cream);background:#211a39;border:2px solid #8973a4;box-shadow:3px 3px #110e24;padding:5px 9px;white-space:nowrap}.stop[aria-pressed=true]{background:var(--peach);color:var(--ink);border-color:var(--cream)}.arrows{display:flex;gap:6px}.arrows button,.enter{min-height:42px;padding:5px 13px;border:1px solid var(--border);color:var(--cream);background:var(--ink);text-decoration:none;display:inline-flex;align-items:center}.enter{background:var(--peach);color:var(--ink);font-weight:800;border:0}.hint{font-size:13px;color:var(--muted)}.works{padding:40px 0 64px}.works h2{font-size:34px;letter-spacing:-.025em;margin:0 0 12px}.work{display:grid;grid-template-columns:75px 1fr auto;align-items:center;gap:12px;border-top:1px solid var(--border);padding:14px 0;text-decoration:none}.work:hover{color:var(--peach)}.work small{color:var(--mint)}footer{border-top:1px solid var(--border);padding:22px 0;color:var(--muted)}.detail{margin:36px auto 60px;max-width:990px}.detail h1{font-size:clamp(46px,8vw,92px);margin:22px 0;line-height:.96}.detail .paper{background:var(--cream);color:#251b29;padding:clamp(20px,5vw,55px);margin-top:24px}.detail p{max-width:65ch}.detail figure{margin:0 0 24px}.detail img{display:block;width:100%;max-height:540px;object-fit:cover}.detail figcaption{font-size:13px;margin-top:8px}[hidden]{display:none!important}
 @media(max-width:640px){.wrap{width:calc(100% - 28px)}nav{height:54px;font-size:13px}nav div{gap:14px}.intro{padding:32px 0 22px;display:block}.intro p{margin-top:17px;font-size:14px}.scene{overflow:hidden}.scene canvas{width:100%;height:auto;min-height:138px}.stop{font-size:10px;padding:4px 3px;top:53%;letter-spacing:0}.intro h1{font-size:clamp(40px,10.5vw,60px)}.hint{display:none}.game-foot,.game-head{padding:9px}.works{padding:28px 0 40px}.work{grid-template-columns:53px 1fr auto;font-size:14px}.detail img{max-height:350px}}
 
 .project-map{--route:#a9e2ca;margin-top:24px;background:#211c3b;border:1px solid var(--border);padding:clamp(16px,3vw,32px)}
@@ -512,7 +512,7 @@ body:has(dialog[open]){overflow:hidden}
 </style></head><body>
 <header><nav class="wrap"><a class="brand" href="#"><span class="star">✦</span> ANNE’S WORLD</a><div class="nav-actions"><button type="button" id="language-switch" class="language-switch"></button><button type="button" id="contact-open" class="contact-open" aria-haspopup="dialog" data-copy="contact">联系方式</button></div></nav></header>
 <main class="wrap">
-<div id="home"><section class="intro"><h1>Hi, I’m <span>Anne.</span></h1><p><strong data-copy="introName"></strong><br><span data-copy="intro"></span></p></section>
+<div id="home"><section class="intro"><h1><span class="intro-prefix" data-copy="introGreeting">你好，我是 </span><span>Anne</span><span class="intro-prefix" data-copy="introPunctuation">。</span></h1><p data-copy="intro"></p></section>
 <section id="street" class="game" aria-label="作品地图" data-label="map"><div class="game-head mono"><span data-copy="mapTitle">✦ 作品地图</span><span id="count"></span></div>
 <div class="street-scroll" id="street-scroll">
  <div class="island" id="island">
@@ -521,7 +521,7 @@ body:has(dialog[open]){overflow:hidden}
   <span class="island-walker world-walker" id="island-walker" aria-hidden="true"><canvas class="avatar-sprite" width="12" height="16"></canvas></span>
  </div>
 </div>
-<div class="game-foot"><div class="arrows"><button id="prev" data-label="previous">←</button><button id="next" data-label="next">→</button></div><span class="hint mono" data-copy="hint">点击地标或用 ← → 沿环岛路走</span><button type="button" id="enter" class="enter" data-copy="enter" aria-haspopup="dialog">进入项目地图 ↗</button></div></section>
+<div class="game-foot"><div class="arrows"><button id="prev" data-label="previous">←</button><button id="next" data-label="next">→</button></div><span class="hint mono" data-copy="hint">点地标选项目，也可以用方向键移动</span><button type="button" id="enter" class="enter" data-copy="enter" aria-haspopup="dialog">打开项目地图</button></div></section>
 </div>
 <article id="detail" class="detail" hidden></article>
 </main>
@@ -542,36 +542,36 @@ const oalmrInstagram='https://www.instagram.com/oalmr_cuhk/';
 const oalmrProfile={
  zh:{
   id:'oalmr',label:'校园经历',title:'校园经历',kind:'香港中文大学',
-  description:'从活动宣传到现场执行',
-  body:'我负责运营办公室的官方 Instagram 账号，也为学生交流项目制作双语宣传内容、招募海报与邮件宣传物料。',
+  description:'交流项目宣传、社团与校园活动',
+  body:'我负责学术交流处的官方 Instagram，也给学生交流项目做中英文招募海报、社媒帖文和邮件宣传物料。',
   office:'香港中文大學學術交流處（內地及地區）',
-  topics:['官方账号运营','宣传物料','社团与活动'],
-  previews:['运营 OALMR 官方 Instagram，面向同学发布学生交流活动与招募信息。','看我为冬季学生交流活动、华南农业大学农耕文化节制作的招募海报。','在普通话剧社、内地生迎新营和 M Sing 校园歌手大赛，我做过物料设计、活动统筹和影像记录。'],
+  topics:['Instagram 运营','招募海报','社团与活动'],
+  previews:['我在 @oalmr_cuhk 发布交流项目、报名信息和截止日期。','我为冬季学生交流活动和华南农业大学农耕文化节做过招募海报。','在普通话剧社、内地生迎新营和 M Sing 校园歌手大赛，我做过物料设计、活动统筹和影像记录。'],
   output:'150+ 篇双语内容，涵盖 Instagram 与微信',
   board:'校园公告栏', orientation:'迎新物料', kit:['帆布袋','胸针','新生手册'],
   posters:[
-   ['冬季学生交流活动','以目的地照片和中英双语标题呈现一组交流项目。'],
-   ['华南农业大学农耕文化节','把活动主题、地点和日期放在醒目的位置。']
+   ['冬季学生交流活动','我用目的地实拍照片做主视觉，把不同项目的招募信息排进一张海报。'],
+   ['华南农业大学农耕文化节','这张海报用于招募同学参加华南农业大学的农耕文化节。']
   ],
   experiences:[
    ['2023.10–2024.10','香港中文大学普通话剧社','物料设计及宣发统筹','负责演出宣传物料与剧目周边设计，统筹小红书、微信宣发，从视觉制作跟到内容发布。'],
    ['2024.01–2024.11','香港中文大学内地生迎新营','物料统筹与活动统筹','参与约 600 人的迎新营筹备与执行，负责帆布袋、胸针和新生手册的制作与供应商跟进，并协调各组流程和场地。'],
-   ['2023–2024','M Sing 校园歌手大赛','内地本科生联合会 · 技术指导','拍摄宣传片和宣传照，负责现场视频录制，参与从前期宣发到现场执行的全过程。'],
+   ['2023–2024','M Sing 校园歌手大赛','内地本科生联合会 · 技术指导','拍摄宣传片和宣传照，负责现场视频录制，也参与了比赛当天的现场执行。'],
    ['2024 年暑期','内地暑期高校学生研习营','OALMR · 带组学生导师','在学术交流处的暑期研习营担任学生导师，负责带组。']
   ]
  },
  en:{
   id:'oalmr',label:'Campus Life',title:'Campus Life',kind:'The Chinese University of Hong Kong',
-  description:'From event promotion to on-site delivery',
-  body:'I manage the office’s official Instagram and produce bilingual content, recruitment posters and email materials for student interflow programmes.',
+  description:'Exchange programme publicity, clubs and campus events',
+  body:'I run the Office of Academic Links (Mainland and Regional) Instagram account and make bilingual posters, social posts and emails for student exchange programmes.',
   office:'Office of Academic Links (Mainland and Regional)',
-  topics:['Official social media','Promotional materials','Clubs & events'],
-  previews:['I manage OALMR’s official Instagram, sharing student interflow programmes and application information.','See recruitment posters I made for the winter interflow programmes and the Farming Culture Festival at South China Agricultural University.','I worked on publicity, event coordination and filming for the Mandarin Drama Society, mainland student orientation and the M Sing campus singing contest.'],
+  topics:['Instagram','Recruitment posters','Clubs & events'],
+  previews:['On @oalmr_cuhk, I post programme details, application information and deadlines.','I made recruitment posters for the winter exchange programmes and South China Agricultural University’s Farming Culture Festival.','I worked on publicity, event coordination and filming for the Mandarin Drama Society, mainland student orientation and the M Sing campus singing contest.'],
   output:'150+ bilingual posts across Instagram and WeChat',
   board:'Campus noticeboard', orientation:'Orientation materials', kit:['Tote bags','Pins','New-student handbook'],
   posters:[
-   ['Student Winter Interflow Programmes','Destination photographs and bilingual headings bring several programmes together in one poster.'],
-   ['Farming Culture Festival','A recruitment poster for the event at South China Agricultural University, with the venue and date prominently placed.']
+   ['Student Winter Interflow Programmes','I used photographs of the destinations and laid out the programme information on a single bilingual poster.'],
+   ['Farming Culture Festival','I made this poster to recruit students for the festival at South China Agricultural University.']
   ],
   experiences:[
    ['Oct 2023–Oct 2024','CUHK Mandarin Drama Society','Design & publicity lead','I designed performance materials and show merchandise and led publicity on Xiaohongshu and WeChat, from artwork to publication.'],
@@ -583,10 +583,10 @@ const oalmrProfile={
 };
 const campusAtlas=profile=>[profile.description,...profile.topics,...profile.previews];
 const chineseDetails = [
- {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', },
- {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'把毕业搬家的行李，从香港送到内地家门口', body:'我与伙伴共同创立 HKonnect，为在港学生提供跨境行李托运。从费用预估、微信预约，到上门取件与内地派送，我们把原本需要分别安排的环节接成了一项服务。',link:hkonnectSite,linkText:'访问 HKonnect 官网'},
+ {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'一件以树木生态为主题的互动装置', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', },
+ {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'香港到内地的学生行李托运', body:'我和朋友一起做了 HKonnect，帮在香港读书的同学把行李寄回内地。我搭建了官网，也做微信客服和取件、配送协调。团队累计服务了 100 多位客户。',link:hkonnectSite,linkText:'访问 HKonnect 官网'},
  {id:'retail', label:'零售选址', title:'零售选址', kind:'零售策略项目', description:'从商场平面图判断一家店的位置。', body:'一个铺位可能从入口就看得见，但走过去需要绕路。评估铺位时，我关注这两件事，也会看扶梯上下行和客流汇合的位置。', role:'我参与整理门店落位评估的填报要求，并参与全球零售项目进度看板的设计。'},
- {id:'anker', label:'Anker Innovations', title:'Anker Innovations', kind:'全球零售实习 · 深圳', description:'全球直营零售项目', body:'我负责建店立项系统、开店 WBS 汇总、铺位落位评估和场景选品工作台，也参与了全球零售管理看板的数据接入，搭建了门店 NPS 周报看板。'},
+ {id:'anker', label:'Anker Innovations', title:'Anker Innovations', kind:'全球零售实习 · 深圳', description:'全球直营门店筹备与开店工具', body:'我在全球直营零售团队做开店用的工具。建店立项系统是我主要负责的项目。我梳理了区域提报到总部审批、再到交接的流程，也做了角色视图、填报模板和 AI 评估工具。立项之外，我做过开店进度汇总、场景选品和门店 NPS 周报。'},
  {id:'writing', label:'写作与影像', title:'写作与影像', kind:'个人创作', description:'议题随笔、旅行观察与影视剪辑。', body:'我在小红书写随笔和旅行观察，在 B 站分享影视剪辑和歌单。', link:'https://space.bilibili.com/19484656',linkText:'查看 B 站主页', extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
 ];
 const $ = id => document.getElementById(id);
@@ -602,35 +602,35 @@ function localProjects(){
 
 const atlas = {
   "value-tree": [
-    "把生态知识变成一次与树的相遇",
+    "树木生态资料、装置材料与观众互动",
     "绿色知识卡",
     "纸板与树皮",
     "三种叶片",
-    "从一块写着「愧疚」的石头出发，我们想知道，知道树木重要的人，为什么仍很少停下来观察一棵树？我参与地理与生态资料研究，把适合在树旁阅读的内容整理成绿色叶片。",
-    "我参与装置结构策划。团队用废弃纸箱搭树干，再贴上从香港本地采集的白千层树皮。纸板来自树，又被搭回树的形态，材料本身也在讲作品的主题。",
+    "我查了树木生态资料，和团队一起把内容整理成观众可以在展览现场读的绿色叶片。",
+    "我参与装置结构策划。团队用废弃纸箱搭树干，再贴上从香港本地采集的白千层树皮。",
     "观众可以读绿色叶片上的知识，抽一张彩色任务卡去和树互动，或在透明叶片上写下感谢与心愿。可打印的卡片和线上随机任务转盘，让这次体验可以带到公园继续。"
   ],
   "hkonnect": [
     "香港到内地的学生行李托运",
     "网站与估价","微信预约","取件与交付",
     "我搭建并部署了官网，把取件地区、重量或尺寸、地区定价和常见问题放在同一个入口，方便学生先了解流程和估算费用。",
-    "网站引导客户通过微信预约。我负责回答费用、包装和时间等问题，并确认取件地区、行李重量和日期，把咨询转成可以安排的订单。",
+    "网站引导客户通过微信预约。我负责回答费用、包装和时间等问题，并确认取件地区、行李重量和日期，方便团队安排取件。",
     "我参与协调上门取件、跨境运输和内地派送的衔接。官网也说明了如何查看物流进度。HKonnect 团队累计服务超过 100 位客户。"
   ],
   "anker": [
-    "全球直营零售项目",
+    "全球直营门店筹备与开店工具",
     "建店立项", "开店 WBS", "铺位落位",
     "搭建立项系统，覆盖区域提报、补件、审批和交接。初版已开放试用。",
     "搭建总部总表原型，配置单店、区域和总部三层每日同步。",
-    "重构落位评估规范和区域填报模板。AI 落位报告初版已完成，正在用模拟数据测试。"
+    "重构落位评估规范和区域填报模板。我把材料核对、评估和生成报告拆成几个步骤，做成 AI 落位评估流程。初版用模拟资料测试。"
   ],
   oalmr:campusAtlas(oalmrProfile.zh),
   "writing": [
-    "从旅行观察的文字，到剪辑台上的画面",
+    "小红书随笔与 B 站剪辑",
     "文字手记",
     "影像剪辑",
-    "我把旅行观察和议题随笔放在小红书。读者可以沿着账号里的具体帖子看我选择了哪些地方、问题和细节来写。",
-    "B 站收录了我的影视剪辑和歌单。这里可以直接播放作品，看镜头怎样衔接，也可以听我为不同片段挑选的音乐。"
+    "我在小红书写旅行见闻，也写一些自己关注的议题。",
+    "我的影视剪辑和歌单放在 B 站。"
   ]
 };
 const districtLoop = [[23,39],[35,27],[56,24],[76,33],[84,49],[73,66],[53,76],[32,70],[19,56]];
@@ -730,40 +730,40 @@ function showJourney(index){
 }
 const copy={
  zh:{
-  introName:'李静 · 香港中文大学地理与资源管理', intro:'我做过装置，和朋友搭过学生行李配送服务，也做过让不同团队一起推进海外开店的工具。沿着岛走走，看看我做过的项目。',
-  contact:'联系方式',closeContact:'关闭联系方式',email:'个人邮箱',schoolEmail:'学校邮箱',mainland:'内地电话',hongkong:'香港电话',wechat:'微信',footerName:'Anne Li 李静',
-  map:'作品地图',mapTitle:'✦ 作品地图',island:'一座由环岛路串联六个站点的像素岛',stations:'岛上地点',previous:'往左走',next:'往右走',hint:'点击地标或用 ← → 沿环岛路走',enter:'进入项目地图 ↗',projectMap:'✦ 项目地图',submap:'项目地标',back:'← 返回总地图',research:'地理研究',readNotes:'阅读小红书手记',watch:'播放 B 站作品',viewTopic:'查看',closePreview:'关闭预览',overview:'项目概览',detailNav:'详情章节',myWork:'我做了什么'
+  introGreeting:'你好，我是 ',introPunctuation:'。', intro:'我叫李静，在港中大读地理与资源管理。我和朋友做过学生行李托运，在 Anker 做过开店用的系统和工具，也在学校做活动宣传和空间分析。',
+  contact:'联系方式',closeContact:'关闭联系方式',email:'个人邮箱',schoolEmail:'港中大邮箱',mainland:'内地电话',hongkong:'香港电话',wechat:'微信',footerName:'Anne Li 李静',
+  map:'作品地图',mapTitle:'✦ 作品地图',island:'一座由环岛路串联六个站点的像素岛',stations:'岛上地点',previous:'往左走',next:'往右走',hint:'点地标选项目，也可以用方向键移动',enter:'打开项目地图',projectMap:'✦ 项目地图',submap:'项目地标',back:'← 返回总地图',research:'地理研究',readNotes:'阅读小红书手记',watch:'播放 B 站作品',viewTopic:'查看',closePreview:'关闭预览',overview:'项目介绍',detailNav:'详情目录',myWork:'我做了什么'
  },
  en:{
-  introName:'Anne (Jing) Li · Geography and Resource Management, CUHK',intro:'I’ve made a public art installation, co-founded a student luggage service, and built tools for teams opening stores overseas. Explore the island to see how each project came together.',
-  contact:'Contact',closeContact:'Close contact details',email:'Personal email',schoolEmail:'CUHK email',mainland:'Mainland China',hongkong:'Hong Kong',wechat:'WeChat',footerName:'Anne (Jing) Li',
-  map:'Project map',mapTitle:'✦ Project map',island:'A pixel-art island with six stops on a circular path',stations:'Island landmarks',previous:'Walk left',next:'Walk right',hint:'Select a landmark or use ← → to walk around the island',enter:'Open project map ↗',projectMap:'✦ Project map',submap:'Project landmarks',back:'← Back to island',research:'Research',readNotes:'Read on Xiaohongshu',watch:'Watch on Bilibili',viewTopic:'Explore ',closePreview:'Close preview',overview:'Project overview',detailNav:'Project sections',myWork:'My contribution'
+  introGreeting:'Hi, I’m ',introPunctuation:'.',intro:'My name is Jing Li. I study Geography and Resource Management at CUHK. I co-founded a student luggage service, built tools for opening stores at Anker, and worked on campus publicity and spatial analysis at CUHK.',
+  contact:'Contact',closeContact:'Close contact details',email:'Personal email',schoolEmail:'CUHK email',mainland:'Mainland China phone',hongkong:'Hong Kong phone',wechat:'WeChat',footerName:'Anne (Jing) Li',
+  map:'Project map',mapTitle:'✦ Project map',island:'A pixel-art island with six stops on a circular path',stations:'Island landmarks',previous:'Walk left',next:'Walk right',hint:'Choose a landmark or use the arrow keys to move',enter:'Open project map',projectMap:'✦ Project map',submap:'Project landmarks',back:'← Back to island',research:'Research',readNotes:'Read on Xiaohongshu',watch:'Watch on Bilibili',viewTopic:'View ',closePreview:'Close preview',overview:'Project details',detailNav:'On this page',myWork:'My contribution'
  }
 };
 const englishDetails=[
- {id:'value-tree',label:'The Value Tree',title:'The Value Tree',kind:'Public art installation',description:'An invitation to notice the trees around us',body:'We built a tree from discarded cardboard and covered it with bark collected in Hong Kong. Green leaves explained tree ecology, colourful leaves offered small activities, and transparent leaves gave visitors space to leave their own messages.',role:'I contributed research on tree ecology, helped write the science content, and helped plan the structure.'},
- {id:'hkonnect',label:'HKonnect',title:'HKonnect',kind:'Student venture',description:'Getting students’ luggage from Hong Kong to their door in mainland China',body:'I co-founded HKonnect to help students move their belongings at the end of term. The service brings cost estimates, WeChat booking, doorstep collection and final delivery together.',link:hkonnectSite,linkText:'Visit the HKonnect website'},
+ {id:'value-tree',label:'The Value Tree',title:'The Value Tree',kind:'Public art installation',description:'An interactive installation about tree ecology',body:'We built a tree from discarded cardboard and covered it with bark collected in Hong Kong. Green leaves explained tree ecology, colourful leaves offered small activities, and transparent leaves gave visitors space to leave their own messages.',role:'I contributed research on tree ecology, helped write the science content, and helped plan the structure.'},
+ {id:'hkonnect',label:'HKonnect',title:'HKonnect',kind:'Student venture',description:'Student luggage shipping from Hong Kong to mainland China',body:'I co-founded HKonnect to help students in Hong Kong ship their belongings to mainland China. I built the website, answered customer questions on WeChat and helped coordinate collection and delivery. Our team served more than 100 customers.',link:hkonnectSite,linkText:'Visit the HKonnect website'},
  {id:'retail',label:'Retail site assessment',title:'Retail Site Assessment',kind:'Retail strategy project',description:'Reading a shopping centre floor plan',body:'A storefront can be visible from an entrance and still be difficult to reach. I looked at how escalator direction and intersecting routes affected whether shoppers would pass the site.',role:'I helped define what teams should capture when assessing a candidate unit and contributed to the global retail project dashboard.'},
- {id:'anker',label:'Anker Innovations',title:'Anker Innovations',kind:'Global Retail Internship · Shenzhen',description:'Global direct retail projects',body:'I worked on the store approval system, opening schedule automation, site assessment and a tool for planning product displays. I also helped connect data to the global retail dashboard and built the weekly store NPS dashboard.'},
+ {id:'anker',label:'Anker Innovations',title:'Anker Innovations',kind:'Global Retail Internship · Shenzhen',description:'Store planning and opening tools',body:'I built tools for Anker’s global store teams. My main project was the store approval system. I mapped the process from regional submission through headquarters approval and handover, and built role-specific views, submission templates and AI tools for assessment. I also worked on opening schedules, display planning and weekly NPS reporting.'},
  {id:'writing',label:'Writing & Film',title:'Writing & Film',kind:'Personal work',description:'Essays, travel observations and video edits',body:'I write essays and travel notes on Xiaohongshu and share video edits and playlists on Bilibili.',link:'https://space.bilibili.com/19484656',linkText:'Visit my Bilibili channel',extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
 ];
 const englishAtlas={
- 'value-tree':['An invitation to spend time with a tree','Ecology cards','Cardboard & bark','Three kinds of leaves','A stone marked “guilt” started our discussion about why people rarely pause to notice trees. I helped turn ecology research into short cards visitors could read beside the installation.','I helped plan the structure. Our team built the trunk from reused cardboard and covered it with locally collected paperbark.','Visitors could read about trees, pick an activity, or leave a message. Printable cards and an online activity picker extended the experience into the park.'],
+ 'value-tree':['Tree ecology, construction and visitor activities','Ecology cards','Cardboard & bark','Three kinds of leaves','I researched tree ecology and helped turn the findings into short cards for visitors to read at the exhibition.','I helped plan the structure. Our team built the trunk from reused cardboard and covered it with locally collected paperbark.','Visitors could read about trees, pick an activity, or leave a message. Printable cards and an online activity picker extended the experience into the park.'],
  hkonnect:['Student luggage shipping from Hong Kong to mainland China','Website & estimate','WeChat booking','Pickup & delivery','I built and deployed the website, where students can read about the service and estimate the cost using their pickup area and their luggage weight or dimensions.','The site directs customers to WeChat to book. I answered questions about price, packing and timing, and collected the information needed to arrange a pickup.','I helped coordinate pickup, cross-border transport and mainland delivery. The site also explains how to track a shipment. Our team served more than 100 customers.'],
- anker:['Global direct retail projects','Store approvals','Opening schedules','Site assessment','Built a store approval system covering submissions, revisions, approvals and handover. The first version was available for internal testing.','Prototyped the headquarters tracker and automated daily updates across store, regional and headquarters tables.','Reworked the site assessment criteria and regional submission form. The first AI site assessment report was tested with sample data.'],
- writing:['From travel notes to the editing desk','Writing','Video edits','I publish travel observations and essays on Xiaohongshu.','I share film edits and playlists on Bilibili.'],
+ anker:['Store planning and opening tools','Store approvals','Opening schedules','Site assessment','Built a store approval system covering submissions, revisions, approvals and handover. The first version was available for internal testing.','Prototyped the headquarters tracker and automated daily updates across store, regional and headquarters tables.','Reworked the site assessment criteria and regional submission form. Tested an AI workflow that checks the submitted material, assesses the site and produces a report.'],
+ writing:['Writing on Xiaohongshu and edits on Bilibili','Writing','Video edits','I publish travel observations and essays on Xiaohongshu.','I share film edits and playlists on Bilibili.'],
  oalmr:campusAtlas(oalmrProfile.en)
 };
 const caseSections={
  zh:[
-  ['开店 WBS 与进度看板','我做了总部总表原型和自动同步。区域更新单店表，进度每天汇总到区域表和总部总表。总部按门店查看预计开业日期、当前阶段和卡点。每日汇总已在试用版跑通。'],
-  ['建店立项审批系统','我梳理了提报到交接的流程，并搭建填报表单、角色视图和审批流。区域提报和补件，财务、工程分别给风险建议，总部审批。同一家店的材料和审批记录都能在一处查看。初版已开放试用。'],
-  ['铺位落位评估','我参与测试城市战略规划工具，并做了城市与商圈分级草案。在铺位层面，我重构了落位评估规范和区域填报模板。评估分别记录自然经过的客流、铺位可见性和可达性。图纸和照片用于人工核对，缺少信息时给出分值区间。AI 落位报告初版已完成，正在用模拟数据测试。']
+  ['开店 WBS 与进度看板','我参与拆分开店任务，整理哪些工作要先做、哪些可以并行。我做了总部进度看板的原型和每日自动汇总。区域更新单店表后，总部可以在一张表里看每家店的预计开业日期、当前阶段和卡点。'],
+  ['建店立项审批系统','我负责搭建系统。区域先提报选址材料，落位通过后再补商务条件和单店 P&L。财务和工程分别给意见，总部做立项决策。不同角色看到各自要处理的事项，同一家店的材料和审批记录都留在一处。初版已开放试用。'],
+  ['铺位落位评估','我参与测试城市战略规划工具，并做了城市与商圈分级草案。在铺位层面，我重构了落位评估规范和区域填报模板。评估分别记录自然经过的客流、铺位可见性和可达性。图纸和照片用于人工核对，缺少信息时给出分值区间。我把材料核对、评估和生成报告拆成几个步骤，做成 AI 落位评估流程。初版用模拟资料测试。']
  ],
  en:[
-  ['Store opening tracker','I prototyped the headquarters tracker and set up the daily sync. Regional teams update their store schedules, and the updates roll into regional and headquarters tables. The headquarters view shows each store’s planned opening date, current stage and blockers. The daily sync was working in the pilot.'],
-  ['Store approval system','I mapped the workflow from submission to handover and built the forms, role-specific views and approval workflow. Regional teams submit and revise proposals, finance and engineering flag risks, and headquarters decides. Materials and approval history stay in one record per store. The first version was available for internal testing.'],
-  ['Site assessment','I helped test a city strategy tool and drafted criteria for ranking cities and trade areas. For individual units, I reworked the assessment criteria and regional submission form. The assessment records passing traffic, visibility and access separately. Reviewers check plans and photos, and the assessment returns a score range when information is missing. I built the first AI report and tested it with sample data.']
+  ['Store opening tracker','I helped break down the work of opening a store and identify which tasks depend on others. I prototyped the headquarters tracker and set up a daily sync. When regional teams update store schedules, headquarters can see each store’s target opening date, current stage and blockers in one place.'],
+  ['Store approval system','I built the system regional teams use to submit a site for review, then add leasing terms and a store-level P&L once the site is approved. Finance and engineering give input and headquarters makes the final decision. Each team has its own view, and each store has one record for its materials and approval history. The first version was available for internal testing.'],
+  ['Site assessment','I helped test a city strategy tool and drafted criteria for ranking cities and trade areas. For individual units, I reworked the assessment criteria and regional submission form. The assessment records passing traffic, visibility and access separately. Reviewers check plans and photos, and the assessment returns a score range when information is missing. I built an AI workflow for checking inputs, assessing the site and generating a report. I used sample data to test the first version.']
  ]
 };
 const extraRetailWork={
@@ -826,48 +826,46 @@ function renderAnkerCase(project){
 }
 const treeCopy={
  zh:{
-  question:'知道气候危机的存在之后，为什么行动还是那么难？',
-  start:'我们用一棵树邀请观众停下来，从认识树、和树互动，到想一件自己愿意做的小事。点树上的三种叶片，看看装置怎么运作。',
+  question:'The Value Tree 的互动设计',
+  start:'装置上挂着三种叶片。绿叶是生态知识卡，彩叶是观察任务，透明叶片用来留言。点叶片可以看示例。',
   choices:['绿叶 · 认识','彩叶 · 行动','透明叶 · 留言'],
   leaves:[
-   ['从知识开始','绿色叶片是一套树木生态知识卡，让观众在树旁认识它在环境中扮演的角色。'],
-   ['把一件小事带到公园','彩色叶片是与树互动的任务卡。原装置还设计了可打印的卡片和线上随机任务转盘。这里可以抽一条网页示例。'],
-   ['为这棵树留一句话','透明叶片留给观众写下愿望、感谢或承诺。选一个你从树身上学到的价值，比如关怀或倾听，把它写成一句故事，再把叶片挂回树上。']
+   ['树木生态知识卡','绿色叶片是一套树木生态知识卡，让观众在树旁认识它在环境中扮演的角色。'],
+   ['树木观察任务','彩色叶片是与树互动的任务卡。原装置还设计了可打印的卡片和线上随机任务转盘。这里可以抽一条网页示例。'],
+   ['观众留言','透明叶片留给观众写下愿望、感谢或承诺。选一个你从树身上学到的价值，比如关怀或倾听，把它写成一句故事，再把叶片挂回树上。']
   ],
   tasks:['站在同一棵树下两分钟，记下它为身边的人带来了什么。','从不同方向观察一棵树，看看哪一侧能给路人提供阴凉。','找一棵路过很多次的树，写下一个今天才注意到的细节。'],
   draw:'抽一条示例任务',
   story:[
-   ['从一块写着「愧疚」的石头开始','知道气候危机和愿意采取行动之间，隔着一道情感上的距离。我们选择树作为媒介，因为它就在日常生活中，也能成为人和自然建立联系的起点。'],
-   ['让纸板回到树的形态','我们用废弃纸箱搭起树干和根系，贴上香港本地采集的白千层树皮，把叶片悬挂在枝条周围。我们把装置摆在窗前，让观众透过悬挂的叶片看到窗外的自然。纸板来自树，在这里也重新有了树的形态。'],
+   ['项目起点','我们从一块写着「愧疚」的石头开始讨论人对环境问题的感受，最后选了日常随处可见的树来做装置。'],
+   ['装置结构与材料','我们用废弃纸箱搭起树干和根系，贴上香港本地采集的白千层树皮，把叶片悬挂在枝条周围。我们把装置摆在窗前，让观众透过悬挂的叶片看到窗外的自然。'],
    ['从「公地悲剧」到「公地喜剧」','Hardin 在 1968 年用「公地悲剧」讨论共同资源怎样被个人的短期利益消耗。我们借「公地喜剧」追问，如果人愿意关心、分享和反思，身边的自然资源可以怎样被共同照料？'],
    ['我在项目里做了什么','我参与地理与生态知识研究、科学内容设计和装置结构策划，也把研究转写成观众能在展览现场读懂的内容。']
   ],
   photoTitle:'装置现场与材料',
   photoCaptions:['展览现场 · 窗前的树与悬挂叶片','白千层树皮的细节','以叶片承载手写故事的设计示例'],
-  close:'关闭叶片说明',
-  ending:'这棵树属于所有人。环境、社区与未来的共同利益，可以从每个人愿意做的一点小事开始。'
+  close:'关闭叶片说明'
  },
  en:{
-  question:'Why is it still hard to act once we know about the climate crisis?',
-  start:'We used a tree to get visitors to pause, learn about it, and find one small thing they would be willing to do. Choose one of the three leaf types to explore the installation.',
+  question:'How visitors used The Value Tree',
+  start:'The installation had three kinds of leaves. Select one to see an example of a tree ecology card, an observation activity or a visitor message.',
   choices:['Green · Learn','Colour · Act','Clear · Reflect'],
   leaves:[
-   ['Begin with a closer look','The green leaves were short ecology cards. Visitors could read them beside the installation and learn what trees do for the places they grow in.'],
-   ['Take a small action into the park','The colourful leaves carried activities to try with a tree. Printable cards and an online task spinner extended the experience beyond the exhibition. Try a sample activity below.'],
-   ['Leave the tree a message','The clear leaves gave visitors space to write a wish, a thank-you, or a promise. Visitors could choose a value they had learned from a tree, such as care or listening, write a one-sentence story, and hang their leaf on the installation.']
+   ['Tree ecology cards','The green leaves were short ecology cards. Visitors could read them beside the installation and learn what trees do for the places they grow in.'],
+   ['Tree observation activities','The colourful leaves carried activities to try with a tree. Printable cards and an online task spinner extended the experience beyond the exhibition. Try a sample activity below.'],
+   ['Visitor messages','The clear leaves gave visitors space to write a wish, a thank-you, or a promise. Visitors could choose a value they had learned from a tree, such as care or listening, write a one-sentence story, and hang their leaf on the installation.']
   ],
   tasks:['Spend two minutes beneath a tree. Note one thing it provides for the people around it.','Look at a tree from different angles. Which side provides shade for people walking by?','Find a tree you pass often. Write down one detail you only noticed today.'],
   draw:'Draw a sample activity',
   story:[
-   ['It began with a stone marked “guilt”','There is an emotional distance between knowing about the climate crisis and choosing to act. We worked with trees because they are part of everyday life and give people a place to begin paying attention.'],
-   ['Giving cardboard the shape of a tree again','We built the trunk and roots from discarded cardboard, covered them with paperbark collected in Hong Kong, and hung leaves around the branches. We set it by a window so visitors could see the landscape through the hanging leaves. The cardboard came from trees and took on the shape of one again.'],
+   ['Project origins','A stone marked “guilt” started a discussion about how people feel about environmental problems. We chose trees for the installation because visitors could find them in their everyday surroundings.'],
+   ['Structure and materials','We built the trunk and roots from discarded cardboard, covered them with paperbark collected in Hong Kong, and hung leaves around the branches. We set it by a window so visitors could see the landscape through the hanging leaves.'],
    ['From the tragedy to the comedy of the commons','Hardin’s 1968 essay described how short-term individual interests can deplete a shared resource. Our installation explored the idea of a comedy of the commons, asking how care, sharing and reflection might help communities look after the natural spaces they share.'],
    ['My contribution','I contributed geographical and ecological research, wrote science content for the exhibition, and helped plan the structure of the installation.']
   ],
   photoTitle:'The installation and its materials',
   photoCaptions:['The installation by the exhibition window','Detail of paperbark','An example of handwritten stories on leaves'],
-  close:'Close leaf description',
-  ending:'The tree belongs to everyone. Caring for the places and communities we share can begin with one small action.'
+  close:'Close leaf description'
  }
 };
 const treePhotos=[
@@ -890,7 +888,6 @@ function renderTreeCase(project){
     <div class="tree-photo-grid">${treePhotos.map(([file,width,height],i)=>`<figure>
      <button type="button" class="photo-open" data-photo="${i}" aria-haspopup="dialog"><img src="assets/value-tree/${file}.webp" width="${width}" height="${height}" alt="${tree.photoCaptions[i]}" loading="lazy"></button>
      <figcaption>${tree.photoCaptions[i]}</figcaption></figure>`).join('')}</div></section>
-   <p class="tree-crux">${tree.ending}</p>
   </div></div>`;
 }
 function bindPhotoPreviews(){
@@ -933,22 +930,22 @@ function bindTreeCase(){
 const hkonnectCopy={
  zh:{
   customers:'团队累计服务客户',
-  journey:'一件行李怎么到家',
+  journey:'取件与配送流程',
   stages:[
    ['估价与预约','在网页估算费用，再通过微信确认取件日期和地址。'],
    ['上门取件','与客户在取件点交接，安排车辆前往口岸。'],
    ['跨境运输','跟进行李过关和运抵集运点的交接。'],
-   ['内地派送','行李转交京东物流派送到家，客户可以查看物流进度。']
+   ['内地派送','行李转交京东物流派送到家，客户可以查物流。']
   ],
   work:[
    ['搭建并发布官网','我负责把服务流程、按地区划分的价目表、FAQ 和预约方式放到同一个网站上。费用预估支持按取件区、寄送地区、重量或尺寸填写。'],
    ['跟进客户咨询','我通过微信回答费用、包装和时间等问题，并确认地区、行李重量和日期，让团队可以安排取件。'],
-   ['协调配送交接','我参与协调取件和配送，把网站上说清楚的服务步骤接到线下执行。']
+   ['协调配送交接','我跟进上门取件、跨境运输和内地派送之间的交接。']
   ]
  },
  en:{
   customers:'customers served by the team',
-  journey:'The luggage journey',
+  journey:'Pickup and delivery',
   stages:[
    ['Estimate and book','Estimate the cost online, then confirm the pickup date and address on WeChat.'],
    ['Collect in Hong Kong','Meet the customer at the pickup point and arrange transport to the border.'],
@@ -958,7 +955,7 @@ const hkonnectCopy={
   work:[
    ['Website design and deployment','I put the service steps, regional rates, FAQs and booking information in one place. The calculator lets customers estimate the price using their pickup area, destination, and weight or dimensions.'],
    ['Customer enquiries','I answered questions on WeChat about price, packing and timing, and confirmed the location, luggage weight and date so the team could schedule a pickup.'],
-   ['Delivery coordination','I helped coordinate pickup and delivery, following through on the service steps we explained online.']
+   ['Delivery coordination','I helped coordinate the handoffs between pickup, cross-border transport and delivery in mainland China.']
   ]
  }
 };
@@ -1018,25 +1015,25 @@ const researchProfile={
  zh:{
   title:'地理研究与空间分析',
   kind:'香港中文大学 · 地理与资源管理',
-  description:'从田野调查到地图与空间数据',
+  description:'田野调查、GIS 和空间数据分析',
   publication:['发表论文','共同作者','研究利用卫星观测信息，在排放清单尚未发布的时期估算人为二氧化碳排放。','查看论文 ↗'],
-  body:'我的研究兴趣包括地理信息系统（GIS）、空间数据可视化和地理空间编程。我想弄清楚如何把现场观察和空间数据放在一起，用地图把发现讲清楚。',
+  body:'我在港中大学地理与资源管理。我感兴趣的方向是 GIS、空间数据可视化和地理空间编程。课程和项目里，我做过田野调查，也用 ArcGIS、QGIS 和 Python 处理空间数据。',
   sections:[
    ['地理田野调查','2025 年，我参与了环境与社区旅游主题的地理调查。我们结合现场采样、访谈和 GIS 分析，把定性观察与定量资料整理成研究报告和可视化。'],
    ['GIS 与地图可视化','我使用 ArcGIS 和 QGIS 处理和呈现空间数据，也参与过归一化植被指数（NDVI）分析。'],
-   ['地理空间编程','我用 Python 整理空间数据和做分析，希望把数据处理、分析和制图接成可以复用的流程。']
+   ['地理空间编程','我用 Python 清理和整理空间数据，再用整理后的数据做分析。']
   ]
  },
  en:{
   title:'Geography & Spatial Analysis',
   kind:'The Chinese University of Hong Kong · Geography and Resource Management',
-  description:'From fieldwork to maps and spatial data',
+  description:'Fieldwork, GIS and spatial data analysis',
   publication:['Publication','Co-author','The study uses satellite observations to inform estimates of human-caused CO₂ emissions while emissions inventories are still being compiled and released.','Read the paper ↗'],
-  body:'My research interests include geographic information systems (GIS), spatial data visualisation, and geospatial programming. I’m interested in how field observations and spatial data can inform each other, and how maps can communicate what we find.',
+  body:'I study Geography and Resource Management at CUHK. My research interests are GIS, spatial data visualisation and geospatial programming. In coursework and projects, I’ve carried out fieldwork and used ArcGIS, QGIS and Python to work with spatial data.',
   sections:[
    ['Geography fieldwork','In 2025, I contributed to field studies on the environment and community tourism. Our team combined field sampling, interviews and GIS analysis, then brought the qualitative and quantitative evidence together in reports and visualisations.'],
    ['GIS & map visualisation','I use ArcGIS and QGIS to work with spatial data and make maps. I’ve also contributed to analysis using the Normalized Difference Vegetation Index (NDVI).'],
-   ['Geospatial programming','I use Python to organise and analyse spatial data. I’m interested in building reusable workflows that connect data preparation, analysis and mapping.']
+   ['Geospatial programming','I use Python to clean, organise and analyse spatial data.']
   ]
  }
 };
@@ -1093,7 +1090,7 @@ const demoStages=[
 ];
 const demoCopy={
  zh:{
-  title:'建店立项流程演示',intro:'使用虚构门店数据。流程覆盖落位评估、商务测算、立项审批和交接。',status:'当前环节',
+  title:'建店立项流程演示',intro:'用一家虚构的门店走一遍立项流程。可以切换区域、财务、工程和总部等角色，看看每一步要提交或审批什么。',status:'当前环节',
   roles:['区域团队','零售代表','总部','财务','工程','区域确认','交接接收方'],
   project:'示例门店 · 商场体验店',switchTo:role=>`切换到${role}继续`,audit:'查看操作流水',empty:'暂无记录。',reset:'重新演示',
   done:'双方交接已确认',returnForInfo:'需补充立项报告',decline:'NO-GO · 不批准',commercialReturn:'NO-GO · 退回商务测算',
@@ -1120,7 +1117,7 @@ const demoCopy={
   }
  },
  en:{
-  title:'Store approval demo',intro:'This demo uses fictional store data and covers site assessment, commercial review, final approval and handover.',status:'Current stage',
+  title:'Store approval demo',intro:'Try the approval process with a fictional store. Switch roles to see what regional teams, finance, engineering and headquarters submit or review.',status:'Current stage',
   roles:['Regional team','Retail lead','Headquarters','Finance','Engineering','Regional reviewer','Receiving team'],
   project:'Example project · Mall experience store',switchTo:role=>`Continue as ${role}`,audit:'Show audit trail',empty:'No actions recorded yet.',reset:'Start over',
   done:'Handover confirmed by both sides',returnForInfo:'Request more information',decline:'NO-GO · Decline',commercialReturn:'NO-GO · Return commercial inputs',
