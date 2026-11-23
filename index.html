@@ -586,7 +586,7 @@ const chineseDetails = [
  {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', },
  {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'把毕业搬家的行李，从香港送到内地家门口', body:'我与伙伴共同创立 HKonnect，为在港学生提供跨境行李托运。从费用预估、微信预约，到上门取件与内地派送，我们把原本需要分别安排的环节接成了一项服务。',link:hkonnectSite,linkText:'访问 HKonnect 官网'},
  {id:'retail', label:'零售选址', title:'零售选址', kind:'零售策略项目', description:'从商场平面图判断一家店的位置。', body:'一个铺位可能从入口就看得见，但走过去需要绕路。评估铺位时，我关注这两件事，也会看扶梯上下行和客流汇合的位置。', role:'我参与整理门店落位评估的填报要求，并参与全球零售项目进度看板的设计。'},
- {id:'anker', label:'Anker Innovations', title:'Anker Innovations', kind:'全球零售实习 · 深圳', description:'把海外门店的立项流程做成一套多团队协作工具', body:'一家海外门店从市场筹备走到开业，需要多个团队共同判断、交接材料和跟进任务。我在安克负责搭建从区域提报到立项交接的审批工具，也参与拆解了贯穿新店筹备与开业的工作分解结构（WBS）。'},
+ {id:'anker', label:'Anker Innovations', title:'Anker Innovations', kind:'全球零售实习 · 深圳', description:'为全球直营门店搭建零售工具', body:'我把点位评估、立项审批、开店排期和商品陈列中的协作需求做成工具，也参与经营数据接入。互动演示以建店立项审批为例。'},
  {id:'writing', label:'写作与影像', title:'写作与影像', kind:'个人创作', description:'议题随笔、旅行观察与影视剪辑。', body:'我在小红书写随笔和旅行观察，在 B 站分享影视剪辑和歌单。', link:'https://space.bilibili.com/19484656',linkText:'查看 B 站主页', extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
 ];
 const $ = id => document.getElementById(id);
@@ -618,11 +618,11 @@ const atlas = {
     "我参与协调上门取件、跨境运输和内地派送的衔接。官网也说明了如何查看物流进度。HKonnect 团队累计服务超过 100 位客户。"
   ],
   "anker": [
-    "海外门店立项系统 · 从流程拆解到工具搭建",
-    "系统架构", "开店全流程", "AI 工作流",
+    "全球直营零售 · 从点位评估到开店与运营",
+    "建店审批", "开店进度", "点位评估",
     "我搭建了立项审批工具，把区域提报、专业联审、总部决策和交接串在同一门店记录里。为区域、职能团队和总部设计各自的视图，也搭建了填报模板和审批流，并接入内部数据。",
-    "我参与拆解海外门店的开店 WBS，从市场与选址准备、商务条款和经营测算，到立项、设计施工和开业。梳理前后置任务和团队交接，帮助我确定立项工具应覆盖哪些决策、在哪一步交接给后续团队。",
-    "我搭建了用于战略规划和铺位评估的 AI 工作流，把材料检查、分析和报告生成拆成独立步骤，让中间结果可以复核，再由人作最终判断。"
+    "我搭建了开店进度原型和自动汇总，把单店计划同步到区域和总部视图，便于看到里程碑、延期与待跟进事项。",
+    "我重构了区域填报模板和落位评估规则，并用模拟数据测试 AI 报告。评估分开看客流是否经过、顾客能否看见、以及能否走到铺位。"
   ],
   oalmr:campusAtlas(oalmrProfile.zh),
   "writing": [
@@ -648,7 +648,7 @@ const districtSections={
 const detailExtras={
  'value-tree':[['contribution','我做了什么','My contribution'],['photos','装置照片','Installation photos']],
  hkonnect:[['journey','配送流程','Delivery journey']],
- anker:[['demo','交互演示','Interactive demo']],
+ anker:[['assortment','场景选品','Assortment planning'],['retail-data','经营看板','Retail dashboards'],['demo','交互演示','Interactive demo']],
  oalmr:[['orientation','迎新物料','Orientation materials']],
  research:[['publication','发表论文','Publication']]
 };
@@ -744,26 +744,36 @@ const englishDetails=[
  {id:'value-tree',label:'The Value Tree',title:'The Value Tree',kind:'Public art installation',description:'An invitation to notice the trees around us',body:'We built a tree from discarded cardboard and covered it with bark collected in Hong Kong. Green leaves explained tree ecology, colourful leaves offered small activities, and transparent leaves gave visitors space to leave their own messages.',role:'I contributed research on tree ecology, helped write the science content, and helped plan the structure.'},
  {id:'hkonnect',label:'HKonnect',title:'HKonnect',kind:'Student venture',description:'Getting students’ luggage from Hong Kong to their door in mainland China',body:'I co-founded HKonnect to help students move their belongings at the end of term. The service brings cost estimates, WeChat booking, doorstep collection and final delivery together.',link:hkonnectSite,linkText:'Visit the HKonnect website'},
  {id:'retail',label:'Retail site assessment',title:'Retail Site Assessment',kind:'Retail strategy project',description:'Reading a shopping centre floor plan',body:'A storefront can be visible from an entrance and still be difficult to reach. I looked at how escalator direction and intersecting routes affected whether shoppers would pass the site.',role:'I helped define what teams should capture when assessing a candidate unit and contributed to the global retail project dashboard.'},
- {id:'anker',label:'Anker Innovations',title:'Anker Innovations',kind:'Global Retail Internship · Shenzhen',description:'Building a tool for cross-team decisions on new stores',body:'Opening a store overseas involves decisions, documents and handoffs across several teams. At Anker, I built an approval tool covering regional submission through project handover and contributed to the work breakdown structure (WBS) for the full store opening process.'},
+ {id:'anker',label:'Anker Innovations',title:'Anker Innovations',kind:'Global Retail Internship · Shenzhen',description:'Building tools for global retail operations',body:'I built tools for site assessment, store approval, opening schedules and product displays, and helped connect retail performance data. The interactive example shows how one of those tools handles store approvals.'},
  {id:'writing',label:'Writing & Film',title:'Writing & Film',kind:'Personal work',description:'Essays, travel observations and video edits',body:'I write essays and travel notes on Xiaohongshu and share video edits and playlists on Bilibili.',link:'https://space.bilibili.com/19484656',linkText:'Visit my Bilibili channel',extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
 ];
 const englishAtlas={
  'value-tree':['An invitation to spend time with a tree','Ecology cards','Cardboard & bark','Three kinds of leaves','A stone marked “guilt” started our discussion about why people rarely pause to notice trees. I helped turn ecology research into short cards visitors could read beside the installation.','I helped plan the structure. Our team built the trunk from reused cardboard and covered it with locally collected paperbark.','Visitors could read about trees, pick an activity, or leave a message. Printable cards and an online activity picker extended the experience into the park.'],
  hkonnect:['Student luggage shipping from Hong Kong to mainland China','Website & estimate','WeChat booking','Pickup & delivery','I built and deployed the website, where students can read about the service and estimate the cost using their pickup area and their luggage weight or dimensions.','The site directs customers to WeChat to book. I answered questions about price, packing and timing, and collected the information needed to arrange a pickup.','I helped coordinate pickup, cross-border transport and mainland delivery. The site also explains how to track a shipment. Our team served more than 100 customers.'],
- anker:['Overseas store approvals, from process design to implementation','System design','Store opening process','AI workflows','I built role-specific views for regional teams, specialist teams and headquarters, alongside intake templates and an approval workflow that linked each store’s submission, decision and handover.','I helped break down the full opening process, from market and site preparation through commercial review, design, construction and launch. Mapping the handoffs helped define where the approval tool should start and end.','I built AI-assisted workflows for strategic planning and site assessment. I separated material checks, analysis and report generation so the outputs could be reviewed before a person made the decision.'],
+ anker:['Global retail operations, from site assessment to store opening','Store approvals','Opening tracker','Site assessment','I built role-specific views for regional teams, specialist teams and headquarters, alongside intake templates and an approval workflow that linked each store’s submission, decision and handover.','I built the opening tracker prototype and daily rollup so regional teams and headquarters could see milestones, delays and items needing attention.','I redesigned the intake template and site assessment criteria, then tested the AI report with sample data. The assessment treats passing traffic, visibility and access as separate observations.'],
  writing:['From travel notes to the editing desk','Writing','Video edits','I publish travel observations and essays on Xiaohongshu.','I share film edits and playlists on Bilibili.'],
  oalmr:campusAtlas(oalmrProfile.en)
 };
 const caseSections={
  zh:[
-  ['梳理开店全流程','我参与拆解海外门店从市场筹备、选址、商务和 P&L 测算，到立项、设计施工及开业营销的任务。把这些任务组织进 WBS 后，可以看出各团队何时接手、哪些材料要先到位，也帮助我界定立项工具覆盖到哪里。'],
-  ['搭建多角色立项系统','我搭建了覆盖提报、审批和交接的立项工具，包括角色视图、填报模板、数据接入和审批流。流程由配置定义，每家店用一条记录串起材料和只追加的审批日志。区域提交和补件，财务与工程分别提供建议，总部在两方意见齐备后作出商务决策，并在上会后独立作出立项决定。'],
-  ['把 AI 放到可复核的环节','我搭建了城市战略扫描和铺位评估的 AI 工作流。首次进入一个城市时准备城市扫描，同城项目可复用已有资料。铺位报告经人工核对事实后提交，供零售团队判断点位。']
+  ['让开店进度从单店汇总到总部','我搭建了开店进度原型，配置了单店表到区域表、再到总部总表的每日同步，也组织了开业里程碑、任务依赖和卡点。试用版能把门店进度汇总到一个视图，供区域与总部跟进。'],
+  ['搭建多角色立项系统','我搭建了覆盖提报、审批和交接的立项工具，包括角色视图、填报模板、数据接入和审批流。流程由配置定义，试用版以一店一条记录串起材料和只追加的审批日志。区域提交和补件，财务与工程分别提供建议，总部在两方意见齐备后作出商务决策，并在上会后独立作出立项决定。'],
+  ['让铺位判断有证据可查','我测试过城市战略扫描，也参与拟定城市与商圈分级草案。针对单个铺位，我重构了区域填报模板和评估规范，并搭建 AI 报告初版，用模拟数据迭代。图纸和照片供人工核查，评估把自然经过、可见和可达分开看，资料不足时给出区间。']
  ],
  en:[
-  ['Mapping the full store opening process','I helped break down tasks from market preparation, site assessment, commercial review and P&L modelling through project approval, design, construction and launch marketing. The WBS made team handoffs visible and helped me define the scope of the approval tool.'],
-  ['Building a system for multiple teams','I built the approval tool from intake through handover, including role-specific interfaces, templates, data integration and routing. Configurable stages, one record per store and an append-only audit log connected each handoff. Finance and engineering advised on risk. Headquarters decided whether the case could proceed from commercial review and later made the final approval decision.'],
-  ['Designing AI workflows with review points','I built AI-assisted workflows for city strategy and site assessment. Teams prepare a scan for a new city and can reuse it for later proposals in the same city. A person checks the facts in each site report before submission.']
+  ['Rolling up store opening schedules','I built the tracker prototype and set up a daily rollup from store schedules to regional and headquarters views. I organised opening milestones, dependencies and blockers so teams in the pilot could follow progress from one view.'],
+  ['Building a system for multiple teams','I built the approval tool from intake through handover, including role-specific interfaces, templates, data integration and routing. The pilot used configurable stages, one record per store and an append-only audit log to connect each handoff. Finance and engineering advised on risk. Headquarters decided whether the case could proceed from commercial review and later made the final approval decision.'],
+  ['Making site assessments traceable','I tested a city strategy tool and worked on draft criteria for ranking cities and trade areas. For individual units, I redesigned the intake template and assessment criteria and tested the first AI-generated reports with sample data. Plans and photos serve as evidence for human review, and incomplete inputs yield a range.']
+ ]
+};
+const extraRetailWork={
+ zh:[
+  ['assortment','从平面图到分区选品','我上线了场景选品工作台 v1。区域团队可以上传门店平面图，安排初步陈列分区，从产品目录导入商品并分配到相应场景，再生成可分享的汇报页面。',['上传平面图','规划陈列分区','导入并分配商品','生成汇报页面']],
+  ['retail-data','把计划与经营数据带进看板','我梳理全球零售看板的数据源和指标口径，补齐点位计划的分类字段，并推进数据接入。在门店体验侧，我配置过双语问卷，也搭建了按周回顾、数据次日刷新的 NPS 看板。',['盘点数据源','对齐计划字段','配置双语问卷','搭建 NPS 周报']]
+ ],
+ en:[
+  ['assortment','From floor plan to product assortment','I released the first version of an assortment planning tool. Regional teams could upload a store floor plan, sketch display zones, assign products from the catalogue and generate a shareable review page.',['Upload a floor plan','Sketch display zones','Import and assign products','Generate a review page']],
+  ['retail-data','Connecting planning and performance data','I mapped available data sources and metric definitions for a global retail dashboard, cleaned up categories in the site plan and helped connect data. I also configured bilingual surveys and built a weekly NPS dashboard with next-day data refreshes.',['Map data sources','Align planning fields','Configure bilingual surveys','Build weekly NPS reporting']]
  ]
 };
 const caseVisuals={
@@ -771,13 +781,13 @@ const caseVisuals={
   roles:[['区域与零售','提报、复核与补件'],['财务与工程','按职责提供风险建议'],['总部','作出决策并保留审阅记录']],
   lifecycle:['市场筹备','前期立项','设计与施工','开业与营销'],
   scope:'工具覆盖从提报到立项和交接。开店 WBS 还包括设计、施工和开业。',
-  ai:['材料检查','分析','报告生成','人工复核']
+  ai:['区域填报','核对事实与证据','生成铺位报告','人工复核']
  },
  en:{
   roles:[['Regional and retail teams','Submit, review and update materials'],['Finance and engineering','Advise on risks in their respective areas'],['Headquarters','Decide and retain a record of reviews']],
   lifecycle:['Market preparation','Project approval','Design and construction','Launch and marketing'],
   scope:'The approval tool ends at handover. The WBS also covers design, construction and launch.',
-  ai:['Check materials','Analyse inputs','Draft the report','Human review']
+  ai:['Regional intake','Check facts and evidence','Draft the site report','Human review']
  }
 };
 
@@ -805,10 +815,13 @@ function renderAnkerCase(project){
  const roles=`<dl class="case-roles">${visuals.roles.map(([role,task])=>`<div><dt>${role}</dt><dd>${task}</dd></div>`).join('')}</dl>`;
  const lifecycle=`<figure class="case-visual"><ol class="case-track">${visuals.lifecycle.map((stage,i)=>`<li${i===1?' class="is-scope"':''}>${stage}</li>`).join('')}</ol><figcaption>${visuals.scope}</figcaption></figure>`;
  const workflow=`<ol class="case-track is-ai">${visuals.ai.map(stage=>`<li>${stage}</li>`).join('')}</ol>`;
- const chapters=[[sections[1],roles],[sections[0],lifecycle],[sections[2],workflow]];
+ const chapters=[[sections[1],roles],[sections[0],lifecycle],[sections[2],workflow]].map(([[title,body],visual],i)=>[districtSections.anker[i],title,body,visual]);
+ for(const [key,title,body,steps] of extraRetailWork[language]){
+  chapters.push([key,title,body,`<ol class="case-track">${steps.map(step=>`<li>${step}</li>`).join('')}</ol>`]);
+ }
  return `
   ${renderCaseHero(project,'','<section class="case-demo" id="anker/demo" aria-labelledby="demo-title"></section>')}
-  <div class="case-content">${chapters.map(([[title,body],visual],i)=>`<section class="case-chapter" id="anker/${districtSections.anker[i]}"><div><h2 tabindex="-1">${title}</h2><p>${body}</p></div>${visual}</section>`).join('')}
+  <div class="case-content">${chapters.map(([key,title,body,visual])=>`<section class="case-chapter" id="anker/${key}"><div><h2 tabindex="-1">${title}</h2><p>${body}</p></div>${visual}</section>`).join('')}
   </div>`;
 }
 const treeCopy={
