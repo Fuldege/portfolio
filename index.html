@@ -586,7 +586,7 @@ const chineseDetails = [
  {id:'value-tree', label:'价值之树', title:'The Value Tree', kind:'公共艺术装置', description:'用一棵树连接生态知识、情感和行动。', body:'我们用废弃纸箱搭起树干，贴上香港本地采集的树皮。绿色叶片讲树木生态，彩色叶片邀请观众完成一项和树有关的任务，透明叶片留给观众写下感谢、承诺和心愿。', role:'我参与了地理与生态知识研究、树木科学内容设计和装置结构策划。', },
  {id:'hkonnect', label:'HKonnect', title:'HKonnect', kind:'学生创业项目', description:'把毕业搬家的行李，从香港送到内地家门口', body:'我与伙伴共同创立 HKonnect，为在港学生提供跨境行李托运。从费用预估、微信预约，到上门取件与内地派送，我们把原本需要分别安排的环节接成了一项服务。',link:hkonnectSite,linkText:'访问 HKonnect 官网'},
  {id:'retail', label:'零售选址', title:'零售选址', kind:'零售策略项目', description:'从商场平面图判断一家店的位置。', body:'一个铺位可能从入口就看得见，但走过去需要绕路。评估铺位时，我关注这两件事，也会看扶梯上下行和客流汇合的位置。', role:'我参与整理门店落位评估的填报要求，并参与全球零售项目进度看板的设计。'},
- {id:'anker', label:'Anker Innovations', title:'Anker Innovations', kind:'全球零售实习 · 深圳', description:'为全球直营门店搭建零售工具', body:'我把点位评估、立项审批、开店排期和商品陈列中的协作需求做成工具，也参与经营数据接入。互动演示以建店立项审批为例。'},
+ {id:'anker', label:'Anker Innovations', title:'Anker Innovations', kind:'全球零售实习 · 深圳', description:'我在安克做的直营零售项目', body:'我主要做新店立项和开店进度跟进，也做过铺位评估、门店选品和 NPS 周报。比如，区域看中一个铺位后要先交哪些材料，等谁确认，可以用下面的模拟案例走一遍。'},
  {id:'writing', label:'写作与影像', title:'写作与影像', kind:'个人创作', description:'议题随笔、旅行观察与影视剪辑。', body:'我在小红书写随笔和旅行观察，在 B 站分享影视剪辑和歌单。', link:'https://space.bilibili.com/19484656',linkText:'查看 B 站主页', extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
 ];
 const $ = id => document.getElementById(id);
@@ -618,11 +618,11 @@ const atlas = {
     "我参与协调上门取件、跨境运输和内地派送的衔接。官网也说明了如何查看物流进度。HKonnect 团队累计服务超过 100 位客户。"
   ],
   "anker": [
-    "全球直营零售 · 从点位评估到开店与运营",
-    "建店审批", "开店进度", "点位评估",
-    "我搭建了立项审批工具，把区域提报、专业联审、总部决策和交接串在同一门店记录里。为区域、职能团队和总部设计各自的视图，也搭建了填报模板和审批流，并接入内部数据。",
-    "我搭建了开店进度原型和自动汇总，把单店计划同步到区域和总部视图，便于看到里程碑、延期与待跟进事项。",
-    "我重构了区域填报模板和落位评估规则，并用模拟数据测试 AI 报告。评估分开看客流是否经过、顾客能否看见、以及能否走到铺位。"
+    "我在安克做了什么",
+    "建店立项", "开店 WBS", "铺位落位",
+    "区域提报以后，谁审、谁补材料、谁确认交接？我把这些动作做到同一条门店记录里，第一版已经可以试用。",
+    "我做了总部总表原型和自动汇总。区域在单店表更新进度，区域表和总部总表每天同步一次。",
+    "我改了区域填报模板和落位评估规范，也在用模拟材料测第一版 AI 报告。"
   ],
   oalmr:campusAtlas(oalmrProfile.zh),
   "writing": [
@@ -648,7 +648,7 @@ const districtSections={
 const detailExtras={
  'value-tree':[['contribution','我做了什么','My contribution'],['photos','装置照片','Installation photos']],
  hkonnect:[['journey','配送流程','Delivery journey']],
- anker:[['assortment','场景选品','Assortment planning'],['retail-data','经营看板','Retail dashboards'],['demo','交互演示','Interactive demo']],
+ anker:[['assortment','场景选品','Display planning'],['retail-data','零售看板 / NPS','Retail dashboards / NPS'],['demo','试一下建店立项','Try a store approval']],
  oalmr:[['orientation','迎新物料','Orientation materials']],
  research:[['publication','发表论文','Publication']]
 };
@@ -744,50 +744,50 @@ const englishDetails=[
  {id:'value-tree',label:'The Value Tree',title:'The Value Tree',kind:'Public art installation',description:'An invitation to notice the trees around us',body:'We built a tree from discarded cardboard and covered it with bark collected in Hong Kong. Green leaves explained tree ecology, colourful leaves offered small activities, and transparent leaves gave visitors space to leave their own messages.',role:'I contributed research on tree ecology, helped write the science content, and helped plan the structure.'},
  {id:'hkonnect',label:'HKonnect',title:'HKonnect',kind:'Student venture',description:'Getting students’ luggage from Hong Kong to their door in mainland China',body:'I co-founded HKonnect to help students move their belongings at the end of term. The service brings cost estimates, WeChat booking, doorstep collection and final delivery together.',link:hkonnectSite,linkText:'Visit the HKonnect website'},
  {id:'retail',label:'Retail site assessment',title:'Retail Site Assessment',kind:'Retail strategy project',description:'Reading a shopping centre floor plan',body:'A storefront can be visible from an entrance and still be difficult to reach. I looked at how escalator direction and intersecting routes affected whether shoppers would pass the site.',role:'I helped define what teams should capture when assessing a candidate unit and contributed to the global retail project dashboard.'},
- {id:'anker',label:'Anker Innovations',title:'Anker Innovations',kind:'Global Retail Internship · Shenzhen',description:'Building tools for global retail operations',body:'I built tools for site assessment, store approval, opening schedules and product displays, and helped connect retail performance data. The interactive example shows how one of those tools handles store approvals.'},
+ {id:'anker',label:'Anker Innovations',title:'Anker Innovations',kind:'Global Retail Internship · Shenzhen',description:'What I did at Anker',body:'I worked on how new stores get approved and how teams track openings. I also worked on site reviews, in-store product displays and weekly NPS reporting. The demo starts with a practical question: once a regional team finds a unit, what does it submit, and who reviews it?'},
  {id:'writing',label:'Writing & Film',title:'Writing & Film',kind:'Personal work',description:'Essays, travel observations and video edits',body:'I write essays and travel notes on Xiaohongshu and share video edits and playlists on Bilibili.',link:'https://space.bilibili.com/19484656',linkText:'Visit my Bilibili channel',extra:'https://www.xiaohongshu.com/user/profile/5f65e2f00000000001000d32'}
 ];
 const englishAtlas={
  'value-tree':['An invitation to spend time with a tree','Ecology cards','Cardboard & bark','Three kinds of leaves','A stone marked “guilt” started our discussion about why people rarely pause to notice trees. I helped turn ecology research into short cards visitors could read beside the installation.','I helped plan the structure. Our team built the trunk from reused cardboard and covered it with locally collected paperbark.','Visitors could read about trees, pick an activity, or leave a message. Printable cards and an online activity picker extended the experience into the park.'],
  hkonnect:['Student luggage shipping from Hong Kong to mainland China','Website & estimate','WeChat booking','Pickup & delivery','I built and deployed the website, where students can read about the service and estimate the cost using their pickup area and their luggage weight or dimensions.','The site directs customers to WeChat to book. I answered questions about price, packing and timing, and collected the information needed to arrange a pickup.','I helped coordinate pickup, cross-border transport and mainland delivery. The site also explains how to track a shipment. Our team served more than 100 customers.'],
- anker:['Global retail operations, from site assessment to store opening','Store approvals','Opening tracker','Site assessment','I built role-specific views for regional teams, specialist teams and headquarters, alongside intake templates and an approval workflow that linked each store’s submission, decision and handover.','I built the opening tracker prototype and daily rollup so regional teams and headquarters could see milestones, delays and items needing attention.','I redesigned the intake template and site assessment criteria, then tested the AI report with sample data. The assessment treats passing traffic, visibility and access as separate observations.'],
+ anker:['What I did at Anker','Store approvals','Opening WBS','Site reviews','I built the first version of the approval system so teams could see who reviews a submission, who updates it and who confirms the handover. The first version was ready to try.','I prototyped the headquarters tracker and set up daily updates from store schedules to regional and headquarters views.','I revised the regional intake form and site review criteria and tested the first AI report with sample materials.'],
  writing:['From travel notes to the editing desk','Writing','Video edits','I publish travel observations and essays on Xiaohongshu.','I share film edits and playlists on Bilibili.'],
  oalmr:campusAtlas(oalmrProfile.en)
 };
 const caseSections={
  zh:[
-  ['让开店进度从单店汇总到总部','我搭建了开店进度原型，配置了单店表到区域表、再到总部总表的每日同步，也组织了开业里程碑、任务依赖和卡点。试用版能把门店进度汇总到一个视图，供区域与总部跟进。'],
-  ['搭建多角色立项系统','我搭建了覆盖提报、审批和交接的立项工具，包括角色视图、填报模板、数据接入和审批流。流程由配置定义，试用版以一店一条记录串起材料和只追加的审批日志。区域提交和补件，财务与工程分别提供建议，总部在两方意见齐备后作出商务决策，并在上会后独立作出立项决定。'],
-  ['让铺位判断有证据可查','我测试过城市战略扫描，也参与拟定城市与商圈分级草案。针对单个铺位，我重构了区域填报模板和评估规范，并搭建 AI 报告初版，用模拟数据迭代。图纸和照片供人工核查，评估把自然经过、可见和可达分开看，资料不足时给出区间。']
+  ['开店 WBS 怎么汇总','我做了总部总表原型和同步自动化。区域还是在各自的单店表填进度，每天汇总一次到区域表和总部总表。总部一店一行，主要看预计开业时间、现在到哪一步、卡在哪里。试用版已经跑通这条同步链路。'],
+  ['一家店怎么走完立项','我先把流程画出来，再做表单、角色视图和审批流。区域提报和补件，财务、工程分别提建议，总部做决定。每家店从提报到交接都走同一条记录，退回和重提也能查到。第一版已经可以登录试用。'],
+  ['一个铺位值不值得往下谈','我参与测试城市战略工具，也做了城市和商圈分级草案。到具体铺位，我重做了填报模板和评估规范。客流经过、看得到门头、能不能顺路走到，是三件事。图纸和照片留给评审核对，资料没齐就给区间。AI 落位报告已经有初版，目前在用模拟材料测试。']
  ],
  en:[
-  ['Rolling up store opening schedules','I built the tracker prototype and set up a daily rollup from store schedules to regional and headquarters views. I organised opening milestones, dependencies and blockers so teams in the pilot could follow progress from one view.'],
-  ['Building a system for multiple teams','I built the approval tool from intake through handover, including role-specific interfaces, templates, data integration and routing. The pilot used configurable stages, one record per store and an append-only audit log to connect each handoff. Finance and engineering advised on risk. Headquarters decided whether the case could proceed from commercial review and later made the final approval decision.'],
-  ['Making site assessments traceable','I tested a city strategy tool and worked on draft criteria for ranking cities and trade areas. For individual units, I redesigned the intake template and assessment criteria and tested the first AI-generated reports with sample data. Plans and photos serve as evidence for human review, and incomplete inputs yield a range.']
+  ['How opening schedules get to headquarters','I prototyped the headquarters tracker and set up the daily sync. Regional teams update their own store schedules, and those updates roll into the regional and headquarters tables. The headquarters view shows the planned opening date, the current stage and what is holding each store up. That sync was working in the pilot.'],
+  ['How a new store gets approved','I mapped the process first, then built the forms, role-specific views and approval workflow. Regional teams submit and revise proposals, finance and engineering give their input, and headquarters makes the decision. Each store keeps one record from submission to handover, including returns and resubmissions. The first version was ready for people to log in and try.'],
+  ['Is a unit worth taking to the next stage?','I helped test the city strategy tool and drafted criteria for ranking cities and trade areas. For individual units, I redid the intake form and review criteria. Do shoppers pass the unit, can they see it, and can they get there easily? Those are three separate questions. Reviewers can check plans and photos, and the assessment gives a range when evidence is missing. I built the first AI report and have been testing it with sample materials.']
  ]
 };
 const extraRetailWork={
  zh:[
-  ['assortment','从平面图到分区选品','我上线了场景选品工作台 v1。区域团队可以上传门店平面图，安排初步陈列分区，从产品目录导入商品并分配到相应场景，再生成可分享的汇报页面。',['上传平面图','规划陈列分区','导入并分配商品','生成汇报页面']],
-  ['retail-data','把计划与经营数据带进看板','我梳理全球零售看板的数据源和指标口径，补齐点位计划的分类字段，并推进数据接入。在门店体验侧，我配置过双语问卷，也搭建了按周回顾、数据次日刷新的 NPS 看板。',['盘点数据源','对齐计划字段','配置双语问卷','搭建 NPS 周报']]
+  ['assortment','图纸定了以后，怎么选品','我做了选品工作台 v1。区域上传平面图后，可以标出各个陈列区，从商品库挑产品放进去，再生成一页汇报。第一版已经上线。',['上传平面图','标陈列区','从商品库选品','生成汇报页']],
+  ['retail-data','看板上哪些数据能用','全球零售看板还在接数据。我先盘了哪些指标已经有来源，哪些还缺，然后把点位规划里的国家、店型等字段补齐。NPS 是另一条线，我配了英德双语问卷，做了次日更新数据的周报看板。',['盘点指标来源','补齐点位规划字段','配置英德问卷','做 NPS 周报']]
  ],
  en:[
-  ['assortment','From floor plan to product assortment','I released the first version of an assortment planning tool. Regional teams could upload a store floor plan, sketch display zones, assign products from the catalogue and generate a shareable review page.',['Upload a floor plan','Sketch display zones','Import and assign products','Generate a review page']],
-  ['retail-data','Connecting planning and performance data','I mapped available data sources and metric definitions for a global retail dashboard, cleaned up categories in the site plan and helped connect data. I also configured bilingual surveys and built a weekly NPS dashboard with next-day data refreshes.',['Map data sources','Align planning fields','Configure bilingual surveys','Build weekly NPS reporting']]
+  ['What goes where after the floor plan is set?','I built the first version of the planning tool. Regional teams can upload a floor plan, mark display zones, choose products from the catalogue and generate a page for review. The first version went live.',['Upload the floor plan','Mark display zones','Choose products','Generate a review page']],
+  ['Which dashboard numbers can we use?','The global retail dashboard was still being connected to data. I checked which metrics had a source and which were missing one, then filled in planning fields such as country and store format. Separately, I configured English and German surveys and built a weekly NPS dashboard with next-day data refreshes.',['Check metric sources','Fill site planning fields','Set up EN and DE surveys','Build weekly NPS reporting']]
  ]
 };
 const caseVisuals={
  zh:{
-  roles:[['区域与零售','提报、复核与补件'],['财务与工程','按职责提供风险建议'],['总部','作出决策并保留审阅记录']],
-  lifecycle:['市场筹备','前期立项','设计与施工','开业与营销'],
-  scope:'工具覆盖从提报到立项和交接。开店 WBS 还包括设计、施工和开业。',
-  ai:['区域填报','核对事实与证据','生成铺位报告','人工复核']
+  roles:[['区域','提报、补件、重提'],['财务和工程','各自给风险建议'],['总部','决定是否通过']],
+  lifecycle:['单店表','区域总表','总部总表'],
+  scope:'每天同步一次。总部看开业日期、阶段和卡点。',
+  ai:['区域填报','核对图纸和照片','出落位报告','人工复核']
  },
  en:{
-  roles:[['Regional and retail teams','Submit, review and update materials'],['Finance and engineering','Advise on risks in their respective areas'],['Headquarters','Decide and retain a record of reviews']],
-  lifecycle:['Market preparation','Project approval','Design and construction','Launch and marketing'],
-  scope:'The approval tool ends at handover. The WBS also covers design, construction and launch.',
-  ai:['Regional intake','Check facts and evidence','Draft the site report','Human review']
+  roles:[['Regional teams','Submit and update the proposal'],['Finance and engineering','Give their own risk assessments'],['Headquarters','Decide whether to approve']],
+  lifecycle:['Store schedule','Regional tracker','Headquarters tracker'],
+  scope:'Daily sync. Headquarters sees opening dates, stages and blockers.',
+  ai:['Fill the regional form','Check plans and photos','Draft the site report','Review the report']
  }
 };
 
@@ -813,7 +813,7 @@ function renderAnkerCase(project){
  const visuals=caseVisuals[language];
  const sections=caseSections[language];
  const roles=`<dl class="case-roles">${visuals.roles.map(([role,task])=>`<div><dt>${role}</dt><dd>${task}</dd></div>`).join('')}</dl>`;
- const lifecycle=`<figure class="case-visual"><ol class="case-track">${visuals.lifecycle.map((stage,i)=>`<li${i===1?' class="is-scope"':''}>${stage}</li>`).join('')}</ol><figcaption>${visuals.scope}</figcaption></figure>`;
+ const lifecycle=`<figure class="case-visual"><ol class="case-track">${visuals.lifecycle.map(stage=>`<li>${stage}</li>`).join('')}</ol><figcaption>${visuals.scope}</figcaption></figure>`;
  const workflow=`<ol class="case-track is-ai">${visuals.ai.map(stage=>`<li>${stage}</li>`).join('')}</ol>`;
  const chapters=[[sections[1],roles],[sections[0],lifecycle],[sections[2],workflow]].map(([[title,body],visual],i)=>[districtSections.anker[i],title,body,visual]);
  for(const [key,title,body,steps] of extraRetailWork[language]){
@@ -1093,7 +1093,7 @@ const demoStages=[
 ];
 const demoCopy={
  zh:{
-  title:'走一遍门店立项',intro:'虚构门店 · 简化演示，从区域提报到立项和交接。',status:'当前环节',
+  title:'模拟一次门店立项',intro:'用虚构门店试一下：先看铺位，再谈租金和测算，最后决定要不要立项。',status:'当前环节',
   roles:['区域团队','零售代表','总部','财务','工程','区域确认','交接接收方'],
   project:'示例门店 · 商场体验店',switchTo:role=>`切换到${role}继续`,audit:'查看操作流水',empty:'暂无记录。',reset:'重新演示',
   done:'双方交接已确认',returnForInfo:'需补充立项报告',decline:'NO-GO · 不批准',commercialReturn:'NO-GO · 退回商务测算',
@@ -1103,24 +1103,24 @@ const demoCopy={
   reasons:{commercial:'示例原因：请补一版保守情景的损益测算。',supplement:'示例原因：请补充开店计划及待解决事项。',decision:'示例原因：投资条件不满足，当前方案不予批准。'},
   changes:'退回原因',round:'轮次',
   steps:{
-   submit:['区域提报','提交核对过事实的落位报告，说明铺位位置、可见性和可达性。','提交落位报告'],
-   initial:['零售初审','先审点位本身，本阶段无需物业报价、商务条件或 P&L。','初审通过'],
-   site:['落位审批','决定点位是否可以进入商务测算。','通过落位'],
-   pnl:['补商务测算','点位通过后，补充租赁条件和单店损益预测（P&L）。','提交商务条件与 P&L'],
+   submit:['区域提报','先交落位报告，讲清铺位在哪、看不看得到、走过去要不要绕路。','提交落位报告'],
+   initial:['零售初审','这一步先看铺位本身，租金和 P&L 等落位过了再填。','初审通过'],
+   site:['落位审批','总部先判断这个铺位值不值得往下谈。','通过落位'],
+   pnl:['补商务测算','铺位通过了，现在补租赁条件和单店损益测算（P&L）。','提交商务条件与 P&L'],
    retail:['零售再审','复核补齐的商务条件和单店投资材料，再交专业联审。','送交专业联审'],
    finance:['财务建议','根据商务条件和 P&L，记录对投资风险的建议。','记录财务风险建议'],
    engineering:['工程建议','从工程角度记录铺位条件和实施风险。','记录工程风险建议'],
-   commercial:['商务联审决策','两份专业建议都已收到。总部结合问题说明，决定通过或退回。','GO · 通过联审'],
+   commercial:['商务联审决策','财务和工程都给了意见，总部现在可以决定通过还是退回补材料。','GO · 通过联审'],
    report:['立项报告','完整版用于审批，脱敏版用于立项通知。两份齐备才能进入下一步。','提交两份立项报告'],
    regionalCheck:['区域会前确认','区域确认两份报告齐备，再由总部决定是否上会。','确认会前材料'],
-   meeting:['总部上会审批','总部批准提交会议审议，正式立项决定在下一步作出。','批准提交会议审议'],
+   meeting:['总部上会审批','总部在这里确认能不能上会，下一步才定立项结果。','批准提交会议审议'],
    decision:['最终立项决策','总部可以批准、不批准，或退回补充立项报告。','GO · 批准立项'],
    handover:['总部交接确认','立项已批准。总部确认移交材料和后续事项。','总部确认移交'],
    receive:['接收方交接确认','接收方确认收到材料，双方确认后立项流程结束。','接收方确认接收']
   }
  },
  en:{
-  title:'Walk through a store approval',intro:'Fictional store · A simplified walkthrough from submission to handover.',status:'Current stage',
+  title:'Try a store approval',intro:'Use a fictional store to try the steps: assess a unit, work through the lease and numbers, then decide whether to approve the project.',status:'Current stage',
   roles:['Regional team','Retail lead','Headquarters','Finance','Engineering','Regional reviewer','Receiving team'],
   project:'Example project · Mall experience store',switchTo:role=>`Continue as ${role}`,audit:'Show audit trail',empty:'No actions recorded yet.',reset:'Start over',
   done:'Handover confirmed by both sides',returnForInfo:'Request more information',decline:'NO-GO · Decline',commercialReturn:'NO-GO · Return commercial inputs',
@@ -1130,14 +1130,14 @@ const demoCopy={
   reasons:{commercial:'Example reason: provide a conservative P&L scenario.',supplement:'Example reason: add the opening plan and unresolved items.',decision:'Example reason: the investment case does not meet approval requirements.'},
   changes:'Reason for return',round:'Round',
   steps:{
-   submit:['Regional submission','Submit a fact-checked site report covering location, visibility and access.','Submit the site report'],
-   initial:['Initial retail review','Assess the site itself. Leasing terms, landlord quotes and P&L are outside this stage.','Pass initial review'],
-   site:['Site approval','Decide whether this location can proceed to commercial assessment.','Approve the location'],
+   submit:['Regional submission','Start with the site report. Where is the unit? Can shoppers see it, and can they get there without a detour?','Submit the site report'],
+   initial:['Initial retail review','Review the unit first. Rent and P&L come after the site clears review.','Pass initial review'],
+   site:['Site approval','Headquarters decides whether the unit is worth taking to the commercial stage.','Approve the location'],
    pnl:['Commercial inputs','Once the site clears review, add leasing terms and a store-level profit and loss forecast (P&L).','Submit leasing terms and P&L'],
    retail:['Second retail review','Check the new commercial and investment materials before specialist review.','Send to specialist review'],
    finance:['Finance advice','Review the financial inputs and record investment risks.','Record finance advice'],
    engineering:['Engineering advice','Record site constraints and engineering risks.','Record engineering advice'],
-   commercial:['Commercial review decision','Both specialists have recorded their advice. Headquarters uses it to approve or return the proposal.','GO · Clear commercial review'],
+   commercial:['Commercial review decision','Finance and engineering have both given their input. Headquarters can now clear the proposal or send it back.','GO · Clear commercial review'],
    report:['Project approval reports','The full report goes to reviewers. The redacted version goes into the approval announcement. Both are required.','Submit both reports'],
    regionalCheck:['Regional pre-meeting check','The regional reviewer confirms the package is complete before headquarters reviews it.','Confirm meeting materials'],
    meeting:['Meeting submission approval','Headquarters clears the package for meeting review. The final project decision is a separate step.','Approve meeting submission'],
